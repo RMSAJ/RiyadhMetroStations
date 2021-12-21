@@ -16,14 +16,41 @@ class UserViewModel:ViewModel() {
     private val _userEmail = MutableLiveData<String>()
     val userEmail:LiveData<String>  = _userEmail
 
-    fun checkUserNam(userName: TextInputEditText, userNameLay: TextInputLayout, icon: Drawable ):Boolean {
-
-        return if (userName.text.toString().isBlank() ) {
+    fun checkUserInfoEmpty(userInfo: TextInputEditText, userNameLay: TextInputLayout, icon: Drawable ):Boolean {
+        return if (userInfo.text.toString().isBlank() ) {
             userNameLay.error = "Please Type the UserName"
             userNameLay.errorIconDrawable = icon
             false
         } else {
+            userNameLay.error = null
+            userNameLay.errorIconDrawable = null
             true
         }
     }
+
+    fun checkUserPassEmpty(userInfo: TextInputEditText, userNameLay: TextInputLayout, icon: Drawable ):Boolean {
+        return if (userInfo.text.toString().isBlank() ) {
+            userNameLay.error = "Please Type the Password"
+            userNameLay.errorIconDrawable = icon
+            false
+        } else {
+            userNameLay.error = null
+            userNameLay.errorIconDrawable = null
+            true
+        }
+    }
+
+    fun checkUserRePassEmpty(userInfo: TextInputEditText, userNameLay: TextInputLayout, icon: Drawable ):Boolean {
+        return if (userInfo.text.toString().isBlank() ) {
+            userNameLay.error = "Please Type the re-Type password"
+            userNameLay.errorIconDrawable = icon
+            false
+        } else {
+            userNameLay.error = null
+            userNameLay.errorIconDrawable = null
+            true
+        }
+    }
+
+
 }

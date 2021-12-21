@@ -16,7 +16,8 @@ import com.bootcamp.stations.databinding.FragmentRegisterBinding
 class RegisterFragment : Fragment() {
     private var _binding : FragmentRegisterBinding? = null
     private val binding get() = _binding
-    val viewModel: UserViewModel by activityViewModels()
+    private val viewModel: UserViewModel by activityViewModels()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,22 +31,29 @@ class RegisterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding?.btnLogninReg?.setOnClickListener {
             val action = RegisterFragmentDirections.actionRegisterFragmentToSignInFragment()
             findNavController().navigate(action)
         }
         binding?.btnSingupReg?.setOnClickListener {
-            checkRegisterForm()
+            checkUSerName()
         }
 //        binding?.regUsername?.setOnTextChanged { text, start, before, count ->  }
     }
 
-     private fun checkRegisterForm(){
-        val username = binding!!.regUsername
-        val usernamelay = binding!!.regUsernameLay
+     private fun checkUSerName(){
+          val username = binding!!.regUsername
+          val usernamelay = binding!!.regUsernameLay
+          val pass = binding!!.regPassword
+          val passlay = binding!!.regPasswordLay
+          val rePass = binding!!.regCnfPassword
+          val rePasslay = binding!!.regCnfPasswordLay
         val icon = AppCompatResources.getDrawable(requireContext(), R.drawable.ic_baseline_error_outline_24)
         icon!!.setBounds(0,0,icon.intrinsicWidth,icon.intrinsicHeight)
-       viewModel.checkUserNam(username,usernamelay, icon)
-//         Toast.makeText(this.context,"heeey",Toast.LENGTH_SHORT).show()
+       viewModel.checkUserInfoEmpty(username,usernamelay, icon)
+       viewModel.checkUserPassEmpty(pass,passlay,icon)
+       viewModel.checkUserRePassEmpty(rePass,rePasslay,icon)
     }
+
 }
