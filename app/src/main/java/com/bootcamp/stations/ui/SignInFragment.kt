@@ -26,5 +26,4 @@ val viewModel: UserViewModel by activityViewModels()
         }
         return binding?.root
         }
-
 }

@@ -51,6 +51,4 @@ class UserViewModel:ViewModel() {
             true
         }
     }
-
-
 }

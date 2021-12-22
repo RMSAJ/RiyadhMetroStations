@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -18,14 +17,12 @@ class RegisterFragment : Fragment() {
     private val binding get() = _binding
     private val viewModel: UserViewModel by activityViewModels()
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentRegisterBinding.inflate(inflater,container,false)
 //        binding?.lifecycleOwner = this
-
         return _binding?.root
     }
 
@@ -55,5 +52,4 @@ class RegisterFragment : Fragment() {
        viewModel.checkUserPassEmpty(pass,passlay,icon)
        viewModel.checkUserRePassEmpty(rePass,rePasslay,icon)
     }
-
 }
