@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -47,7 +48,7 @@ class RegisterFragment : Fragment() {
         }
         binding?.btnSingupReg?.setOnClickListener {
             checkUSerName()
-            testTest()
+//            testTest()
         }
 //        binding?.regUsername?.setOnTextChanged { text, start, before, count ->  }
 
@@ -70,18 +71,29 @@ class RegisterFragment : Fragment() {
         viewModel.checkUserPassEmpty(pass, passlay, icon)
         viewModel.checkUserRePassEmpty(rePass, rePasslay, icon)
 
-
+             if(username.text.toString().matches(Regex("[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\\.[a-zA-Z]{2,4}"))){
+                        if (pass.text.toString() == rePass.text.toString()){
+                            Test().createAccount(username.text.toString(),pass.text.toString())
+                            Toast.makeText(this.context, "Register SuccessFull",Toast.LENGTH_LONG).show()
+                        }else{
+                            rePasslay.error = "Check your password are match"
+                            rePasslay.errorIconDrawable = icon
+                        }
+            } else{
+                usernamelay.error = "Wrong Email Pattern"
+                usernamelay.errorIconDrawable = icon
+            }
     }
 
-    private fun testTest () {
-
-        val username = binding!!.regUsername.text.toString()
-        val pass = binding!!.regPassword.text.toString()
-
-
-
-        Test().createAccount(username,pass)
-
-    }
+//    private fun testTest () {
+//
+//        val username = binding!!.regUsername.text.toString()
+//        val pass = binding!!.regPassword.text.toString()
+//
+//
+//
+//        Test().createAccount(username,pass)
+//
+//    }
 
 } // end fragment
