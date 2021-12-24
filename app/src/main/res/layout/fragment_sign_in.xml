@@ -1,85 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.SignInFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <data>
+
+    </data>
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
-        >
+        android:layout_height="match_parent"
+        tools:context=".ui.SignInFragment">
 
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@drawable/_f55253376942_removebg_preview"
-            android:contentDescription="@string/logo" />
-
-        <com.airbnb.lottie.LottieAnimationView
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:id="@+id/intro_animation"
-        android:layout_marginTop="60dp"
-        app:lottie_rawRes="@raw/trainanimation"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"/>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/username"
-        app:hintAnimationEnabled="true"
-        android:layout_marginTop="50dp"
-        app:boxBackgroundColor="#F8EEFD"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp">
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-
-            android:layout_height="wrap_content"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/password"
-            android:layout_marginTop="40dp"
-            android:layout_marginStart="40dp"
-            app:boxBackgroundColor="#F8E9FD"
-            android:layout_marginEnd="40dp">
-            <com.google.android.material.textfield.TextInputEditText
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/_f55253376942_removebg_preview"
+                android:contentDescription="@string/logo" />
+
+            <com.airbnb.lottie.LottieAnimationView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="150dp"
+                android:id="@+id/intro_animation"
+                android:layout_marginTop="60dp"
+                app:lottie_rawRes="@raw/trainanimation"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true" />
 
-        </com.google.android.material.textfield.TextInputLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="36dp">
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_lognin"
-                android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/signInLay"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/login"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="40dp"/>
-            <com.google.android.material.button.MaterialButton
-                style="@style/Widget.MaterialComponents.Button.TextButton"
-                android:id="@+id/btn_singup"
-                android:layout_width="wrap_content"
+                android:hint="@string/username"
+                app:hintAnimationEnabled="true"
+                app:errorTextAppearance="@string/plsEnterUserName"
+                android:layout_marginTop="50dp"
+                app:boxBackgroundColor="#F8EEFD"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/signIn"
+                    android:inputType="textEmailAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/passwordLay"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/register"
-                android:layout_toStartOf="@id/btn_lognin"
-                android:layout_marginEnd="40dp"/>
+                android:hint="@string/password"
+                android:layout_marginTop="40dp"
+                app:passwordToggleEnabled="true"
+                android:layout_marginStart="40dp"
+                app:boxBackgroundColor="#F8E9FD"
+                android:layout_marginEnd="40dp">
 
-        </RelativeLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/password"
+                    android:inputType="textPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-    </LinearLayout>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="36dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_lognin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/login"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="40dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:id="@+id/btn_singup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/register"
+                    android:layout_toStartOf="@id/btn_lognin"
+                    android:layout_marginEnd="40dp" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
 
     </ScrollView>
+</layout>
 

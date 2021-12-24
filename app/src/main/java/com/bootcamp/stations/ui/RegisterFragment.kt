@@ -11,7 +11,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 
 import com.bootcamp.stations.R
-import com.bootcamp.stations.Test
 import com.bootcamp.stations.databinding.FragmentRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -21,13 +20,11 @@ class RegisterFragment : Fragment() {
     private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding
     private val viewModel: UserViewModel by activityViewModels()
-
-
-//   private lateinit var auth: FirebaseAuth
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//       auth = Firebase.auth
+       auth = Firebase.auth
     }
 
     override fun onCreateView(
@@ -70,11 +67,10 @@ class RegisterFragment : Fragment() {
         viewModel.checkUserInfoEmpty(username, usernamelay, icon)
         viewModel.checkUserPassEmpty(pass, passlay, icon)
         viewModel.checkUserRePassEmpty(rePass, rePasslay, icon)
-
              if(username.text.toString().matches(Regex("[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\\.[a-zA-Z]{2,4}"))){
                         if (pass.text.toString() == rePass.text.toString()){
-                            Test().createAccount(username.text.toString(),pass.text.toString())
-                            Toast.makeText(this.context, "Register SuccessFull",Toast.LENGTH_LONG).show()
+//                            Test().createAccount(username.text.toString(),pass.text.toString())
+                            createAccount(username.text.toString(),pass.text.toString())
                         }else{
                             rePasslay.error = "Check your password are match"
                             rePasslay.errorIconDrawable = icon
@@ -85,15 +81,31 @@ class RegisterFragment : Fragment() {
             }
     }
 
-//    private fun testTest () {
-//
-//        val username = binding!!.regUsername.text.toString()
-//        val pass = binding!!.regPassword.text.toString()
-//
-//
-//
-//        Test().createAccount(username,pass)
-//
-//    }
+    private fun createAccount(email: String, password: String) {
+//        var auth: FirebaseAuth = Firebase.auth
+        binding?.btnSingupReg?.isEnabled = false
+        binding?.btnSingupReg?.alpha = 0.5f
+        // [START create_user_with_email]
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener() { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(this.context, "Register SuccessFull",Toast.LENGTH_LONG).show()
+                    val action = RegisterFragmentDirections.actionRegisterFragmentToHomeFragment()
+                    findNavController().navigate(action)
+//                    updateUI(user)
+                } else {
+                    binding?.btnSingupReg?.isEnabled = true
+                    binding?.btnSingupReg?.alpha = 0.5f
+                    Toast.makeText(context, task.exception?.message,Toast.LENGTH_SHORT).show()
+                    // If sign in fails, display a message to the user.
+
+//                    updateUI(null)
+                }
+            }
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
 } // end fragment
