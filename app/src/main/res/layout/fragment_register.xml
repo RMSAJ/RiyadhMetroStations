@@ -3,7 +3,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        tools:context=".ui.RegisterFragment"
+        tools:context=".user.RegisterFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
@@ -32,10 +32,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/username"
+                android:textColorHint="#A9000000"
                 app:hintAnimationEnabled="true"
                 app:errorTextAppearance="@string/plsEnterUserName"
                 android:layout_marginTop="50dp"
-                app:boxBackgroundColor="#F8EEFD"
+                app:boxBackgroundColor="#EDEFED"
                 android:layout_marginStart="40dp"
                 android:layout_marginEnd="40dp">
 
@@ -54,9 +55,11 @@
                 android:hint="@string/password"
                 android:layout_marginTop="40dp"
                 app:errorEnabled="true"
+                android:textColorHint="#A9000000"
+                android:background="@color/white"
                 app:passwordToggleEnabled="true"
                 android:layout_marginStart="40dp"
-                app:boxBackgroundColor="#F8E9FD"
+                app:boxBackgroundColor="#EDEFED"
                 android:layout_marginEnd="40dp">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -72,16 +75,19 @@
                 app:errorEnabled="true"
                 android:layout_height="wrap_content"
                 app:passwordToggleEnabled="true"
+                android:textColorHint="#A9000000"
+                android:background="@color/white"
                 android:hint="@string/confirm_password"
                 android:layout_marginTop="30dp"
                 android:layout_marginStart="40dp"
-                app:boxBackgroundColor="#F8E9FD"
+                app:boxBackgroundColor="#EDEFED"
                 android:layout_marginEnd="40dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/reg_cnf_password"
                     android:inputType="textPassword"
                     android:layout_width="match_parent"
+
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -96,16 +102,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/login"
+                    android:textStyle="bold"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="40dp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_singup_reg"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/register"
+                    android:layout_width="121dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="40dp"
                     android:layout_toStartOf="@id/btn_lognin_reg"
-                    android:layout_marginEnd="40dp"/>
+                    android:text="@string/register"
+                    android:textStyle="bold"
+                     />
 
             </RelativeLayout>
 

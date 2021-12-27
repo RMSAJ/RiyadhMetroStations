@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/signInFragment"
-        android:name="com.bootcamp.stations.ui.SignInFragment"
+        android:name="com.bootcamp.stations.user.SignInFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_sign_in" >
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.bootcamp.stations.ui.RegisterFragment"
+        android:name="com.bootcamp.stations.user.RegisterFragment"
         android:label="Register"
         tools:layout="@layout/fragment_register" >
         <action
@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.bootcamp.stations.ui.home.HomeFragment"
+        android:name="com.bootcamp.stations.homeMap.HomeFragment"
         android:label="Home"
         tools:layout="@layout/fragment_home" >
         <action
