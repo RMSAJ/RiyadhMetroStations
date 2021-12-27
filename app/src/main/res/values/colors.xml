@@ -7,4 +7,12 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+<!-- Metro app colors    -->
+<color name="Primary_Green_900">#1B5E20</color>
+<color name="Primary_Green_500">#4CAF50</color>
+<color name="Green_700">#388E3C</color>
+<color name="Green_200">#A5D6A7</color>
+<color name="Cyan_700">#0097A7</color>
+
 </resources>
