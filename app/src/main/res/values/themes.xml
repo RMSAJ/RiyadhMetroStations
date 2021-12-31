@@ -22,7 +22,7 @@
         <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.MyApp.MediumComponent</item>
         <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.MyApp.LargeComponent</item>
                 <!--        the Text color   -->
-        <item name="android:textColorSecondary">@color/white</item>
+<!--        <item name="android:textColorSecondary">@color/white</item>-->
 
     </style>
     <style name="Widget.Metro.Toolbar" parent="Widget.AppCompat.Toolbar">

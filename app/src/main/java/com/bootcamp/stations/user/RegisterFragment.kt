@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.bootcamp.stations.R
 import com.bootcamp.stations.databinding.FragmentRegisterBinding
 import com.bootcamp.stations.user.model.FactoryViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
@@ -78,6 +79,8 @@ class RegisterFragment : Fragment() {
             checkUserIsValidToRegister()
 //            testTest()
         }
+
+
 //        binding?.regUsername?.setOnTextChanged { text, start, before, count ->  }
     }
 

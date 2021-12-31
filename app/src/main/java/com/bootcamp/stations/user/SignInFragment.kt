@@ -58,12 +58,12 @@ private lateinit var icon: Drawable
          )!!
         icon.setBounds(0, 0, icon.intrinsicWidth, icon.intrinsicHeight)
 
-        val currentUser = auth.currentUser
-
-        if (currentUser != null) {
-            val action = SignInFragmentDirections.actionSignInFragmentToHomeFragment()
-            findNavController().navigate(action)
-        }
+//        val currentUser = auth.currentUser
+//
+//        if (currentUser != null) {
+//            val action = SignInFragmentDirections.actionSignInFragmentToHomeFragment()
+//            findNavController().navigate(action)
+//        }
         return binding?.root
         }
 

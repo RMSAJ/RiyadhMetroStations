@@ -9,8 +9,11 @@
         <entry key="..\:/Users/Mohd/RiyadhMetroStations/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2111111111111111" />
         <entry key="..\:/Users/Mohd/RiyadhMetroStations/app/src/main/res/drawable/search.xml" value="0.20185185185185187" />
         <entry key="..\:/Users/Mohd/RiyadhMetroStations/app/src/main/res/drawable/shr_menu.xml" value="0.20185185185185187" />
-        <entry key="..\:/Users/Mohd/RiyadhMetroStations/app/src/main/res/layout/activity_main.xml" value="0.1793478260869565" />
+        <entry key="..\:/Users/Mohd/RiyadhMetroStations/app/src/main/res/layout/activity_main.xml" value="0.152" />
+        <entry key="..\:/Users/Mohd/RiyadhMetroStations/app/src/main/res/layout/fragment_bottom_sheet.xml" value="0.264" />
+        <entry key="..\:/Users/Mohd/RiyadhMetroStations/app/src/main/res/layout/fragment_favorite.xml" value="0.18478260869565216" />
         <entry key="..\:/Users/Mohd/RiyadhMetroStations/app/src/main/res/layout/fragment_home.xml" value="0.264" />
+        <entry key="..\:/Users/Mohd/RiyadhMetroStations/app/src/main/res/layout/fragment_profile.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Mohd/RiyadhMetroStations/app/src/main/res/layout/fragment_register.xml" value="0.4" />
         <entry key="..\:/Users/Mohd/RiyadhMetroStations/app/src/main/res/layout/fragment_sign_in.xml" value="0.11271529888551166" />
         <entry key="..\:/Users/Mohd/RiyadhMetroStations/app/src/main/res/layout/fragment_sign_up.xml" value="0.1793478260869565" />

@@ -13,9 +13,9 @@ import com.google.android.gms.maps.model.Marker
 class MarkerInfoWindowAdapter ( private val context: Context
 ) : GoogleMap.InfoWindowAdapter {
     @SuppressLint("SetTextI18n")
-    override fun getInfoContents(p0: Marker): View? {
+    override fun getInfoContents(marker: Marker): View? {
         // 1. Get tag
-        val place = p0.tag as? Place ?: return null
+        val place = marker.tag as? Place ?: return null
 
         // 2. Inflate view and set title, address, and rating
         val view = LayoutInflater.from(context).inflate(

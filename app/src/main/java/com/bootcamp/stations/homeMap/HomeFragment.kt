@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.bootcamp.stations.R
 import com.bootcamp.stations.databinding.FragmentHomeBinding
 import com.bootcamp.stations.homeMap.dataLayer.data.Place
@@ -17,9 +18,11 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.maps.android.clustering.ClusterManager
 import com.google.maps.android.ktx.awaitMap
 import com.google.maps.android.ktx.awaitMapLoad
+import com.google.maps.android.ktx.model.markerOptions
 
 
 internal class HomeFragment : Fragment() {
@@ -28,9 +31,7 @@ internal class HomeFragment : Fragment() {
     private val viewModel: UserViewModel by activityViewModels {
         FactoryViewModel()
     }
-    private val latitude = 24.835411021391803
-    private val longitude = 46.718609606634686
-    private var polyline: Polyline?  = null
+
 
     private var circle: Circle? = null
 
@@ -60,6 +61,9 @@ private val places: List<Place> by lazy {
         // Set up the toolbar.
         (activity as? AppCompatActivity)?.setSupportActionBar(binding?.appBar)
 
+//        val modalBottomSheet = BottomSheetFragment()
+//        modalBottomSheet.show(childFragmentManager, BottomSheetFragment.TAG)
+
         return binding?.root
     }
     override fun onCreateOptionsMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -87,6 +91,7 @@ private val places: List<Place> by lazy {
 
             addClusteredMarkers(googleMap)
         }
+
 //        binding?.logOut?.setOnClickListener {
 //            auth.signOut()
 //            val action = HomeFragmentDirections.actionHomeFragmentToSignInFragment()
@@ -104,7 +109,9 @@ private val places: List<Place> by lazy {
                 clusterManager)
         // Set custom info window adapter
         clusterManager.markerCollection.setInfoWindowAdapter(MarkerInfoWindowAdapter(this.requireActivity()))
-//        clusterManager
+        clusterManager.markerCollection.setOnInfoWindowClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_bottomSheetFragment)
+        }
 //        setMapStyle(map)
 //        enableMyLocation()
         // Add the places to the ClusterManager.
