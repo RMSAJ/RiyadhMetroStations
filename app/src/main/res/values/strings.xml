@@ -24,4 +24,7 @@
     <string name="filter_title">filter_title</string>
     <string name="product_title">product_title</string>
     <string name="product_description">product_description</string>
+    <string name="favorites">favorites</string>
+    <string name="places">places</string>
+    <string name="profile">profile</string>
 </resources>
