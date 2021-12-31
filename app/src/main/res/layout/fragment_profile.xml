@@ -7,6 +7,7 @@
     android:orientation="vertical"
     tools:context=".profile.ProfileFragment">
 
+    <!-- TODO: Update blank fragment layout -->
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="200dp"
@@ -14,7 +15,6 @@
         android:src="@drawable/ic_profile"
         app:tint="@color/Green_200" />
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

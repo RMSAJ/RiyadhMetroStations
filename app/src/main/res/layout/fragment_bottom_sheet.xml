@@ -8,7 +8,7 @@
     tools:context=".homeMap.BottomSheetFragment">
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/firstCard"
+        android:id="@+id/favoriteCard"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:clickable="true"
@@ -48,7 +48,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:clickable="true"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/firstCard">
+        app:layout_constraintTop_toBottomOf="@id/favoriteCard">
 
     <!-- Bottom sheet contents. -->
 <ImageView

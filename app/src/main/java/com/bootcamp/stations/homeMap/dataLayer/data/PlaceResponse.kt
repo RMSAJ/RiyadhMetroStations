@@ -6,7 +6,7 @@ data class PlaceResponse(
     val location: GeometryLocation,
     val name: String,
     val vicinity: String,
-    val rating: Float
+    val rating: Double
 )
 
 
