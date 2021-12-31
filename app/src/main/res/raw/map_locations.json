@@ -1,0 +1,452 @@
+[
+  {
+  "location": {
+      "lat": 24.5504623769522,
+      "lng": 46.78156474919467
+    },
+  "name": "1J2",
+  "rating": 4.2,
+  "vicinity": "6093 Mohammad Rashid Rida, Ad Dar Al Baida"
+  },
+  {
+    "location": {
+      "lat": 24.582133783959872,
+      "lng": 46.76407041289462
+    },
+    "name": "1J1",
+    "rating": 4.2,
+    "vicinity": "8251 Mohammad Rashid Rida, Al Aziziyah"
+  },
+  {
+    "location": {
+      "lat": 24.598516086213902,
+      "lng": 46.74390583977153
+    },
+    "name": "1H2",
+    "rating": 4.2,
+    "vicinity": "Southern Ring Branch Rd, Al Mansourah"
+  }
+  ,{
+  "location": {
+    "lat": 24.600635801396212,
+    "lng": 46.73376335777348
+  },
+  "name": "1G2",
+  "rating": 4.2,
+  "vicinity": "  12684 Al Mansourah"
+},
+  {
+    "location": {
+      "lat": 24.610430835663227,
+      "lng": 46.72852581561371
+    },
+    "name": "1G1",
+    "rating": 4.2,
+    "vicinity": "8372 Manfuhah"
+  },
+  {
+    "location": {
+      "lat": 24.613267501214164,
+      "lng": 46.72714821463154
+    },
+    "name": "1F9",
+    "rating": 4.2,
+    "vicinity": "12665 Al Bathaa, Ghubairah"
+  },
+  {
+    "location": {
+      "lat": 24.62144485516933,
+      "lng": 46.723484613732964
+    },
+    "name": "1F8",
+    "rating": 4.2,
+    "vicinity": "12652 Al Bathaa, Jabrah"
+  },
+  {
+    "location": {
+      "lat": 24.632646074803365,
+      "lng": 46.71636622841464
+    },
+    "name": "1F7, 3E2",
+    "rating": 4.2,
+    "vicinity": "12652 Al Bathaa, Ad Dirah,"
+  },
+  {
+    "location": {
+      "lat": 24.63878554572756,
+      "lng": 46.71498575447783
+    },
+    "name": "1F5",
+    "rating": 4.2,
+    "vicinity": "12632 King Faisal Road, Al Futah"
+  },
+  {
+    "location": {
+      "lat": 24.646758225587583,
+      "lng": 46.714963135317184
+    },
+    "name": "1F4",
+    "rating": 4.2,
+    "vicinity": "12643 Prince Abdulaziz Ibn Musaid St, Al Murabba"
+  },
+  {
+    "location": {
+      "lat": 24.65339189591072,
+      "lng": 46.71234611881862
+    },
+    "name": "1F2",
+    "rating": 4.2,
+    "vicinity": " 12613 Prince Abdulaziz St, Al Murabba"
+  },
+  {
+    "location": {
+      "lat": 24.66092015065404,
+      "lng": 46.709454554070426
+    },
+    "name": "1E2",
+    "rating": 4.2,
+    "vicinity": "12628 Jalawi St, Al Murabba"
+  },
+  {
+    "location": {
+      "lat": 24.668768416488422,
+      "lng": 46.70632866067563
+    },
+    "name": "1D5",
+    "rating": 4.2,
+    "vicinity": "12626 Ibn Jalawi St, Al Murabba, Riyadh "
+  },
+  {
+    "location": {
+      "lat": 24.673974427893587,
+      "lng": 46.70420128802199
+    },
+    "name": "1D2",
+    "rating": 4.2,
+    "vicinity": "12624 Jalawi St, Al Murabba"
+  },
+  {
+    "location": {
+      "lat": 24.679520572669965,
+      "lng": 46.69235898173875
+    },
+    "name": "1C4",
+    "rating": 4.2,
+    "vicinity": "11543 Olaya St, Al Olaya, Riyadh "
+  },
+  {
+    "location": {
+      "lat": 24.689642454238523,
+      "lng": 46.68735995760515
+    },
+    "name": "1C3",
+    "rating": 4.2,
+    "vicinity": " 12221 Prince Sultan Rd, Al Olaya"
+  },
+  {
+    "location": {
+      "lat": 24.696426638087974,
+      "lng": 46.683902072737325
+    },
+    "name": "1C2",
+    "rating": 4.2,
+    "vicinity": " 12222 Tahliah St, As Sulimaniyah"
+  },
+  {
+    "location": {
+      "lat": 24.708258527576486,
+      "lng": 46.677883894463875
+    },
+    "name": "1C1",
+    "rating": 4.2,
+    "vicinity": "12244 Olaya St, As Sulimaniyah"
+  },
+  {
+    "location": {
+      "lat": 24.720409629010874,
+      "lng": 46.66780910502124
+    },
+    "name": "1B4",
+    "rating": 4.2,
+    "vicinity": "12215 King Fahd Branch Rd, Al Wurud"
+  },{
+  "location": {
+    "lat": 24.728029761614945,
+    "lng": 46.66418169112766
+  },
+  "name": "1B3",
+  "rating": 4.2,
+  "vicinity": "12216 King Fahd Branch Rd, King Fahd"
+},
+  {
+    "location": {
+      "lat": 24.73027573521003,
+      "lng": 46.66308968157644
+    },
+    "name": "1B2",
+    "rating": 4.2,
+    "vicinity": "12261 King Fahd Branch Rd, King Fahd"
+  },{
+  "location": {
+    "lat": 24.740818670690274,
+    "lng": 46.65774460330167
+  },
+  "name": "1B1",
+  "rating": 4.2,
+  "vicinity": "King Fahd, Riyadh 12262"
+},
+  {
+    "location": {
+      "lat": 24.753570702051704,
+      "lng": 46.65136414531937
+    },
+    "name": "1A2",
+    "rating": 4.2,
+    "vicinity": "12215 King Fahd Branch Rd, Al Muruj"
+  },{
+  "location": {
+    "lat": 24.773896585568867,
+    "lng": 46.64050267913435
+  },
+  "name": "1A1",
+  "rating": 4.2,
+  "vicinity": "13511 8300 King Fahad Branch Rd, Al Aqiq"
+},
+  {
+    "location": {
+      "lat": 24.79392972049281,
+      "lng": 46.63087205634916
+    },
+    "name": "1Z1",
+    "rating": 4.2,
+    "vicinity": "STANDARD STATION"
+  }, {
+  "location": {
+    "lat": 24.84302930343023,
+    "lng": 46.6060976306398
+  },
+  "name": "1Y1",
+  "rating": 4.2,
+  "vicinity": "STANDARD STATION"
+}
+
+
+
+,
+  {
+    "location": {
+      "lat": 24.577954846548877,
+      "lng": 46.554697531097844
+    },
+    "name": "3A1",
+    "rating": 4.2,
+    "vicinity": "standard station"
+  },
+  {
+    "location": {
+      "lat": 24.583936553195187,
+      "lng": 46.59197187565732
+    },
+    "name": "3A2",
+    "rating": 4.2,
+    "vicinity": "standard station"
+  },
+  {
+    "location": {
+      "lat": 24.599340821975208,
+      "lng": 46.623810850944594
+    },
+    "name": "3B2",
+    "rating": 4.2,
+    "vicinity": "Iconic & Transter Station (Uiestren)"
+  },
+  {
+    "location": {
+      "lat": 24.587790254710598,
+      "lng": 46.60226734813694
+    },
+    "name": "3B1",
+    "rating": 4.2,
+    "vicinity": "standard station"
+  },
+  {
+    "location": {
+      "lat": 24.599340821975208,
+      "lng": 46.623810850944594
+    },
+    "name": "3B2",
+    "rating": 4.2,
+    "vicinity": "standard station"
+  },
+  {
+    "location": {
+      "lat": 24.61296464938254,
+      "lng": 46.63460724367528
+    },
+    "name": "3C2",
+    "rating": 4.2,
+    "vicinity": "standard station"
+  },
+  {
+    "location": {
+      "lat": 24.626007508382514,
+      "lng": 46.685330344329564
+    },
+    "name": "3D1",
+    "rating": 4.2,
+    "vicinity": "standard station"
+  },
+  {
+    "location": {
+      "lat": 24.62366669778758,
+      "lng": 46.656133363997725
+    },
+    "name": "3D3",
+    "rating": 4.2,
+    "vicinity": "standard station"
+  },
+  {
+    "location": {
+      "lat": 24.626007508382514,
+      "lng": 46.685330344329564
+    },
+    "name": "3D1",
+    "rating": 4.2,
+    "vicinity": "standard station"
+  },
+  {
+    "location": {
+      "lat": 24.628127850249637,
+      "lng": 46.699441251960806
+    },
+    "name": "3D2",
+    "rating": 4.2,
+    "vicinity": "standard station"
+  },{
+  "location": {
+    "lat": 24.62686539082085,
+    "lng": 46.712904629269026
+  },
+  "name": "3E1",
+  "rating": 4.2,
+  "vicinity": "standard station"
+},
+  {
+    "location": {
+      "lat": 24.63123850805677,
+      "lng": 46.71966460210179
+    },
+    "name": "3E2",
+    "rating": 4.2,
+    "vicinity": "standard station"
+  },
+  {
+    "location": {
+      "lat": 24.6328972366093,
+      "lng": 46.72298238017922
+    },
+    "name": "3E3",
+    "rating": 4.2,
+    "vicinity": "standard station"
+  },
+  {
+    "location": {
+      "lat": 24.636591598339557,
+      "lng": 46.73223068657003
+    },
+    "name": "3E4",
+    "rating": 4.2,
+    "vicinity": "standard station"
+  },
+  {
+    "location": {
+      "lat": 24.636748983520647,
+      "lng": 46.73423829438731
+    },
+    "name": "3E5",
+    "rating": 4.2,
+    "vicinity": "standard station"
+  },
+  {
+    "location": {
+      "lat": 24.640059823888084,
+      "lng": 46.742636191725424
+    },
+    "name": "3E6",
+    "rating": 4.2,
+    "vicinity": "standard station"
+  },
+  {
+    "location": {
+      "lat": 24.63974915119018,
+      "lng": 46.74281344999977
+    },
+    "name": "3F1",
+    "rating": 4.2,
+    "vicinity": "standard station"
+  },
+  {
+    "location": {
+      "lat": 24.660643923808202,
+      "lng": 46.73958580755298
+    },
+    "name": "3F2",
+    "rating": 4.2,
+    "vicinity": "standard station"
+  },
+  {
+    "location": {
+      "lat": 24.67243399839613,
+      "lng": 46.75729473234555
+    },
+    "name": "3G1",
+    "rating": 4.2,
+    "vicinity": "standard station"
+  },
+  {
+    "location": {
+      "lat": 24.67987965671795,
+      "lng": 46.77555518905621
+    },
+    "name": "3G2",
+    "rating": 4.2,
+    "vicinity": "standard station"
+  },
+  {
+    "location": {
+      "lat": 24.68804037033435,
+      "lng": 46.799472761617736
+    },
+    "name": "3H1",
+    "rating": 4.2,
+    "vicinity": "standard station"
+  }
+,{
+  "location": {
+    "lat": 24.7045609136753,
+    "lng": 46.83374184623877
+  },
+  "name": "3J1",
+  "rating": 4.2,
+  "vicinity": "standard station"
+},
+  {
+    "location": {
+      "lat": 24.717665565947154,
+      "lng": 46.84480294654427
+    },
+    "name": "3J2",
+    "rating": 4.2,
+    "vicinity": "standard station"
+  },
+  {
+    "location": {
+      "lat": 24.73170769648679,
+      "lng": 46.86048090465235
+    },
+    "name": "3K1",
+    "rating": 4.2,
+    "vicinity": "standard station"
+  }
+
+]

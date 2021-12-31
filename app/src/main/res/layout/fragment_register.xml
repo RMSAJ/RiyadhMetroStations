@@ -44,6 +44,7 @@
                     android:id="@+id/reg_username"
                     android:inputType="textEmailAddress"
                     android:layout_width="match_parent"
+                    android:maxLines="1"
                     android:layout_height="wrap_content" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -66,6 +67,7 @@
                     android:id="@+id/reg_password"
                     android:layout_width="match_parent"
                     android:inputType="textPassword"
+                    android:maxLines="1"
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -87,7 +89,7 @@
                     android:id="@+id/reg_cnf_password"
                     android:inputType="textPassword"
                     android:layout_width="match_parent"
-
+                    android:maxLines="1"
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -109,6 +111,7 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_singup_reg"
                     android:layout_width="121dp"
+                    style="@style/Widget.Metro.Button"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="40dp"
                     android:layout_toStartOf="@id/btn_lognin_reg"
