@@ -1,9 +1,13 @@
 package com.bootcamp.stations.homeMap
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -31,6 +35,7 @@ internal class HomeFragment : Fragment() {
     private val viewModel: UserViewModel by activityViewModels {
         FactoryViewModel()
     }
+    private var locationPermissionGranted = false
 
 
     private var circle: Circle? = null
@@ -40,7 +45,7 @@ private val places: List<Place> by lazy {
     PlacesReader(this.requireContext()).read()
 }
 
-    private val REQUEST_LOCATION_PERMISSION = 1
+    private val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
 
     private lateinit var map: GoogleMap
 
@@ -150,6 +155,41 @@ private val places: List<Place> by lazy {
             clusterManager.onCameraIdle()
         }
 
+    }
+
+    // new below
+
+    private fun getLocationPermission() {
+        /*
+         * Request location permission, so that we can get the location of the
+         * device. The result of the permission request is handled by a callback,
+         * onRequestPermissionsResult.
+         */
+        if (ContextCompat.checkSelfPermission(context!!.applicationContext,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+            == PackageManager.PERMISSION_GRANTED) {
+            locationPermissionGranted = true
+        } else {
+            ActivityCompat.requestPermissions(this.requireActivity(), arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION)
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int,
+                                            permissions: Array<String>,
+                                            grantResults: IntArray) {
+        locationPermissionGranted = false
+        when (requestCode) {
+            PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION -> {
+
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.isNotEmpty() &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    locationPermissionGranted = true
+                }
+            }
+        }
+        updateLocationUI()
     }
 
 

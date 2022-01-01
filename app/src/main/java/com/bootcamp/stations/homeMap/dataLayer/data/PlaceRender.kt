@@ -3,7 +3,7 @@ package com.bootcamp.stations.homeMap.dataLayer.data
 import android.content.Context
 import androidx.core.content.ContextCompat
 import com.bootcamp.stations.R
-import com.bootcamp.stations.homeMap.dataLayer.BitmapHelper
+import com.bootcamp.stations.homeMap.util.BitmapHelper
 
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.BitmapDescriptor
@@ -52,6 +52,5 @@ class PlaceRenderer(
      */
     override fun onClusterItemRendered(clusterItem: Place, marker: Marker) {
         marker.tag = clusterItem
-
     }
 }

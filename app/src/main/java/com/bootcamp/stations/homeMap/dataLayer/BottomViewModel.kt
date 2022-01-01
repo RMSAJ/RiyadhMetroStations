@@ -9,7 +9,7 @@ import com.google.android.gms.maps.model.LatLng
 class BottomViewModel : ViewModel() {
 
 
-    val favListItem = mutableListOf<Place>()
+    private val favListItem = mutableListOf<Place>()
     private val _favList = MutableLiveData<List<Place?>?>()
     val favList: LiveData<List<Place?>?> = _favList
 
@@ -26,10 +26,14 @@ class BottomViewModel : ViewModel() {
         favListItem.add(item)
     }
 
-    private fun returnItem(name: String,latLng: LatLng,address: String, rating :Double = 5.0) : Place {
+    private fun returnItem(
+        name: String,
+        latLng: LatLng,
+        address: String,
+        rating: Double = 5.0
+    ): Place {
 
-        val item = Place(name,latLng,address,rating)
-        return item
+        return Place(name, latLng, address, rating)
     }
 
 
