@@ -1,5 +1,6 @@
 package com.bootcamp.stations.user
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.bootcamp.stations.R
 import com.bootcamp.stations.databinding.FragmentSignInBinding
+import com.bootcamp.stations.user.model.FactoryViewModel
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
@@ -18,19 +20,27 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 class SignInFragment : Fragment() {
+
 private var _binding : FragmentSignInBinding? = null
 private val binding get() = _binding
-val viewModel: UserViewModel by activityViewModels()
+    private val viewModel: UserViewModel by activityViewModels {
+        FactoryViewModel()
+    }
+
+
 private lateinit var username:TextInputEditText
 private lateinit var usernameLay:TextInputLayout
 private lateinit var password:TextInputEditText
 private lateinit var passwordLay:TextInputLayout
 private lateinit var auth:FirebaseAuth
+private lateinit var icon: Drawable
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -42,13 +52,18 @@ private lateinit var auth:FirebaseAuth
         usernameLay = binding!!.signInLay
         passwordLay =binding!!.passwordLay
         auth = Firebase.auth
+         icon = AppCompatResources.getDrawable(
+             requireContext(),
+             R.drawable.ic_baseline_error_outline_24
+         )!!
+        icon.setBounds(0, 0, icon.intrinsicWidth, icon.intrinsicHeight)
 
-        val currentUser = auth.currentUser
-
-        if (currentUser != null) {
-            val action = SignInFragmentDirections.actionSignInFragmentToHomeFragment()
-            findNavController().navigate(action)
-        }
+//        val currentUser = auth.currentUser
+//
+//        if (currentUser != null) {
+//            val action = SignInFragmentDirections.actionSignInFragmentToHomeFragment()
+//            findNavController().navigate(action)
+//        }
         return binding?.root
         }
 
@@ -64,22 +79,11 @@ private lateinit var auth:FirebaseAuth
         }
     }
     private fun checkUSerName(){
-        val icon = AppCompatResources.getDrawable(
-            requireContext(),
-            R.drawable.ic_baseline_error_outline_24
-        )
-        icon!!.setBounds(0, 0, icon.intrinsicWidth, icon.intrinsicHeight)
-
-        viewModel.checkUserInfoEmpty(username, usernameLay, icon)
-        viewModel.checkUserPassEmpty(password, passwordLay, icon)
+        viewModel.checkTheSignIn(username, usernameLay, icon,password,passwordLay)
 //        viewModel.checkUserRePassEmpty(rePass, rePasslay, icon)
         if(username.text.toString().matches(Regex("[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\\.[a-zA-Z]{2,4}"))){
                     fireBaseSignIn()
 
-//            else{
-//                passwordLay.error = "Check your password are match"
-//                passwordLay.errorIconDrawable = icon
-//            }
         } else{
             usernameLay.error = "Wrong Email Pattern"
             usernameLay.errorIconDrawable = icon
@@ -93,7 +97,7 @@ private lateinit var auth:FirebaseAuth
             .addOnCompleteListener { task ->
                 if (task.isSuccessful){
                     Toast.makeText(this.context, "Register SuccessFull", Toast.LENGTH_LONG).show()
-                    val action = SignInFragmentDirections.actionSignInFragmentToHomeFragment()
+                    val action = SignInFragmentDirections.actionSignInFragmentToHomeFragment(auth.uid!!)
                     findNavController().navigate(action)
                 }else{
                     binding?.btnLognin?.isEnabled = true

@@ -37,5 +37,33 @@
         <action
             android:id="@+id/action_homeFragment_to_signInFragment"
             app:destination="@id/signInFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_bottomSheetFragment"
+            app:destination="@id/bottomSheetFragment" />
+        <argument
+            android:name="name"
+            app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.bootcamp.stations.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.bootcamp.stations.favorite.FavoriteFragment"
+        android:label="fragment_favorite"
+        tools:layout="@layout/fragment_favorite" />
+    <dialog
+        android:id="@+id/bottomSheetFragment"
+        android:name="com.bootcamp.stations.homeMap.BottomSheetFragment"
+        android:label="fragment_bottom_sheet"
+        tools:layout="@layout/fragment_bottom_sheet" >
+        <action
+            android:id="@+id/action_bottomSheetFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <argument
+            android:name="name"
+            app:argType="string" />
+    </dialog>
 </navigation>

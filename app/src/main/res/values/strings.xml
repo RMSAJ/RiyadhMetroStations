@@ -20,4 +20,17 @@
     <string name="plsEnterUserName">Please Enter User Name</string>
     <string name="plsRePass">Please re-Type the Password</string>
     <string name="logo">Logo</string>
+    <string name="search_title">search_title</string>
+    <string name="filter_title">filter_title</string>
+    <string name="product_title">product_title</string>
+    <string name="product_description">product_description</string>
+    <string name="favorites">favorites</string>
+    <string name="places">places</string>
+    <string name="profile">profile</string>
+    <string name="favorite">favorite</string>
+    <string name="title_activity_maps">Current Place Details</string>
+    <string name="default_info_title">Default Location</string>
+    <string name="default_info_snippet">No places found, because location permission is disabled.</string>
+    <string name="option_get_place">Get place</string>
+    <string name="pick_place">Choose a place</string>
 </resources>

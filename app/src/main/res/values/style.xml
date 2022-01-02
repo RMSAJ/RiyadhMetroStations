@@ -17,4 +17,26 @@
         <item name="cornerSize">4dp</item>
     </style>
 
+    <style name="Widget.Metro.Button" parent="Widget.MaterialComponents.Button">
+        <item name="android:textColor">?android:attr/textColorSecondary</item>
+        <item name="backgroundTint">?attr/colorPrimary</item>
+    </style>
+
+    <style name="Widget.Metro.Button.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+    </style>
+
+    <style name="ModalBottomSheet" parent="Widget.Metro.Button">
+
+        <!-- Apply attributes here -->
+    </style>
+
+    <style name="ModalBottomSheetDialog" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/Widget.Metro.Button</item>
+    </style>
+
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.Dialog">
+        <item name="bottomSheetDialogTheme">@style/ModalBottomSheetDialog</item>
+    </style>
+
 </resources>
