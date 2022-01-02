@@ -6,11 +6,11 @@
         android:id="@+id/search"
         android:icon="@drawable/search"
         android:title="@string/search_title"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/filter"
-        android:icon="@drawable/filter"
-        android:title="@string/filter_title"
-        app:showAsAction="always"
-        tools:ignore="AlwaysShowAction" />
+        android:id="@+id/option_get_place"
+        android:icon="@drawable/ic_places"
+        android:title="@string/option_get_place"
+        app:showAsAction="ifRoom"
+         />
 </menu>

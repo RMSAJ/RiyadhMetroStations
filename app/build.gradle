@@ -108,4 +108,17 @@ dependencies {
     // Lifecycle Runtime KTX Library
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.0'
 
+    implementation 'com.google.android.libraries.places:places:2.5.0'
+    implementation 'com.android.volley:volley:1.2.1'
+
+
+
+}
+
+secrets {
+    defaultPropertiesFileName 'local.defaults.properties'
+    // To add your Maps API key to this project:
+    // 1. Open the root project's local.properties file
+    // 2. Add this line, where YOUR_API_KEY is your API key:
+    //        MAPS_API_KEY=YOUR_API_KEY
 }

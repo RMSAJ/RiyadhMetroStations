@@ -20,7 +20,7 @@ class BottomSheetFragment :  BottomSheetDialogFragment() {
 
     private val viewModel: BottomViewModel by activityViewModels()
 
-    var fav_Name :String? = ""
+//    var fav_Name :String? = ""
 //    var fav_latLng: LatLng? = (12.0566,24.565)
 //    var fav_address: String? = ""
 
@@ -28,9 +28,7 @@ class BottomSheetFragment :  BottomSheetDialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments.let {
-            fav_Name = it!!.getString("name")
-        }
+
     }
 
     override fun onCreateView(

@@ -97,7 +97,7 @@ private lateinit var icon: Drawable
             .addOnCompleteListener { task ->
                 if (task.isSuccessful){
                     Toast.makeText(this.context, "Register SuccessFull", Toast.LENGTH_LONG).show()
-                    val action = SignInFragmentDirections.actionSignInFragmentToHomeFragment()
+                    val action = SignInFragmentDirections.actionSignInFragmentToHomeFragment(auth.uid!!)
                     findNavController().navigate(action)
                 }else{
                     binding?.btnLognin?.isEnabled = true

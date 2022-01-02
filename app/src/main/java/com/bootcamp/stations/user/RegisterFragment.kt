@@ -97,7 +97,7 @@ class RegisterFragment : Fragment() {
                 .addOnCompleteListener() { task ->
                     if (task.isSuccessful) {
                         Toast.makeText(this.requireContext(), "Registration is Completed", Toast.LENGTH_SHORT).show()
-                        val action = RegisterFragmentDirections.actionRegisterFragmentToHomeFragment()
+                        val action = RegisterFragmentDirections.actionRegisterFragmentToHomeFragment(auth.currentUser!!.uid)
                         findNavController().navigate(action)
                     } else {
                         Toast.makeText(this.requireContext(),"passwords don't match or wrong email pattern", Toast.LENGTH_SHORT).show()
