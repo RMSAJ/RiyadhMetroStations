@@ -145,12 +145,9 @@ private val places: List<Place> by lazy {
             // Ensure all places are visible in the map
             val bounds = LatLngBounds.builder()
             places.forEach { bounds.include(it.latLng) }
-//            setMapStyle(map)
         }
     }
-//        setMapStyle(map)
-//        enableMyLocation()
-        // Add the places to the ClusterManager.
+
 
 //region  [add markers to map and call in onMapCreated]
     private fun addMarkers(googleMap: GoogleMap) {
@@ -177,6 +174,7 @@ private val places: List<Place> by lazy {
     //endregion
 
     private fun addPolyLine(googleMap: GoogleMap) {
+        //region poly1
         val polyline: Polyline = googleMap.addPolyline(
              PolylineOptions()
                 .clickable(true)
@@ -212,6 +210,9 @@ private val places: List<Place> by lazy {
                  .width(18f)
                  .jointType(JointType.ROUND))
         polyline.tag = "Line1"
+        //endregion
+
+        //region poly2
 val polyline1 : Polyline = googleMap.addPolyline(
     PolylineOptions()
         .clickable(true)
@@ -245,7 +246,9 @@ val polyline1 : Polyline = googleMap.addPolyline(
         .jointType(JointType.ROUND)
 )
     polyline1.tag = "Line3"
+        //endregion poly2
 
+        //region poly3
         val polyline3:Polyline = googleMap.addPolyline(
             PolylineOptions()
                 .clickable(true)
@@ -263,16 +266,33 @@ val polyline1 : Polyline = googleMap.addPolyline(
                     LatLng(places[60].latLng.latitude, places[60].latLng.longitude),
                     LatLng(places[61].latLng.latitude, places[61].latLng.longitude),
                     LatLng(places[62].latLng.latitude, places[62].latLng.longitude),
-                    LatLng(places[63].latLng.latitude, places[63].latLng.longitude),
-                    LatLng(places[64].latLng.latitude, places[64].latLng.longitude),
-                    LatLng(places[64].latLng.latitude, places[64].latLng.longitude),
-
-
                 ).width(18f)
                 .color(Color.argb(100,121,0,142))
         )
         polyline3.tag = "Line6"
+        //endregion poly3
+
+        //region poly4
+        val polyline4:Polyline = googleMap.addPolyline(
+            PolylineOptions()
+                .clickable(true)
+                .add(
+                    LatLng(places[62].latLng.latitude, places[62].latLng.longitude),
+                    LatLng(places[63].latLng.latitude, places[63].latLng.longitude),
+                    LatLng(places[64].latLng.latitude, places[64].latLng.longitude),
+                    LatLng(places[65].latLng.latitude, places[65].latLng.longitude),
+                    LatLng(places[66].latLng.latitude, places[66].latLng.longitude),
+                    LatLng(places[67].latLng.latitude, places[67].latLng.longitude),
+                    LatLng(places[68].latLng.latitude, places[68].latLng.longitude),
+                    LatLng(places[69].latLng.latitude, places[69].latLng.longitude),
+                    LatLng(places[70].latLng.latitude, places[70].latLng.longitude),
+                    LatLng(places[71].latLng.latitude, places[71].latLng.longitude),
+                ) .color(Color.YELLOW) .width(18f)
+        )
+        polyline4.tag = "Line4"
+        //endregion
     }
+
 
 
 
@@ -308,7 +328,7 @@ val polyline1 : Polyline = googleMap.addPolyline(
                 }
             }
         }
-//        updateLocationUI()
+        updateLocationUI()
     }
 //endregion
 
