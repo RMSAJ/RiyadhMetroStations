@@ -38,7 +38,7 @@ import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.maps.android.ktx.model.polylineOptions
 
 
-internal class HomeFragment : Fragment(), OnMapReadyCallback {
+internal class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnPolylineClickListener {
 
     private var _binding: FragmentHomeBinding? = null
 
@@ -47,6 +47,9 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
     private val viewModel: UserViewModel by activityViewModels {
         FactoryViewModel()
     }
+
+    private val COLOR_BLACK_ARGB = -0x1000000
+    private val POLYLINE_STROKE_WIDTH_PX = 12
 
 //region variabls
     private val defaultLocation = LatLng(24.582133783959872, 46.76407041289462)
@@ -206,6 +209,7 @@ private val places: List<Place> by lazy {
                     LatLng(places[25].latLng.latitude, places[25].latLng.longitude),
                     LatLng(places[25].latLng.latitude, places[25].latLng.longitude))
                  .color(Color.CYAN)
+                 .width(18f)
                  .jointType(JointType.ROUND))
         polyline.tag = "Line1"
 val polyline1 : Polyline = googleMap.addPolyline(
@@ -237,9 +241,37 @@ val polyline1 : Polyline = googleMap.addPolyline(
             LatLng(places[48].latLng.latitude, places[48].latLng.longitude),
             LatLng(places[49].latLng.latitude, places[49].latLng.longitude),
         ) .color(Color.argb(100,255,87,34))
+        .width(18f)
         .jointType(JointType.ROUND)
 )
     polyline1.tag = "Line3"
+
+        val polyline3:Polyline = googleMap.addPolyline(
+            PolylineOptions()
+                .clickable(true)
+                .add(
+                    LatLng(places[50].latLng.latitude, places[50].latLng.longitude),
+                    LatLng(places[51].latLng.latitude, places[51].latLng.longitude),
+                    LatLng(places[52].latLng.latitude, places[52].latLng.longitude),
+                    LatLng(places[53].latLng.latitude, places[53].latLng.longitude),
+                    LatLng(places[54].latLng.latitude, places[54].latLng.longitude),
+                    LatLng(places[55].latLng.latitude, places[55].latLng.longitude),
+                    LatLng(places[56].latLng.latitude, places[56].latLng.longitude),
+                    LatLng(places[57].latLng.latitude, places[57].latLng.longitude),
+                    LatLng(places[58].latLng.latitude, places[58].latLng.longitude),
+                    LatLng(places[59].latLng.latitude, places[59].latLng.longitude),
+                    LatLng(places[60].latLng.latitude, places[60].latLng.longitude),
+                    LatLng(places[61].latLng.latitude, places[61].latLng.longitude),
+                    LatLng(places[62].latLng.latitude, places[62].latLng.longitude),
+                    LatLng(places[63].latLng.latitude, places[63].latLng.longitude),
+                    LatLng(places[64].latLng.latitude, places[64].latLng.longitude),
+                    LatLng(places[64].latLng.latitude, places[64].latLng.longitude),
+
+
+                ).width(18f)
+                .color(Color.argb(100,121,0,142))
+        )
+        polyline3.tag = "Line6"
     }
 
 
@@ -480,8 +512,13 @@ val polyline1 : Polyline = googleMap.addPolyline(
             findNavController().navigate(action)
         }
 //googleMap.mapType
-
         addPolyLine(googleMap)
+
+        googleMap.setOnPolylineClickListener (this)
+
+    }
+
+    override fun onPolylineClick(p0: Polyline) {
 
     }
 
