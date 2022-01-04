@@ -71,25 +71,25 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnPolyli
         FactoryViewModel()
     }
 
-    //    private lateinit var auth: FirebaseAuth
-    private val places: Map<Line, List<Place>> by lazy {
-        PlacesReader(this.requireContext()).read()
-    }
+//    //    private lateinit var auth: FirebaseAuth
+//    private val places: Map<Line, List<Place>> by lazy {
+//        PlacesReader(this.requireContext()).read()
+//    }
 
     private val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
 
     private var map: GoogleMap? = null
     private var cameraPosition: CameraPosition? = null
 
-    private val trainIcon: BitmapDescriptor by lazy {
-        val color = ContextCompat.getColor(this.requireContext(), R.color.Primary_Green_900)
-        BitmapHelper.vectorToBitmap(this.requireContext(), R.drawable.train, color)
-    }
-
-    private val personIcon: BitmapDescriptor by lazy {
-        val color = ContextCompat.getColor(this.requireContext(), R.color.Cyan_700)
-        BitmapHelper.vectorToBitmap(this.requireContext(), R.drawable.ic_profile, color)
-    }
+//    private val trainIcon: BitmapDescriptor by lazy {
+//        val color = ContextCompat.getColor(this.requireContext(), R.color.Primary_Green_900)
+//        BitmapHelper.vectorToBitmap(this.requireContext(), R.drawable.train, color)
+//    }
+//
+//    private val personIcon: BitmapDescriptor by lazy {
+//        val color = ContextCompat.getColor(this.requireContext(), R.color.Cyan_700)
+//        BitmapHelper.vectorToBitmap(this.requireContext(), R.drawable.ic_profile, color)
+//    }
     //endregion
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -128,6 +128,20 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnPolyli
         super.onCreateOptionsMenu(menu, menuInflater)
     }
 
+//    //region  [add markers to map and call in onMapCreated]
+//    private fun addMarkers(googleMap: GoogleMap, listOfPoint: List<Place>) {
+//        listOfPoint.forEach { place ->
+//            if (place.name != null){
+//                val marker = googleMap.addMarker(
+//                    MarkerOptions()
+//                        .title(place.name)
+//                        .position(LatLng(place.latLng.latitude, place.latLng.longitude))
+//                        .icon(trainIcon)
+//                )
+//            }
+//        }
+//    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.option_get_place) {
             showCurrentPlace()
@@ -135,6 +149,7 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnPolyli
         }
         return true
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -146,20 +161,6 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnPolyli
             // Wait for map to finish loading
             map?.awaitMapLoad()
             mapFragment.getMapAsync(this@HomeFragment)
-        }
-    }
-
-
-    //region  [add markers to map and call in onMapCreated]
-    private fun addMarkers(googleMap: GoogleMap, listOfPoint: List<Place>) {
-        listOfPoint.forEach { place ->
-            if (place.name != null){
-            val marker = googleMap.addMarker(
-                MarkerOptions()
-                    .title(place.name)
-                    .position(LatLng(place.latLng.latitude, place.latLng.longitude))
-                    .icon(trainIcon)
-            )}
         }
     }
 //endregion
@@ -174,30 +175,29 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnPolyli
     }
     //endregion
 
-    private fun addPolyLine(googleMap: GoogleMap) {
+//    private fun addPolyLine(googleMap: GoogleMap) {
+//        for (line in places) {
+//            addMarkers(googleMap, line.value)
+//            val polyLineOption = addNewPolyline(line.value.map {
+//                LatLng(it.latLng.latitude, it.latLng.longitude)
+//            }, line.key.width, Color.parseColor(line.key.color))
+//            googleMap.addPolyline(polyLineOption).tag = line.key.name
+//        }
+//        //region poly1
+//        //endregion
+//    }
 
-        for (line in places) {
-            addMarkers(googleMap, line.value)
-            val polyLineOption = addNewPolyline(line.value.map {
-                LatLng(it.latLng.latitude, it.latLng.longitude)
-            }, line.key.width, Color.parseColor(line.key.color))
-            googleMap.addPolyline(polyLineOption).tag = line.key.name
-        }
-        //region poly1
-        //endregion
-    }
-
-    private fun addNewPolyline(
-        listOfPoint: List<LatLng>,
-        width: Float,
-        color: Int
-    ): PolylineOptions {
-        return PolylineOptions()
-            .clickable(true)
-            .addAll(listOfPoint)
-            .width(width)
-            .color(color)
-    }
+//    private fun addNewPolyline(
+//        listOfPoint: List<LatLng>,
+//        width: Float,
+//        color: Int
+//    ): PolylineOptions {
+//        return PolylineOptions()
+//            .clickable(true)
+//            .addAll(listOfPoint)
+//            .width(width)
+//            .color(color)
+//    }
 
 
     //region checks whether the user has granted fine location permission. If not, it requests the permission
@@ -262,7 +262,6 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnPolyli
         }
     }
     //endregion
-
 
     //region Use the fused location provider to find the device's last-known location,
     // then use that location to position the map.
@@ -359,22 +358,23 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnPolyli
                 }
             }
         } else {
-            // The user has not granted permission.
-            Log.i(TAG, "The user did not grant location permission.")
-
-            // Add a default marker, because the user hasn't selected a place.
-            map?.addMarker(
-                MarkerOptions()
-                    .title(getString(R.string.default_info_title))
-                    .icon(personIcon)
-                    .position(defaultLocation)
-                    .snippet(getString(R.string.default_info_snippet))
-            )
-            // Prompt the user for permission.
-            getLocationPermission()
+           defaultMarkerOfTheUSer()
         }
     }
     //endregion [END maps_current_place_show_current_place]
+
+    private fun defaultMarkerOfTheUSer() {
+        // The user has not granted permission.
+        Log.i(TAG, "The user did not grant location permission.")
+        map?.addMarker(
+            MarkerOptions()
+                .title(getString(R.string.default_info_title))
+                .icon(personIcon)
+                .position(defaultLocation)
+                .snippet(getString(R.string.default_info_snippet))
+        )
+        getLocationPermission()
+    }
 
     //region [START maps_current_place_open_places_dialog]
     private fun openPlacesDialog() {

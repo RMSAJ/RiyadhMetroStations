@@ -9,7 +9,7 @@
 
         <variable
             name="BottomViewModel"
-            type="com.bootcamp.stations.homeMap.dataLayer.BottomViewModel" />
+            type="com.bootcamp.stations.homeMap.ui.BottomViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

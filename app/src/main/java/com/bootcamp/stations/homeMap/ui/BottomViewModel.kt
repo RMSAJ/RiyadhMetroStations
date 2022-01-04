@@ -1,4 +1,4 @@
-package com.bootcamp.stations.homeMap.dataLayer
+package com.bootcamp.stations.homeMap.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

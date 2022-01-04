@@ -8,8 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.bootcamp.stations.R
 import com.bootcamp.stations.databinding.FragmentBottomSheetBinding
-import com.bootcamp.stations.homeMap.dataLayer.BottomViewModel
-import com.google.android.gms.maps.model.LatLng
+import com.bootcamp.stations.homeMap.ui.BottomViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 
