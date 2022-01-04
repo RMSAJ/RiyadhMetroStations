@@ -369,7 +369,7 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnPolyli
         map?.addMarker(
             MarkerOptions()
                 .title(getString(R.string.default_info_title))
-                .icon(personIcon)
+                .icon(personIcon(this.requireContext()))
                 .position(defaultLocation)
                 .snippet(getString(R.string.default_info_snippet))
         )

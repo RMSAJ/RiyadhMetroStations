@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.bootcamp.stations.homeMap.dataLayer.data.Line
 import com.bootcamp.stations.homeMap.dataLayer.data.PlacesReader
+import com.bootcamp.stations.homeMap.util.trainIcon
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
@@ -48,14 +49,14 @@ private val _listOfMarkers = MutableLiveData<List<Place>>()
     }
 
     //region  [add markers to map and call in onMapCreated]
-    private fun addMarkers(googleMap: GoogleMap, listOfPoint: List<com.bootcamp.stations.homeMap.dataLayer.data.Place>) {
+    private fun addMarkers(googleMap: GoogleMap, listOfPoint: List<Place>, context: Context) {
         listOfPoint.forEach { place ->
             if (place.name != null){
                 val marker = googleMap.addMarker(
                     MarkerOptions()
                         .title(place.name)
-                        .position(LatLng(place.latLng.latitude, place.latLng.longitude))
-                        .icon(trainIcon)
+                        .position(LatLng(place.latLng!!.latitude, place.latLng!!.longitude))
+                        .icon(trainIcon(context))
                 )
             }
         }
