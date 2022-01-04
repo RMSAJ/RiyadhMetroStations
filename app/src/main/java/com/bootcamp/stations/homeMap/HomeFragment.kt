@@ -1,14 +1,16 @@
 package com.bootcamp.stations.homeMap
-
+import com.bootcamp.stations.homeMap.util.*
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.DialogInterface
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.location.Location
+
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import  com.google.android.libraries.places.api.model.Place.Field.*
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
@@ -27,6 +29,7 @@ import com.bootcamp.stations.homeMap.util.BitmapHelper
 import com.bootcamp.stations.user.UserViewModel
 import com.bootcamp.stations.user.model.FactoryViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
+
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -36,12 +39,29 @@ import com.google.android.gms.maps.model.*
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest
 import com.google.android.libraries.places.api.net.PlacesClient
+
 import com.google.maps.android.ktx.awaitMap
 import com.google.maps.android.ktx.awaitMapLoad
-import java.util.*
+
 
 
 internal class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnPolylineClickListener {
+
+   private val COLOR_BLACK_ARGB = -0x1000000
+   private val POLYLINE_STROKE_WIDTH_PX = 12
+    //n variabls
+   private val defaultLocation = LatLng(24.582133783959872, 46.76407041289462)
+    //entry point to the Places API.
+   private lateinit var placesClient: PlacesClient
+    //entry point to the Fused Location Provider.
+   private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+   private var locationPermissionGranted = false
+   private var lastKnownLocation: Location? = null
+   private var circle: Circle? = null
+   private var likelyPlaceNames: Array<String?> = arrayOfNulls(0)
+   private var likelyPlaceAddresses: Array<String?> = arrayOfNulls(0)
+   private var likelyPlaceAttributions: Array<List<*>?> = arrayOfNulls(0)
+   private var likelyPlaceLatLngs: Array<LatLng?> = arrayOfNulls(0)
 
     private var _binding: FragmentHomeBinding? = null
 
@@ -50,29 +70,6 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnPolyli
     private val viewModel: UserViewModel by activityViewModels {
         FactoryViewModel()
     }
-
-    private val COLOR_BLACK_ARGB = -0x1000000
-    private val POLYLINE_STROKE_WIDTH_PX = 12
-
-    //region variabls
-    private val defaultLocation = LatLng(24.582133783959872, 46.76407041289462)
-
-    // The entry point to the Places API.
-    private lateinit var placesClient: PlacesClient
-
-    // The entry point to the Fused Location Provider.
-    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
-
-    private var locationPermissionGranted = false
-
-    private var lastKnownLocation: Location? = null
-
-    private var circle: Circle? = null
-
-    private var likelyPlaceNames: Array<String?> = arrayOfNulls(0)
-    private var likelyPlaceAddresses: Array<String?> = arrayOfNulls(0)
-    private var likelyPlaceAttributions: Array<List<*>?> = arrayOfNulls(0)
-    private var likelyPlaceLatLngs: Array<LatLng?> = arrayOfNulls(0)
 
     //    private lateinit var auth: FirebaseAuth
     private val places: Map<Line, List<Place>> by lazy {
@@ -93,11 +90,14 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnPolyli
         val color = ContextCompat.getColor(this.requireContext(), R.color.Cyan_700)
         BitmapHelper.vectorToBitmap(this.requireContext(), R.drawable.ic_profile, color)
     }
-
     //endregion
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (savedInstanceState != null) {
+            lastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION)
+            cameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION)
+        }
         setHasOptionsMenu(true)
 
 //        auth = Firebase.auth }
@@ -111,19 +111,14 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnPolyli
         // Inflate the layout for this fragment
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        if (savedInstanceState != null) {
-            lastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION)
-            cameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION)
-        }
         Places.initialize(requireContext(), BuildConfig.MAPS_API_KEY)
+
         placesClient = Places.createClient(requireContext())
         // Set up the toolbar.
         (activity as? AppCompatActivity)?.setSupportActionBar(binding?.appBar)
 
         // Construct a FusedLocationProviderClient.
-        fusedLocationProviderClient =
-            LocationServices.getFusedLocationProviderClient(this.requireActivity())
-
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this.requireActivity())
 
         return binding?.root
     }
@@ -150,16 +145,13 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnPolyli
             mapFragment.awaitMap()
             // Wait for map to finish loading
             map?.awaitMapLoad()
-
             mapFragment.getMapAsync(this@HomeFragment)
-
         }
     }
 
 
     //region  [add markers to map and call in onMapCreated]
     private fun addMarkers(googleMap: GoogleMap, listOfPoint: List<Place>) {
-
         listOfPoint.forEach { place ->
             if (place.name != null){
             val marker = googleMap.addMarker(
@@ -167,7 +159,6 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnPolyli
                     .title(place.name)
                     .position(LatLng(place.latLng.latitude, place.latLng.longitude))
                     .icon(trainIcon)
-
             )}
         }
     }
@@ -201,7 +192,6 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnPolyli
         width: Float,
         color: Int
     ): PolylineOptions {
-
         return PolylineOptions()
             .clickable(true)
             .addAll(listOfPoint)
@@ -326,14 +316,11 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnPolyli
         if (locationPermissionGranted) {
             // Use fields to define the data types to return.
             val placeFields = listOf(
-                com.google.android.libraries.places.api.model.Place.Field.NAME,
-                com.google.android.libraries.places.api.model.Place.Field.ADDRESS,
-                com.google.android.libraries.places.api.model.Place.Field.LAT_LNG
-            )
-
+               NAME,
+               ADDRESS,
+               LAT_LNG)
             // Use the builder to create a FindCurrentPlaceRequest.
             val request = FindCurrentPlaceRequest.newInstance(placeFields)
-
             // Get the likely places - that is, the businesses and other points of interest that
             // are the best match for the device's current location.
             val placeResult = placesClient.findCurrentPlace(request)
@@ -364,7 +351,6 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnPolyli
                             break
                         }
                     }
-
                     // Show a dialog offering the user the list of likely places, and add a
                     // marker at the selected place.
                     openPlacesDialog()
@@ -384,8 +370,6 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnPolyli
                     .position(defaultLocation)
                     .snippet(getString(R.string.default_info_snippet))
             )
-
-
             // Prompt the user for permission.
             getLocationPermission()
         }
