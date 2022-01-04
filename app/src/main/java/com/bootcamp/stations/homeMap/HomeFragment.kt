@@ -25,6 +25,7 @@ import com.bootcamp.stations.databinding.FragmentHomeBinding
 import com.bootcamp.stations.homeMap.dataLayer.data.Line
 import com.bootcamp.stations.homeMap.dataLayer.data.Place
 import com.bootcamp.stations.homeMap.dataLayer.data.PlacesReader
+import com.bootcamp.stations.homeMap.ui.MapViewModel
 import com.bootcamp.stations.homeMap.util.BitmapHelper
 import com.bootcamp.stations.user.UserViewModel
 import com.bootcamp.stations.user.model.FactoryViewModel
@@ -45,7 +46,7 @@ import com.google.maps.android.ktx.awaitMapLoad
 
 
 
-internal class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnPolylineClickListener {
+internal class HomeFragment : Fragment(), OnMapReadyCallback {
 
    private val COLOR_BLACK_ARGB = -0x1000000
    private val POLYLINE_STROKE_WIDTH_PX = 12
@@ -67,29 +68,13 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnPolyli
 
     private val binding get() = _binding
 
-    private val viewModel: UserViewModel by activityViewModels {
-        FactoryViewModel()
-    }
-
-//    //    private lateinit var auth: FirebaseAuth
-//    private val places: Map<Line, List<Place>> by lazy {
-//        PlacesReader(this.requireContext()).read()
-//    }
+    private val viewModel: MapViewModel by activityViewModels()
 
     private val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
 
     private var map: GoogleMap? = null
     private var cameraPosition: CameraPosition? = null
 
-//    private val trainIcon: BitmapDescriptor by lazy {
-//        val color = ContextCompat.getColor(this.requireContext(), R.color.Primary_Green_900)
-//        BitmapHelper.vectorToBitmap(this.requireContext(), R.drawable.train, color)
-//    }
-//
-//    private val personIcon: BitmapDescriptor by lazy {
-//        val color = ContextCompat.getColor(this.requireContext(), R.color.Cyan_700)
-//        BitmapHelper.vectorToBitmap(this.requireContext(), R.drawable.ic_profile, color)
-//    }
     //endregion
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -128,20 +113,6 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnPolyli
         super.onCreateOptionsMenu(menu, menuInflater)
     }
 
-//    //region  [add markers to map and call in onMapCreated]
-//    private fun addMarkers(googleMap: GoogleMap, listOfPoint: List<Place>) {
-//        listOfPoint.forEach { place ->
-//            if (place.name != null){
-//                val marker = googleMap.addMarker(
-//                    MarkerOptions()
-//                        .title(place.name)
-//                        .position(LatLng(place.latLng.latitude, place.latLng.longitude))
-//                        .icon(trainIcon)
-//                )
-//            }
-//        }
-//    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.option_get_place) {
             showCurrentPlace()
@@ -149,7 +120,6 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnPolyli
         }
         return true
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -174,31 +144,6 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnPolyli
         super.onSaveInstanceState(outState)
     }
     //endregion
-
-//    private fun addPolyLine(googleMap: GoogleMap) {
-//        for (line in places) {
-//            addMarkers(googleMap, line.value)
-//            val polyLineOption = addNewPolyline(line.value.map {
-//                LatLng(it.latLng.latitude, it.latLng.longitude)
-//            }, line.key.width, Color.parseColor(line.key.color))
-//            googleMap.addPolyline(polyLineOption).tag = line.key.name
-//        }
-//        //region poly1
-//        //endregion
-//    }
-
-//    private fun addNewPolyline(
-//        listOfPoint: List<LatLng>,
-//        width: Float,
-//        color: Int
-//    ): PolylineOptions {
-//        return PolylineOptions()
-//            .clickable(true)
-//            .addAll(listOfPoint)
-//            .width(width)
-//            .color(color)
-//    }
-
 
     //region checks whether the user has granted fine location permission. If not, it requests the permission
 
@@ -458,16 +403,8 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnPolyli
             findNavController().navigate(action)
         }
 //googleMap.mapType
-        addPolyLine(googleMap)
-
-        googleMap.setOnPolylineClickListener(this)
-//        googleMap.setOnMyLocationButtonClickListener(this)
-//        googleMap.setOnMyLocationClickListener(this)
-    }
-
-    override fun onPolylineClick(p0: Polyline) {
+       viewModel.places(this.requireContext(), googleMap)
 
     }
-
 
 }

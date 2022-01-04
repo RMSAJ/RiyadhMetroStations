@@ -30,10 +30,11 @@ private val _listOfMarkers = MutableLiveData<List<Place>>()
         //region poly1
         //endregion
     }
-    private fun places(context: Context) {
+     fun places(context: Context,googleMap: GoogleMap ) {
         val places: Map<Line, List<Place>> by lazy {
             PlacesReader(context).read()
         }
+         addPolyLine(googleMap,places,context)
     }
 
     private fun addNewPolyline(
