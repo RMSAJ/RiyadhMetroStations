@@ -20,6 +20,7 @@ import androidx.navigation.fragment.findNavController
 import com.bootcamp.stations.BuildConfig
 import com.bootcamp.stations.R
 import com.bootcamp.stations.databinding.FragmentHomeBinding
+import com.bootcamp.stations.homeMap.dataLayer.data.Line
 import com.bootcamp.stations.homeMap.dataLayer.data.Place
 import com.bootcamp.stations.homeMap.dataLayer.data.PlacesReader
 import com.bootcamp.stations.homeMap.util.BitmapHelper
@@ -35,7 +36,9 @@ import com.google.android.gms.maps.model.*
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest
 import com.google.android.libraries.places.api.net.PlacesClient
-import com.google.maps.android.ktx.model.polylineOptions
+import com.google.maps.android.ktx.awaitMap
+import com.google.maps.android.ktx.awaitMapLoad
+import java.util.*
 
 
 internal class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnPolylineClickListener {
@@ -51,7 +54,7 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnPolyli
     private val COLOR_BLACK_ARGB = -0x1000000
     private val POLYLINE_STROKE_WIDTH_PX = 12
 
-//region variabls
+    //region variabls
     private val defaultLocation = LatLng(24.582133783959872, 46.76407041289462)
 
     // The entry point to the Places API.
@@ -72,9 +75,9 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnPolyli
     private var likelyPlaceLatLngs: Array<LatLng?> = arrayOfNulls(0)
 
     //    private lateinit var auth: FirebaseAuth
-private val places: List<Place> by lazy {
-    PlacesReader(this.requireContext()).read()
-}
+    private val places: Map<Line, List<Place>> by lazy {
+        PlacesReader(this.requireContext()).read()
+    }
 
     private val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
 
@@ -88,7 +91,7 @@ private val places: List<Place> by lazy {
 
     private val personIcon: BitmapDescriptor by lazy {
         val color = ContextCompat.getColor(this.requireContext(), R.color.Cyan_700)
-        BitmapHelper.vectorToBitmap(this.requireContext(),R.drawable.ic_profile,color)
+        BitmapHelper.vectorToBitmap(this.requireContext(), R.drawable.ic_profile, color)
     }
 
     //endregion
@@ -106,7 +109,7 @@ private val places: List<Place> by lazy {
     ): View? {
 
         // Inflate the layout for this fragment
-        _binding = FragmentHomeBinding.inflate(inflater,container, false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         if (savedInstanceState != null) {
             lastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION)
@@ -118,15 +121,18 @@ private val places: List<Place> by lazy {
         (activity as? AppCompatActivity)?.setSupportActionBar(binding?.appBar)
 
         // Construct a FusedLocationProviderClient.
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this.requireActivity())
+        fusedLocationProviderClient =
+            LocationServices.getFusedLocationProviderClient(this.requireActivity())
 
 
         return binding?.root
     }
+
     override fun onCreateOptionsMenu(menu: Menu, menuInflater: MenuInflater) {
         menuInflater.inflate(R.menu.toolbar_menu, menu)
         super.onCreateOptionsMenu(menu, menuInflater)
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.option_get_place) {
             showCurrentPlace()
@@ -134,32 +140,35 @@ private val places: List<Place> by lazy {
         }
         return true
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager
             .findFragmentById(R.id.myMap) as SupportMapFragment
         lifecycleScope.launchWhenCreated {
             //get Map
-            mapFragment.getMapAsync(this@HomeFragment)
+            mapFragment.awaitMap()
             // Wait for map to finish loading
-//            googleMap.awaitMapLoad()
-            // Ensure all places are visible in the map
-            val bounds = LatLngBounds.builder()
-            places.forEach { bounds.include(it.latLng) }
+            map?.awaitMapLoad()
+
+            mapFragment.getMapAsync(this@HomeFragment)
+
         }
     }
 
 
-//region  [add markers to map and call in onMapCreated]
-    private fun addMarkers(googleMap: GoogleMap) {
-        places.forEach { place ->
+    //region  [add markers to map and call in onMapCreated]
+    private fun addMarkers(googleMap: GoogleMap, listOfPoint: List<Place>) {
+
+        listOfPoint.forEach { place ->
+            if (place.name != null){
             val marker = googleMap.addMarker(
                 MarkerOptions()
                     .title(place.name)
-                    .position(place.latLng)
+                    .position(LatLng(place.latLng.latitude, place.latLng.longitude))
                     .icon(trainIcon)
 
-            )
+            )}
         }
     }
 //endregion
@@ -175,171 +184,30 @@ private val places: List<Place> by lazy {
     //endregion
 
     private fun addPolyLine(googleMap: GoogleMap) {
+
+        for (line in places) {
+            addMarkers(googleMap, line.value)
+            val polyLineOption = addNewPolyline(line.value.map {
+                LatLng(it.latLng.latitude, it.latLng.longitude)
+            }, line.key.width, Color.parseColor(line.key.color))
+            googleMap.addPolyline(polyLineOption).tag = line.key.name
+        }
         //region poly1
-        val polyline: Polyline = googleMap.addPolyline(
-             PolylineOptions()
-                .clickable(true)
-                .add(
-                    LatLng(places[0].latLng.latitude, places[0].latLng.longitude),
-                    LatLng(places[1].latLng.latitude, places[1].latLng.longitude),
-                    LatLng(places[2].latLng.latitude, places[2].latLng.longitude),
-                    LatLng(places[3].latLng.latitude, places[3].latLng.longitude),
-                    LatLng(places[4].latLng.latitude, places[4].latLng.longitude),
-                    LatLng(places[5].latLng.latitude, places[5].latLng.longitude),
-                    LatLng(places[6].latLng.latitude, places[6].latLng.longitude),
-                    LatLng(places[7].latLng.latitude, places[7].latLng.longitude),
-                    LatLng(places[8].latLng.latitude, places[8].latLng.longitude),
-                    LatLng(places[9].latLng.latitude, places[9].latLng.longitude),
-                    LatLng(places[10].latLng.latitude, places[10].latLng.longitude),
-                    LatLng(places[11].latLng.latitude, places[11].latLng.longitude),
-                    LatLng(places[12].latLng.latitude, places[12].latLng.longitude),
-                    LatLng(places[13].latLng.latitude, places[13].latLng.longitude),
-                    LatLng(places[14].latLng.latitude, places[14].latLng.longitude),
-                    LatLng(places[15].latLng.latitude, places[15].latLng.longitude),
-                    LatLng(places[16].latLng.latitude, places[16].latLng.longitude),
-                    LatLng(places[17].latLng.latitude, places[17].latLng.longitude),
-                    LatLng(places[18].latLng.latitude, places[18].latLng.longitude),
-                    LatLng(places[19].latLng.latitude, places[19].latLng.longitude),
-                    LatLng(places[20].latLng.latitude, places[20].latLng.longitude),
-                    LatLng(places[21].latLng.latitude, places[21].latLng.longitude),
-                    LatLng(places[22].latLng.latitude, places[22].latLng.longitude),
-                    LatLng(places[23].latLng.latitude, places[23].latLng.longitude),
-                    LatLng(places[24].latLng.latitude, places[24].latLng.longitude),
-                    LatLng(places[25].latLng.latitude, places[25].latLng.longitude),
-                    LatLng(places[25].latLng.latitude, places[25].latLng.longitude))
-                 .color(Color.CYAN)
-                 .width(18f)
-                 .jointType(JointType.ROUND))
-        polyline.tag = "Line1"
-        //endregion
-
-        //region poly2
-val polyline1 : Polyline = googleMap.addPolyline(
-    PolylineOptions()
-        .clickable(true)
-        .add(
-            LatLng(places[26].latLng.latitude, places[26].latLng.longitude),
-            LatLng(places[27].latLng.latitude, places[27].latLng.longitude),
-            LatLng(places[28].latLng.latitude, places[28].latLng.longitude),
-            LatLng(places[29].latLng.latitude, places[29].latLng.longitude),
-            LatLng(places[30].latLng.latitude, places[30].latLng.longitude),
-            LatLng(places[31].latLng.latitude, places[31].latLng.longitude),
-            LatLng(places[32].latLng.latitude, places[32].latLng.longitude),
-            LatLng(places[33].latLng.latitude, places[33].latLng.longitude),
-            LatLng(places[34].latLng.latitude, places[34].latLng.longitude),
-            LatLng(places[35].latLng.latitude, places[35].latLng.longitude),
-            LatLng(places[36].latLng.latitude, places[36].latLng.longitude),
-            LatLng(places[37].latLng.latitude, places[37].latLng.longitude),
-            LatLng(places[38].latLng.latitude, places[38].latLng.longitude),
-            LatLng(places[39].latLng.latitude, places[39].latLng.longitude),
-            LatLng(places[40].latLng.latitude, places[40].latLng.longitude),
-            LatLng(places[41].latLng.latitude, places[41].latLng.longitude),
-            LatLng(places[42].latLng.latitude, places[42].latLng.longitude),
-            LatLng(places[43].latLng.latitude, places[43].latLng.longitude),
-            LatLng(places[44].latLng.latitude, places[44].latLng.longitude),
-            LatLng(places[45].latLng.latitude, places[45].latLng.longitude),
-            LatLng(places[46].latLng.latitude, places[46].latLng.longitude),
-            LatLng(places[47].latLng.latitude, places[47].latLng.longitude),
-            LatLng(places[48].latLng.latitude, places[48].latLng.longitude),
-            LatLng(places[49].latLng.latitude, places[49].latLng.longitude),
-        ) .color(Color.argb(100,255,87,34))
-        .width(18f)
-        .jointType(JointType.ROUND)
-)
-    polyline1.tag = "Line3"
-        //endregion poly2
-
-        //region poly3
-        val polyline3:Polyline = googleMap.addPolyline(
-            PolylineOptions()
-                .clickable(true)
-                .add(
-                    LatLng(places[50].latLng.latitude, places[50].latLng.longitude),
-                    LatLng(places[51].latLng.latitude, places[51].latLng.longitude),
-                    LatLng(places[52].latLng.latitude, places[52].latLng.longitude),
-                    LatLng(places[53].latLng.latitude, places[53].latLng.longitude),
-                    LatLng(places[54].latLng.latitude, places[54].latLng.longitude),
-                    LatLng(places[55].latLng.latitude, places[55].latLng.longitude),
-                    LatLng(places[56].latLng.latitude, places[56].latLng.longitude),
-                    LatLng(places[57].latLng.latitude, places[57].latLng.longitude),
-                    LatLng(places[58].latLng.latitude, places[58].latLng.longitude),
-                    LatLng(places[59].latLng.latitude, places[59].latLng.longitude),
-                    LatLng(places[60].latLng.latitude, places[60].latLng.longitude),
-                    LatLng(places[61].latLng.latitude, places[61].latLng.longitude),
-                    LatLng(places[62].latLng.latitude, places[62].latLng.longitude),
-                ).width(18f)
-                .color(Color.argb(100,121,0,142))
-        )
-        polyline3.tag = "Line6"
-        //endregion poly3
-
-        //region poly4
-        val polyline4:Polyline = googleMap.addPolyline(
-            PolylineOptions()
-                .clickable(true)
-                .add(
-                    LatLng(places[62].latLng.latitude, places[62].latLng.longitude),
-                    LatLng(places[63].latLng.latitude, places[63].latLng.longitude),
-                    LatLng(places[64].latLng.latitude, places[64].latLng.longitude),
-                    LatLng(places[65].latLng.latitude, places[65].latLng.longitude),
-                    LatLng(places[66].latLng.latitude, places[66].latLng.longitude),
-                    LatLng(places[67].latLng.latitude, places[67].latLng.longitude),
-                    LatLng(places[68].latLng.latitude, places[68].latLng.longitude),
-                    LatLng(places[69].latLng.latitude, places[69].latLng.longitude),
-                    LatLng(places[70].latLng.latitude, places[70].latLng.longitude),
-                    LatLng(places[71].latLng.latitude, places[71].latLng.longitude),
-                ) .color(Color.YELLOW) .width(18f)
-        )
-        polyline4.tag = "Line4"
-        //endregion
-        // region poly4
-        val polyline5:Polyline = googleMap.addPolyline(
-            PolylineOptions()
-                .clickable(true)
-                .add(
-                    LatLng(places[72].latLng.latitude, places[72].latLng.longitude),
-                    LatLng(places[73].latLng.latitude, places[73].latLng.longitude),
-                    LatLng(places[74].latLng.latitude, places[74].latLng.longitude),
-                    LatLng(places[75].latLng.latitude, places[75].latLng.longitude),
-                    LatLng(places[76].latLng.latitude, places[76].latLng.longitude),
-                    LatLng(places[77].latLng.latitude, places[77].latLng.longitude),
-                    LatLng(places[78].latLng.latitude, places[78].latLng.longitude),
-                    LatLng(places[79].latLng.latitude, places[79].latLng.longitude),
-                    LatLng(places[80].latLng.latitude, places[80].latLng.longitude),
-                    LatLng(places[81].latLng.latitude, places[81].latLng.longitude),
-                    LatLng(places[82].latLng.latitude, places[82].latLng.longitude),
-                    LatLng(places[83].latLng.latitude, places[83].latLng.longitude),
-                    LatLng(places[84].latLng.latitude, places[84].latLng.longitude),
-                    LatLng(places[85].latLng.latitude, places[85].latLng.longitude),
-                    LatLng(places[86].latLng.latitude, places[86].latLng.longitude),
-                    LatLng(places[86].latLng.latitude, places[86].latLng.longitude),
-                ) .color(Color.RED) .width(18f)
-        )
-        polyline5.tag = "Line2"
-        //endregion        //region poly4
-        val polyline6:Polyline = googleMap.addPolyline(
-            PolylineOptions()
-                .clickable(true)
-                .add(
-                    LatLng(places[87].latLng.latitude, places[87].latLng.longitude),
-                    LatLng(places[88].latLng.latitude, places[88].latLng.longitude),
-                    LatLng(places[89].latLng.latitude, places[89].latLng.longitude),
-                    LatLng(places[90].latLng.latitude, places[90].latLng.longitude),
-                    LatLng(places[91].latLng.latitude, places[91].latLng.longitude),
-                    LatLng(places[92].latLng.latitude, places[92].latLng.longitude),
-                    LatLng(places[93].latLng.latitude, places[93].latLng.longitude),
-                    LatLng(places[94].latLng.latitude, places[94].latLng.longitude),
-                    LatLng(places[95].latLng.latitude, places[95].latLng.longitude),
-                    LatLng(places[96].latLng.latitude, places[96].latLng.longitude),
-                    LatLng(places[97].latLng.latitude, places[97].latLng.longitude),
-                    LatLng(places[97].latLng.latitude, places[97].latLng.longitude),
-                ) .color(Color.GREEN) .width(18f)
-        )
-        polyline4.tag = "Line5"
         //endregion
     }
 
+    private fun addNewPolyline(
+        listOfPoint: List<LatLng>,
+        width: Float,
+        color: Int
+    ): PolylineOptions {
 
+        return PolylineOptions()
+            .clickable(true)
+            .addAll(listOfPoint)
+            .width(width)
+            .color(color)
+    }
 
 
     //region checks whether the user has granted fine location permission. If not, it requests the permission
@@ -350,26 +218,34 @@ val polyline1 : Polyline = googleMap.addPolyline(
          * device. The result of the permission request is handled by a callback,
          * onRequestPermissionsResult.
          */
-        if (ContextCompat.checkSelfPermission(requireContext().applicationContext,
-                Manifest.permission.ACCESS_FINE_LOCATION)
-            == PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(
+                requireContext().applicationContext,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
+            == PackageManager.PERMISSION_GRANTED
+        ) {
             locationPermissionGranted = true
         } else {
-            ActivityCompat.requestPermissions(this.requireActivity(), arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION)
+            ActivityCompat.requestPermissions(
+                this.requireActivity(), arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION
+            )
         }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int,
-                                            permissions: Array<String>,
-                                            grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
         locationPermissionGranted = false
         when (requestCode) {
             PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION -> {
 
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.isNotEmpty() &&
-                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED
+                ) {
                     locationPermissionGranted = true
                 }
             }
@@ -415,15 +291,22 @@ val polyline1 : Polyline = googleMap.addPolyline(
                         lastKnownLocation = task.result
                         if (lastKnownLocation != null) {
                             map?.isMyLocationEnabled = true
-                            map?.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                                LatLng(lastKnownLocation!!.latitude,
-                                    lastKnownLocation!!.longitude), DEFAULT_ZOOM.toFloat()))
+                            map?.moveCamera(
+                                CameraUpdateFactory.newLatLngZoom(
+                                    LatLng(
+                                        lastKnownLocation!!.latitude,
+                                        lastKnownLocation!!.longitude
+                                    ), DEFAULT_ZOOM.toFloat()
+                                )
+                            )
                         }
                     } else {
                         Log.d(TAG, "Current location is null. Using defaults.")
                         Log.e(TAG, "Exception: %s", task.exception)
-                        map?.moveCamera(CameraUpdateFactory
-                            .newLatLngZoom(defaultLocation, DEFAULT_ZOOM.toFloat()))
+                        map?.moveCamera(
+                            CameraUpdateFactory
+                                .newLatLngZoom(defaultLocation, DEFAULT_ZOOM.toFloat())
+                        )
                         map?.uiSettings?.isMyLocationButtonEnabled = false
                     }
                 }
@@ -442,7 +325,11 @@ val polyline1 : Polyline = googleMap.addPolyline(
         }
         if (locationPermissionGranted) {
             // Use fields to define the data types to return.
-            val placeFields = listOf(com.google.android.libraries.places.api.model.Place.Field.NAME, com.google.android.libraries.places.api.model.Place.Field.ADDRESS, com.google.android.libraries.places.api.model.Place.Field.LAT_LNG)
+            val placeFields = listOf(
+                com.google.android.libraries.places.api.model.Place.Field.NAME,
+                com.google.android.libraries.places.api.model.Place.Field.ADDRESS,
+                com.google.android.libraries.places.api.model.Place.Field.LAT_LNG
+            )
 
             // Use the builder to create a FindCurrentPlaceRequest.
             val request = FindCurrentPlaceRequest.newInstance(placeFields)
@@ -455,11 +342,12 @@ val polyline1 : Polyline = googleMap.addPolyline(
                     val likelyPlaces = task.result
                     map!!.isMyLocationEnabled = true
                     // Set the count, handling cases where less than 5 entries are returned.
-                    val count = if (likelyPlaces != null && likelyPlaces.placeLikelihoods.size < M_MAX_ENTRIES) {
-                        likelyPlaces.placeLikelihoods.size
-                    } else {
-                        M_MAX_ENTRIES
-                    }
+                    val count =
+                        if (likelyPlaces != null && likelyPlaces.placeLikelihoods.size < M_MAX_ENTRIES) {
+                            likelyPlaces.placeLikelihoods.size
+                        } else {
+                            M_MAX_ENTRIES
+                        }
                     var i = 0
                     likelyPlaceNames = arrayOfNulls(count)
                     likelyPlaceAddresses = arrayOfNulls(count)
@@ -489,11 +377,13 @@ val polyline1 : Polyline = googleMap.addPolyline(
             Log.i(TAG, "The user did not grant location permission.")
 
             // Add a default marker, because the user hasn't selected a place.
-            map?.addMarker(MarkerOptions()
-                .title(getString(R.string.default_info_title))
-                .icon(personIcon)
-                .position(defaultLocation)
-                .snippet(getString(R.string.default_info_snippet)))
+            map?.addMarker(
+                MarkerOptions()
+                    .title(getString(R.string.default_info_title))
+                    .icon(personIcon)
+                    .position(defaultLocation)
+                    .snippet(getString(R.string.default_info_snippet))
+            )
 
 
             // Prompt the user for permission.
@@ -505,31 +395,38 @@ val polyline1 : Polyline = googleMap.addPolyline(
     //region [START maps_current_place_open_places_dialog]
     private fun openPlacesDialog() {
         // Ask the user to choose the place where they are now.
-        val listener = DialogInterface.OnClickListener { _, which -> // The "which" argument contains the position of the selected item.
-            val markerLatLng = likelyPlaceLatLngs[which]
-            var markerSnippet = likelyPlaceAddresses[which]
-            if (likelyPlaceAttributions[which] != null) {
-                markerSnippet = """
+        val listener =
+            DialogInterface.OnClickListener { _, which -> // The "which" argument contains the position of the selected item.
+                val markerLatLng = likelyPlaceLatLngs[which]
+                var markerSnippet = likelyPlaceAddresses[which]
+                if (likelyPlaceAttributions[which] != null) {
+                    markerSnippet = """
                     $markerSnippet
                     ${likelyPlaceAttributions[which]}
                     """.trimIndent()
+                }
+
+                if (markerLatLng == null) {
+                    return@OnClickListener
+                }
+
+                // Add a marker for the selected place, with an info window
+                // showing information about that place.
+                map?.addMarker(
+                    MarkerOptions()
+                        .title(likelyPlaceNames[which])
+                        .position(markerLatLng)
+                        .snippet(markerSnippet)
+                )
+
+                // Position the map's camera at the location of the marker.
+                map?.moveCamera(
+                    CameraUpdateFactory.newLatLngZoom(
+                        markerLatLng,
+                        DEFAULT_ZOOM.toFloat()
+                    )
+                )
             }
-
-            if (markerLatLng == null) {
-                return@OnClickListener
-            }
-
-            // Add a marker for the selected place, with an info window
-            // showing information about that place.
-            map?.addMarker(MarkerOptions()
-                .title(likelyPlaceNames[which])
-                .position(markerLatLng)
-                .snippet(markerSnippet))
-
-            // Position the map's camera at the location of the marker.
-            map?.moveCamera(CameraUpdateFactory.newLatLngZoom(markerLatLng,
-                DEFAULT_ZOOM.toFloat()))
-        }
 
         // Display the dialog.
         AlertDialog.Builder(this.requireContext())
@@ -570,8 +467,6 @@ val polyline1 : Polyline = googleMap.addPolyline(
         // Get the current location of the device and set the position of the map.
         getDeviceLocation()
 
-        addMarkers(map!!)
-
         map!!.setInfoWindowAdapter(MarkerInfoWindowAdapter(this.requireContext()))
 
         map!!.setOnInfoWindowClickListener {
@@ -581,7 +476,7 @@ val polyline1 : Polyline = googleMap.addPolyline(
 //googleMap.mapType
         addPolyLine(googleMap)
 
-        googleMap.setOnPolylineClickListener (this)
+        googleMap.setOnPolylineClickListener(this)
 //        googleMap.setOnMyLocationButtonClickListener(this)
 //        googleMap.setOnMyLocationClickListener(this)
     }
@@ -589,7 +484,6 @@ val polyline1 : Polyline = googleMap.addPolyline(
     override fun onPolylineClick(p0: Polyline) {
 
     }
-
 
 
 }
