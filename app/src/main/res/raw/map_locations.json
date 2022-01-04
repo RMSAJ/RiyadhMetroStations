@@ -33,7 +33,6 @@
     "line": {
       "name":"Line 1","color": "#0da2ff", "width": 18.0
     },
-    "id":3,
 
     "rating": 4.2,
     "vicinity": "Southern Ring Branch Rd, Al Mansourah"
@@ -50,6 +49,19 @@
     },
     "id":3,
     "name": "1H2",
+    "rating": 4.2,
+    "vicinity": "Southern Ring Branch Rd, Al Mansourah"
+  }
+,
+  {
+    "location": {
+      "lat": 24.594405,
+      "lng": 46.737263
+    },
+    "line": {
+      "name":"Line 1","color": "#0da2ff", "width": 18.0
+    },
+
     "rating": 4.2,
     "vicinity": "Southern Ring Branch Rd, Al Mansourah"
   }
@@ -108,14 +120,14 @@
   {
 
     "location": {
-      "lat": 24.632646074803365,
-      "lng": 46.71636622841464
+      "lat": 24.629937,
+      "lng": 46.717377
     },
     "line": {
       "name":"Line 1","color": "#0da2ff", "width": 18.0
     },
     "id":8,
-    "name": "1F7, 3E2",
+    "name": "1F7",
     "rating": 4.2,
     "vicinity": "12652 Al Bathaa, Ad Dirah,"
   },
@@ -134,8 +146,8 @@
   },
   {
     "location": {
-      "lat": 24.646758225587583,
-      "lng": 46.714963135317184
+      "lat": 24.646677,
+      "lng": 46.715065
     },
     "line": {
       "name":"Line 1","color": "#0da2ff", "width": 18.0
@@ -503,8 +515,8 @@
 },
   {
     "location": {
-      "lat": 24.63123850805677,
-      "lng": 46.71966460210179
+      "lat": 24.629937,
+      "lng": 46.717377
     },
     "line": {
       "name":"Line 3","color": "#FFA500", "width": 18.0
@@ -748,7 +760,20 @@
   "name": "6E1",
   "rating": 4.2,
   "vicinity": "standard station"
-},{
+},
+  {
+  "location": {
+  "lat": 24.800321,
+  "lng": 46.761887
+  },
+  "line": {
+    "name":"Line 6","color": "#800080", "width": 18.0
+  },
+  "rating": 4.2,
+  "vicinity": "standard station"
+}
+,
+  {
   "location": {
   "lat": 24.787117,
   "lng": 46.730233
@@ -758,6 +783,28 @@
   },
   "id":57,
   "name": "6D2",
+  "rating": 4.2,
+  "vicinity": "standard station"
+},
+  {
+  "location": {
+  "lat": 24.785341,
+  "lng": 46.725801
+  },
+  "line": {
+    "name":"Line 6","color": "#800080", "width": 18.0
+  },
+  "rating": 4.2,
+  "vicinity": "standard station"
+},
+  {
+  "location": {
+  "lat": 24.809298,
+  "lng": 46.713898
+  },
+  "line": {
+    "name":"Line 6","color": "#800080", "width": 18.0
+  },
   "rating": 4.2,
   "vicinity": "standard station"
 },
@@ -846,7 +893,43 @@
     "name": "4A1",
     "rating": 4.2,
     "vicinity": "standard station"
+  }
+,
+  {
+    "location": {
+      "lat": 24.779045,
+      "lng": 46.643243
+    },
+    "line": {
+      "name":"Line 4","color": "#FFFF00", "width": 18.0
+    },
+    "rating": 4.2,
+    "vicinity": "standard station"
+  }
+,
+  {
+    "location": {
+      "lat": 24.779259,
+      "lng": 46.643812
+    },
+    "line": {
+      "name":"Line 4","color": "#FFFF00", "width": 18.0
+    },
+    "rating": 4.2,
+    "vicinity": "standard station"
   },
+  {
+    "location": {
+      "lat": 24.779882,
+      "lng": 46.644348
+    },
+    "line": {
+      "name":"Line 4","color": "#FFFF00", "width": 18.0
+    },
+    "rating": 4.2,
+    "vicinity": "standard station"
+  }
+,
 
 {
     "location": {
@@ -875,7 +958,8 @@
     "rating": 4.2,
     "vicinity": "standard station"
   }
-, {
+,
+  {
     "location": {
       "lat": 24.808466,
       "lng": 46.711748
@@ -887,7 +971,65 @@
     "name": "4C2  ",
     "rating": 4.2,
     "vicinity": "standard station"
-  } ,
+  }
+,
+  {
+    "location": {
+      "lat": 24.808987,
+      "lng": 46.712756
+    },
+  "line": {
+    "name":"Line 4","color": "#FFFF00", "width": 18.0
+  },
+    "rating": 4.2,
+    "vicinity": "standard station"
+  },
+  {
+    "location": {
+      "lat": 24.809951,
+      "lng": 46.713330
+    },
+  "line": {
+    "name":"Line 4","color": "#FFFF00", "width": 18.0
+  },
+    "rating": 4.2,
+    "vicinity": "standard station"
+  }
+,
+  {
+    "location": {
+      "lat": 24.815004,
+      "lng": 46.713324
+    },
+  "line": {
+    "name":"Line 4","color": "#FFFF00", "width": 18.0
+  },
+    "rating": 4.2,
+    "vicinity": "standard station"
+  },
+  {
+    "location": {
+      "lat": 24.815004,
+      "lng": 46.713324
+    },
+  "line": {
+    "name":"Line 4","color": "#FFFF00", "width": 18.0
+  },
+    "rating": 4.2,
+    "vicinity": "standard station"
+  },
+  {
+    "location": {
+      "lat": 24.831172,
+      "lng": 46.722267
+    },
+  "line": {
+    "name":"Line 4","color": "#FFFF00", "width": 18.0
+  },
+    "rating": 4.2,
+    "vicinity": "standard station"
+  }
+,
   {
   "location": {
     "lat": 24.845210,
@@ -914,6 +1056,7 @@
   "rating": 4.2,
   "vicinity": "standard station"
 },
+
   {
   "location": {
     "lat": 24.872272,
@@ -924,6 +1067,72 @@
   },
   "id":69,
   "name": "4E2  ",
+  "rating": 4.2,
+  "vicinity": "standard station"
+},
+  {
+    "location": {
+      "lat": 24.888304,
+      "lng": 46.694288
+    },
+    "line": {
+      "name":"Line 4","color": "#FFFF00", "width": 18.0
+    },
+    "rating": 4.2,
+    "vicinity": "standard station"
+  },
+  {
+    "location": {
+      "lat": 24.895376,
+      "lng": 46.697289
+    },
+    "line": {
+      "name":"Line 4","color": "#FFFF00", "width": 18.0
+    },
+    "rating": 4.2,
+    "vicinity": "standard station"
+  },
+  {
+    "location": {
+      "lat": 24.902619,
+      "lng": 46.705885
+    },
+    "line": {
+      "name":"Line 4","color": "#FFFF00", "width": 18.0
+    },
+    "rating": 4.2,
+    "vicinity": "standard station"
+  },
+  {
+    "location": {
+      "lat": 24.911184,
+      "lng": 46.721539
+    },
+    "line": {
+      "name":"Line 4","color": "#FFFF00", "width": 18.0
+    },
+    "rating": 4.2,
+    "vicinity": "standard station"
+  },
+  {
+    "location": {
+      "lat": 24.911184,
+      "lng": 46.721539
+    },
+    "line": {
+      "name":"Line 4","color": "#FFFF00", "width": 18.0
+    },
+    "rating": 4.2,
+    "vicinity": "standard station"
+  },
+  {
+  "location": {
+    "lat": 24.916504,
+    "lng": 46.723700
+  },
+  "line": {
+    "name":"Line 4","color": "#FFFF00", "width": 18.0
+  },
   "rating": 4.2,
   "vicinity": "standard station"
 },
@@ -1121,8 +1330,8 @@
 ,
   {
   "location": {
-    "lat": 24.776511,
-    "lng": 46.777154
+    "lat": 24.776414,
+    "lng": 46.776477
   },
     "line": {
       "name":"Line 2","color": "#ff0000", "width": 18.0
@@ -1131,12 +1340,24 @@
   "name": "2E1",
   "rating": 4.2,
   "vicinity": "standard station"
-}
-,
+},
   {
   "location": {
-    "lat": 24.783636,
-    "lng": 46.791959
+    "lat": 24.779178,
+    "lng": 46.787696
+  },
+    "line": {
+      "name":"Line 2","color": "#ff0000", "width": 18.0
+    },
+  "rating": 4.2,
+  "vicinity": "standard station"
+}
+,
+
+  {
+  "location": {
+    "lat": 24.782230,
+    "lng": 46.794192
   },
     "line": {
       "name":"Line 2","color": "#ff0000", "width": 18.0
@@ -1148,15 +1369,27 @@
 },
 
   {
+    "location": {
+      "lat": 24.797539,
+      "lng": 46.817999
+    },
+    "line": {
+      "name":"Line 2","color": "#ff0000", "width": 18.0
+    },
+    "id":86,
+    "name": "2F1",
+    "rating": 4.2,
+    "vicinity": "standard station"
+  },
+
+  {
   "location": {
-    "lat": 24.792232,
-    "lng": 46.810643
+    "lat": 24.787476,
+    "lng": 46.824936
   },
     "line": {
       "name":"Line 2","color": "#ff0000", "width": 18.0
     },
-  "id":86,
-  "name": "2F1",
   "rating": 4.2,
   "vicinity": "standard station"
 }
@@ -1177,8 +1410,8 @@
 ,
   {
   "location": {
-    "lat": 24.643764,
-    "lng": 46.715423
+    "lat": 24.646677,
+    "lng": 46.715065
   },
     "line": {
       "name":"Line 5","color": "#00FF00", "width": 18.0
@@ -1190,8 +1423,8 @@
 },
   {
   "location": {
-    "lat": 24.653118,
-    "lng": 46.715571
+    "lat": 24.653171,
+    "lng": 46.716457
   },
     "line": {
       "name":"Line 5","color": "#00FF00", "width": 18.0
@@ -1251,11 +1484,25 @@
   "name": "5B2",
   "rating": 4.2,
   "vicinity": "standard station"
-},
+}
+,
+  {
+    "location": {
+      "lat": 24.706198,
+      "lng": 46.717706
+    },
+    "line": {
+      "name":"Line 5","color": "#00FF00", "width": 18.0
+    },
+
+    "rating": 4.2,
+    "vicinity": "standard station"
+  }
+,
   {
   "location": {
-    "lat": 24.706031,
-    "lng": 46.714572
+    "lat": 24.707209,
+    "lng": 46.714875
   },
     "line": {
       "name":"Line 5","color": "#00FF00", "width": 18.0
@@ -1278,29 +1525,65 @@
   "rating": 4.2,
   "vicinity": "standard station"
 },
+
   {
-  "location": {
-    "lat": 24.711654,
-    "lng": 46.702990
-  },
+    "location": {
+      "lat": 24.711654,
+      "lng": 46.702990
+    },
     "line": {
       "name":"Line 5","color": "#00FF00", "width": 18.0
     },
-  "id":96,
-  "name": "5C1",
-  "rating": 4.2,
-  "vicinity": "standard station"
-},
+    "id":96,
+    "name": "5C1",
+    "rating": 4.2,
+    "vicinity": "standard station"
+  }
+,
+  {
+    "location": {
+      "lat": 24.723750,
+      "lng": 46.704743
+    },
+    "line": {
+      "name":"Line 5","color": "#00FF00", "width": 18.0
+    },
+    "rating": 4.2,
+    "vicinity": "standard station"
+  }
+,
   {
   "location": {
-    "lat": 24.727603,
-    "lng": 46.689767
+    "lat": 24.733465,
+    "lng": 46.699179
   },
     "line": {
       "name":"Line 5","color": "#00FF00", "width": 18.0
     },
   "id":97,
   "name": "5C2",
+  "rating": 4.2,
+  "vicinity": "standard station"
+},
+  {
+  "location": {
+    "lat": 24.732699,
+    "lng": 46.696952
+  },
+    "line": {
+      "name":"Line 5","color": "#00FF00", "width": 18.0
+    },
+  "rating": 4.2,
+  "vicinity": "standard station"
+},
+  {
+  "location": {
+    "lat": 24.739854,
+    "lng": 46.693289
+  },
+    "line": {
+      "name":"Line 5","color": "#00FF00", "width": 18.0
+    },
   "rating": 4.2,
   "vicinity": "standard station"
 },
