@@ -11,7 +11,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PolylineOptions
-import com.google.android.libraries.places.api.model.Place
+import com.bootcamp.stations.homeMap.dataLayer.data.Place
 
 class MapViewModel:ViewModel() {
 
@@ -19,9 +19,9 @@ class MapViewModel:ViewModel() {
 private val _listOfMarkers = MutableLiveData<List<Place>>()
     val listOfMarkers get() = _listOfMarkers
 
-    private fun addPolyLine(googleMap: GoogleMap,  ) {
+    private fun addPolyLine(googleMap: GoogleMap, places: Map<Line, List<Place>> , context: Context ) {
         for (line in places) {
-            addMarkers(googleMap, line.value)
+            addMarkers(googleMap, line.value, context)
             val polyLineOption = addNewPolyline(line.value.map {
                 LatLng(it.latLng.latitude, it.latLng.longitude)
             }, line.key.width, Color.parseColor(line.key.color))
@@ -31,7 +31,7 @@ private val _listOfMarkers = MutableLiveData<List<Place>>()
         //endregion
     }
     private fun places(context: Context) {
-        val places: Map<Line, List<com.bootcamp.stations.homeMap.dataLayer.data.Place>> by lazy {
+        val places: Map<Line, List<Place>> by lazy {
             PlacesReader(context).read()
         }
     }
@@ -49,8 +49,8 @@ private val _listOfMarkers = MutableLiveData<List<Place>>()
     }
 
     //region  [add markers to map and call in onMapCreated]
-    private fun addMarkers(googleMap: GoogleMap, listOfPoint: List<Place>, context: Context) {
-        listOfPoint.forEach { place ->
+    private fun addMarkers(googleMap: GoogleMap, listOfMarkers: List<Place>, context: Context) {
+        listOfMarkers.forEach { place ->
             if (place.name != null){
                 val marker = googleMap.addMarker(
                     MarkerOptions()
