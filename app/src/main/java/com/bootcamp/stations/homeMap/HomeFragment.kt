@@ -270,34 +270,34 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
             val placeResult = placesClient.findCurrentPlace(request)
             placeResult.addOnCompleteListener { task ->
                 if (task.isSuccessful && task.result != null) {
-                    val likelyPlaces = task.result
+//                    val likelyPlaces = task.result
                     map!!.isMyLocationEnabled = true
                     // Set the count, handling cases where less than 5 entries are returned.
-                    val count =
-                        if (likelyPlaces != null && likelyPlaces.placeLikelihoods.size < M_MAX_ENTRIES) {
-                            likelyPlaces.placeLikelihoods.size
-                        } else {
-                            M_MAX_ENTRIES
-                        }
-                    var i = 0
-                    likelyPlaceNames = arrayOfNulls(count)
-                    likelyPlaceAddresses = arrayOfNulls(count)
-                    likelyPlaceAttributions = arrayOfNulls<List<*>?>(count)
-                    likelyPlaceLatLngs = arrayOfNulls(count)
-                    for (placeLikelihood in likelyPlaces?.placeLikelihoods ?: emptyList()) {
-                        // Build a list of likely places to show the user.
-                        likelyPlaceNames[i] = placeLikelihood.place.name
-                        likelyPlaceAddresses[i] = placeLikelihood.place.address
-                        likelyPlaceAttributions[i] = placeLikelihood.place.attributions
-                        likelyPlaceLatLngs[i] = placeLikelihood.place.latLng
-                        i++
-                        if (i > count - 1) {
-                            break
-                        }
-                    }
+//                    val count =
+//                        if (likelyPlaces != null && likelyPlaces.placeLikelihoods.size < M_MAX_ENTRIES) {
+//                            likelyPlaces.placeLikelihoods.size
+//                        } else {
+//                            M_MAX_ENTRIES
+//                        }
+//                    var i = 0
+//                    likelyPlaceNames = arrayOfNulls(count)
+//                    likelyPlaceAddresses = arrayOfNulls(count)
+//                    likelyPlaceAttributions = arrayOfNulls<List<*>?>(count)
+//                    likelyPlaceLatLngs = arrayOfNulls(count)
+//                    for (placeLikelihood in likelyPlaces?.placeLikelihoods ?: emptyList()) {
+//                        // Build a list of likely places to show the user.
+//                        likelyPlaceNames[i] = placeLikelihood.place.name
+//                        likelyPlaceAddresses[i] = placeLikelihood.place.address
+//                        likelyPlaceAttributions[i] = placeLikelihood.place.attributions
+//                        likelyPlaceLatLngs[i] = placeLikelihood.place.latLng
+//                        i++
+//                        if (i > count - 1) {
+//                            break
+//                        }
+//                    }
                     // Show a dialog offering the user the list of likely places, and add a
                     // marker at the selected place.
-                    openPlacesDialog()
+//                    openPlacesDialog()
                 } else {
                     Log.e(TAG, "Exception: %s", task.exception)
                 }
@@ -322,47 +322,47 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
     }
 
     //region [START maps_current_place_open_places_dialog]
-    private fun openPlacesDialog() {
-        // Ask the user to choose the place where they are now.
-        val listener =
-            DialogInterface.OnClickListener { _, which -> // The "which" argument contains the position of the selected item.
-                val markerLatLng = likelyPlaceLatLngs[which]
-                var markerSnippet = likelyPlaceAddresses[which]
-                if (likelyPlaceAttributions[which] != null) {
-                    markerSnippet = """
-                    $markerSnippet
-                    ${likelyPlaceAttributions[which]}
-                    """.trimIndent()
-                }
-
-                if (markerLatLng == null) {
-                    return@OnClickListener
-                }
-
-                // Add a marker for the selected place, with an info window
-                // showing information about that place.
-                map?.addMarker(
-                    MarkerOptions()
-                        .title(likelyPlaceNames[which])
-                        .position(markerLatLng)
-                        .snippet(markerSnippet)
-                )
-
-                // Position the map's camera at the location of the marker.
-                map?.moveCamera(
-                    CameraUpdateFactory.newLatLngZoom(
-                        markerLatLng,
-                        DEFAULT_ZOOM.toFloat()
-                    )
-                )
-            }
-
-        // Display the dialog.
-        AlertDialog.Builder(this.requireContext())
-            .setTitle(R.string.pick_place)
-            .setItems(likelyPlaceNames, listener)
-            .show()
-    }
+//    private fun openPlacesDialog() {
+//        // Ask the user to choose the place where they are now.
+//        val listener =
+//            DialogInterface.OnClickListener { _, which -> // The "which" argument contains the position of the selected item.
+//                val markerLatLng = likelyPlaceLatLngs[which]
+//                var markerSnippet = likelyPlaceAddresses[which]
+//                if (likelyPlaceAttributions[which] != null) {
+//                    markerSnippet = """
+//                    $markerSnippet
+//                    ${likelyPlaceAttributions[which]}
+//                    """.trimIndent()
+//                }
+//
+//                if (markerLatLng == null) {
+//                    return@OnClickListener
+//                }
+//
+//                // Add a marker for the selected place, with an info window
+//                // showing information about that place.
+//                map?.addMarker(
+//                    MarkerOptions()
+//                        .title(likelyPlaceNames[which])
+//                        .position(markerLatLng)
+//                        .snippet(markerSnippet)
+//                )
+//
+//                // Position the map's camera at the location of the marker.
+//                map?.moveCamera(
+//                    CameraUpdateFactory.newLatLngZoom(
+//                        markerLatLng,
+//                        DEFAULT_ZOOM.toFloat()
+//                    )
+//                )
+//            }
+//
+//        // Display the dialog.
+//        AlertDialog.Builder(this.requireContext())
+//            .setTitle(R.string.pick_place)
+//            .setItems(likelyPlaceNames, listener)
+//            .show()
+//    }
     //endregion
 
     override fun onDestroyView() {
