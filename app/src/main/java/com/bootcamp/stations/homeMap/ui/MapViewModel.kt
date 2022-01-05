@@ -1,23 +1,57 @@
 package com.bootcamp.stations.homeMap.ui
 
+import android.Manifest
 import android.content.Context
+import android.content.pm.PackageManager
 import android.graphics.Color
+import android.location.Location
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.bootcamp.stations.homeMap.dataLayer.data.Line
 import com.bootcamp.stations.homeMap.dataLayer.data.PlacesReader
-import com.bootcamp.stations.homeMap.util.trainIcon
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PolylineOptions
 import com.bootcamp.stations.homeMap.dataLayer.data.Place
+import com.bootcamp.stations.homeMap.util.Constants
+import com.bootcamp.stations.homeMap.util.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION
+import com.bootcamp.stations.homeMap.util.getDeviceLocation
+import com.google.android.gms.location.FusedLocationProviderClient
 
 class MapViewModel:ViewModel() {
 
     //    private lateinit var auth: FirebaseAuth
 private val _listOfMarkers = MutableLiveData<List<Place>>()
     val listOfMarkers get() = _listOfMarkers
+
+    private val _locationPermissionGranted= MutableLiveData<Boolean>()
+    val locationPermissionGranted: LiveData<Boolean> get() = _locationPermissionGranted
+
+    private val _lastKnownLocation : MutableLiveData<Location?>? = null
+
+    val lastKnownLocation get() = _lastKnownLocation
+
+    fun isPermitionGranted(locationPermissionGranted:Boolean ) {
+        _locationPermissionGranted.value = locationPermissionGranted
+
+    }
+
+     fun getLastKnownLocation(location: Location?) {
+         _lastKnownLocation?.value = location
+     }
+
+     fun getTheDeviceLocation (context: FragmentActivity, googleMap: GoogleMap,
+                                      fusedLocationProviderClient: FusedLocationProviderClient) {
+        getDeviceLocation(context, locationPermissionGranted.value!!,googleMap,
+            lastKnownLocation?.value!!,fusedLocationProviderClient)
+
+    }
 
     private fun addPolyLine(googleMap: GoogleMap, places: Map<Line, List<Place>> , context: Context ) {
         for (line in places) {
@@ -56,10 +90,11 @@ private val _listOfMarkers = MutableLiveData<List<Place>>()
                 val marker = googleMap.addMarker(
                     MarkerOptions()
                         .title(place.name)
-                        .position(LatLng(place.latLng!!.latitude, place.latLng!!.longitude))
-                        .icon(trainIcon(context))
+                        .position(LatLng(place.latLng.latitude, place.latLng.longitude))
+                        .icon(Constants.trainIcon(context))
                 )
             }
         }
     }
+
 }
