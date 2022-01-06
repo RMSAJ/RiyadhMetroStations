@@ -178,7 +178,7 @@ internal class HomeFragment : Fragment() {
             } else {
                 map?.isMyLocationEnabled = false
                 map?.uiSettings?.isMyLocationButtonEnabled = false
-                viewModel.getLastKnownLocation(null)
+                viewModel.setLastKnownLocation(null)
                 getLocationPermission()
             }
         } catch (e: SecurityException) {
