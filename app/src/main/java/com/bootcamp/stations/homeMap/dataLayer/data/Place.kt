@@ -4,10 +4,10 @@ import android.location.Location
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.clustering.ClusterItem
 
-data class Place( val id: Int?= 0,
-                val name: String? ="",
-                 val latLng: LatLng?= null,
-                 val address: String? = "",
-                 val rating: Double? = 1.1,
+data class Place( val id: Int?,
+                val name: String?,
+                 val latLng: LatLng,
+                 val address: String,
+                 val rating: Double,
                 val line:Line=Line())
 

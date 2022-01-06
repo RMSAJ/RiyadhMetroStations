@@ -75,9 +75,9 @@ private var _listOfMarkers = MutableStateFlow(Markers())
     }
      fun places(context: Context,googleMap: GoogleMap ) {
         val places: Map<Line, List<Place>> by lazy {
-            PlacesReader(context).read()
+            mapMarkersByLine
         }
-//         addPolyLine(googleMap,_listOfMarkers.value.markers,context)
+         addPolyLine(googleMap,places,context)
     }
 
     private fun addNewPolyline(
@@ -94,8 +94,8 @@ private var _listOfMarkers = MutableStateFlow(Markers())
     fun getMarkers() {
         viewModelScope.launch {
             Log.e("TAG", "getMarkers ViewModel")
-            val placeMarker = getMarkersUseCase.invoke().toPlace()
-            _listOfMarkers.value.markers.add(placeMarker)
+            val placeMarker = getMarkersUseCase.invoke()
+            _listOfMarkers.value.markers.add(placeMarker.toPlace())
             val mapping = _listOfMarkers.value.markers
 
             mapping.forEach {  place ->
@@ -114,7 +114,7 @@ private var _listOfMarkers = MutableStateFlow(Markers())
                 val marker = googleMap.addMarker(
                     MarkerOptions()
                         .title(place.name)
-                        .position(LatLng(place.latLng!!.latitude, place.latLng.longitude))
+                        .position(LatLng(place.latLng.latitude, place.latLng.longitude))
                         .icon(Constants.trainIcon(context))
                 )
             }
