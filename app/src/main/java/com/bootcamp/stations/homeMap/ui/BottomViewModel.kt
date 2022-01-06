@@ -17,24 +17,24 @@ class BottomViewModel : ViewModel() {
 
 
 
-    fun newFav (name: String,latLng: LatLng,address: String) {
-
-        favAddByItem(returnItem(name,latLng,address))
-    }
+//    fun newFav (name: String,latLng: LatLng,address: String) {
+//
+//        favAddByItem(returnItem(name,latLng,address))
+//    }
 
     private fun favAddByItem(item : Place) {
         favListItem.add(item)
     }
 
-    private fun returnItem(
-        name: String,
-        latLng: LatLng,
-        address: String,
-        rating: Double = 5.0
-    ): Place {
-
-        return Place(name, latLng, address, rating)
-    }
+//    private fun returnItem(
+//        name: String,
+//        latLng: LatLng,
+//        address: String,
+//        rating: Double = 5.0
+//    ): Place {
+//
+//        return Place(name, latLng, address, rating)
+//    }
 
 
 

@@ -20,6 +20,7 @@ import com.bootcamp.stations.BuildConfig
 import com.bootcamp.stations.R
 import com.bootcamp.stations.databinding.FragmentHomeBinding
 import com.bootcamp.stations.homeMap.ui.MapViewModel
+import com.bootcamp.stations.homeMap.ui.MapViewModelFactory
 import com.bootcamp.stations.homeMap.util.Constants.personIcon
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -34,7 +35,7 @@ import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.maps.android.ktx.awaitMap
 import com.google.maps.android.ktx.awaitMapLoad
 
-internal class HomeFragment : Fragment() {
+internal class HomeFragment : Fragment(), OnMapReadyCallback {
 
     //n variabls
 
@@ -49,7 +50,9 @@ internal class HomeFragment : Fragment() {
 
     private val binding get() = _binding
 
-    private val viewModel: MapViewModel by activityViewModels()
+    private val viewModel: MapViewModel by activityViewModels{
+        MapViewModelFactory()
+    }
 
     private val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
 
@@ -96,8 +99,8 @@ internal class HomeFragment : Fragment() {
         if (item.itemId == R.id.option_get_place) {
             showCurrentPlace(map!!,viewModel.locationPermissionGranted.value!!,placesClient,this.requireContext())
             viewModel.getTheDeviceLocation(this.requireActivity(),map!!,fusedLocationProviderClient)
-//            getDeviceLocation(this.requireActivity(),viewModel.locationPermissionGranted.value!!,
-//                map!!, viewModel.lastKnownLocation?.value!!, fusedLocationProviderClient)
+            getDeviceLocation(this.requireActivity(),viewModel.locationPermissionGranted.value!!,
+                map!!, viewModel.lastKnownLocation?.value!!, fusedLocationProviderClient)
         }
         return true
     }
@@ -107,12 +110,15 @@ internal class HomeFragment : Fragment() {
         val mapFragment = childFragmentManager
             .findFragmentById(R.id.myMap) as SupportMapFragment
         lifecycleScope.launchWhenCreated {
+
             //get Map
             mapFragment.awaitMap()
             // Wait for map to finish loading
             map?.awaitMapLoad()
-            onMapReadyCallback.onMapReady(map!!)
+//            onMapReadyCallback.onMapReady(map!!)
         }
+        getLocationPermission()
+
     }
 //endregion
 
@@ -179,7 +185,6 @@ internal class HomeFragment : Fragment() {
                 map?.isMyLocationEnabled = false
                 map?.uiSettings?.isMyLocationButtonEnabled = false
                 viewModel.setLastKnownLocation(null)
-                getLocationPermission()
             }
         } catch (e: SecurityException) {
             Log.e("Exception: %s", e.message, e)
@@ -190,6 +195,10 @@ internal class HomeFragment : Fragment() {
         super.onDestroyView()
         _binding = null
         map = null
+    }
+
+    override fun onMapReady(p0: GoogleMap) {
+
     }
 
 

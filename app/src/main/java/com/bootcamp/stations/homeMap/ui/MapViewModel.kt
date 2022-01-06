@@ -36,6 +36,9 @@ class MapViewModel(
 private var _listOfMarkers = MutableStateFlow(Markers())
     val listOfMarkers get() = _listOfMarkers.asLiveData()
 
+    init {
+        getMarkers()
+    }
     private val _locationPermissionGranted= MutableLiveData<Boolean>()
     val locationPermissionGranted: LiveData<Boolean> get() = _locationPermissionGranted
 

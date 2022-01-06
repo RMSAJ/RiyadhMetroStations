@@ -14,7 +14,7 @@ class MarkersRealTimeDataSource(
     private val realTimeDataFireStore: FirebaseDatabase,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) :MarkersDataSource {
- private lateinit var  place: PlaceResponse
+ private  var  place = PlaceResponse()
     override suspend fun getMarkers(): PlaceResponse = withContext(ioDispatcher) {
          realTimeDataFireStore.getReference("data").
          child("markers").addValueEventListener(object: ValueEventListener {

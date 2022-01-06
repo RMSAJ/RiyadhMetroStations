@@ -27,7 +27,7 @@ data class Markers(
 fun PlaceResponse.toPlace(): Place = Place(
     id= id,
     name = name,
-    latLng = LatLng(location!!.lat, location.lng),
+    latLng = LatLng(location!!.lat, location!!.lng),
     address = vicinity,
     rating = rating,
     line = line?:Line()
