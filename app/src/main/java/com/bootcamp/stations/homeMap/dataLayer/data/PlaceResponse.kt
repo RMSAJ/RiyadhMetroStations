@@ -4,18 +4,18 @@ import android.graphics.Color
 import com.google.android.gms.maps.model.LatLng
 
 data class PlaceResponse(
-    val id: Int? ,
-    val location: GeometryLocation,
-    val name: String,
-    val vicinity: String,
-    val rating: Double,
+    val id: Int? =-1,
+    val location: GeometryLocation=GeometryLocation(),
+    val name: String="",
+    val vicinity: String="",
+    val rating: Double=0.0,
     val line:Line=Line()
 )
 data class Line(val name:String="",val color: String="#ffffff",val width:Float=10f)
 
 data class GeometryLocation(
-    val lat: Double,
-    val lng: Double
+    val lat: Double=0.0,
+    val lng: Double=0.0
 )
 
 data class Markers(

@@ -21,66 +21,55 @@ import com.bootcamp.stations.homeMap.util.Constants
 import com.bootcamp.stations.homeMap.util.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION
 import com.bootcamp.stations.homeMap.util.getDeviceLocation
 import com.google.android.gms.location.FusedLocationProviderClient
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import com.google.common.collect.MapMaker
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class MapViewModel(
     private val getMarkersUseCase: GetMarkersUseCase
-) :ViewModel() {
+) : ViewModel() {
 
-    private val _mapMarkersByLine= mutableMapOf<Line,MutableList<Place>>()
+    private val _mapMarkersByLine = mutableMapOf<Line, MutableList<Place>>()
     val mapMarkersByLine get() = _mapMarkersByLine
 
     //    private lateinit var auth: FirebaseAuth
-private var _listOfMarkers = MutableStateFlow(Markers())
-    val listOfMarkers get() = _listOfMarkers.asLiveData()
+    private var _mapUiState = MutableStateFlow(MapUiState())
+    val mapUiState = _mapUiState.asStateFlow()
 
-    init {
-        getMarkers()
-    }
-    private val _locationPermissionGranted= MutableLiveData<Boolean>()
+
+    private val _locationPermissionGranted = MutableLiveData<Boolean>()
     val locationPermissionGranted: LiveData<Boolean> get() = _locationPermissionGranted
 
-    private val _lastKnownLocation : MutableLiveData<Location?>? = null
+    private val _lastKnownLocation: MutableLiveData<Location?>? = null
 
     val lastKnownLocation get() = _lastKnownLocation
 
-    fun isPermitionGranted(locationPermissionGranted:Boolean ) {
+    fun isPermitionGranted(locationPermissionGranted: Boolean) {
         _locationPermissionGranted.value = locationPermissionGranted
 
     }
 
-     fun setLastKnownLocation(location: Location?) {
-         _lastKnownLocation?.value = location
-     }
+    init {
+        getMarkers()
+    }
 
-     fun getTheDeviceLocation (context: FragmentActivity, googleMap: GoogleMap,
-                                      fusedLocationProviderClient: FusedLocationProviderClient) {
-        getDeviceLocation(context, locationPermissionGranted.value!!,googleMap,
-            lastKnownLocation?.value!!,fusedLocationProviderClient)
+    fun setLastKnownLocation(location: Location?) {
+        _lastKnownLocation?.value = location
+    }
+
+    fun getTheDeviceLocation(
+        context: FragmentActivity, googleMap: GoogleMap,
+        fusedLocationProviderClient: FusedLocationProviderClient
+    ) {
+        getDeviceLocation(
+            context, locationPermissionGranted.value!!, googleMap,
+            lastKnownLocation?.value!!, fusedLocationProviderClient
+        )
 
     }
 
-    private fun addPolyLine(googleMap: GoogleMap, places: Map<Line, List<Place>> , context: Context ) {
-        for (line in places) {
-            addMarkers(googleMap, line.value, context)
-            val polyLineOption = addNewPolyline(line.value.map {
-                LatLng(it.latLng!!.latitude, it.latLng.longitude)
-            }, line.key.width, Color.parseColor(line.key.color))
-            googleMap.addPolyline(polyLineOption).tag = line.key.name
-        }
-        //region poly1
-        //endregion
-    }
-     fun places(context: Context,googleMap: GoogleMap ) {
-        val places: Map<Line, List<Place>> by lazy {
-            mapMarkersByLine
-        }
-         addPolyLine(googleMap,places,context)
-    }
 
-    private fun addNewPolyline(
+    fun addNewPolyline(
         listOfPoint: List<LatLng>,
         width: Float,
         color: Int
@@ -91,34 +80,44 @@ private var _listOfMarkers = MutableStateFlow(Markers())
             .width(width)
             .color(color)
     }
+
+    fun fakemakers() {
+
+
+        var mapitem: MutableMap<LineUiStates, List<MarkerItemUIStatus>> = mutableMapOf()
+        var list = listOf(
+            MarkerItemUIStatus(latLng = LatLng(24.5504623769522, 46.9874), name = "Zamel"),
+            MarkerItemUIStatus(latLng = LatLng(25.5504623769522, 46.9874), name = "Zaeeeeemel"),
+            MarkerItemUIStatus(
+                latLng = LatLng(26.5504623769522, 46.9874), name = "Zaerrmel"
+            )
+        )
+        mapitem[LineUiStates("Zamel Line", "#0000ff", 18f)] = list
+        _mapUiState.update { it.copy(marker = mapitem) }
+    }
+
     fun getMarkers() {
         viewModelScope.launch {
             Log.e("TAG", "getMarkers ViewModel")
             val placeMarker = getMarkersUseCase.invoke()
-            _listOfMarkers.value.markers.add(placeMarker.toPlace())
-            val mapping = _listOfMarkers.value.markers
 
-            mapping.forEach {  place ->
-                if (mapMarkersByLine[place.line] == null){
-                    mapMarkersByLine[place.line]= mutableListOf()
+            placeMarker.collect {
+
+
+                val mapMarkersByLine = mutableMapOf<LineUiStates, MutableList<MarkerItemUIStatus>>()
+                it.forEach { place ->
+                    val line = LineUiStates(place.line.name, place.line.color, place.line.width)
+                    val markerItemUIStatus =
+                        MarkerItemUIStatus(place.id, place.name, place.latLng, place.address)
+
+                    if (mapMarkersByLine[line] == null) {
+                        mapMarkersByLine[line] = mutableListOf()
+                    }
+                    mapMarkersByLine[line]?.add(markerItemUIStatus)
                 }
-                mapMarkersByLine[place.line]?.add(place)
+                _mapUiState.update { it.copy(marker = mapMarkersByLine) }
             }
         }
-    }
 
-    //region  [add markers to map and call in onMapCreated]
-    private fun addMarkers(googleMap: GoogleMap, listOfMarkers: List<Place>, context: Context) {
-        listOfMarkers.forEach { place ->
-            if (place.name != null){
-                val marker = googleMap.addMarker(
-                    MarkerOptions()
-                        .title(place.name)
-                        .position(LatLng(place.latLng.latitude, place.latLng.longitude))
-                        .icon(Constants.trainIcon(context))
-                )
-            }
-        }
     }
-
 }

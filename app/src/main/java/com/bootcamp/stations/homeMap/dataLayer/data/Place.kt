@@ -1,13 +1,11 @@
 package com.bootcamp.stations.homeMap.dataLayer.data
 
-import android.location.Location
 import com.google.android.gms.maps.model.LatLng
-import com.google.maps.android.clustering.ClusterItem
 
-data class Place( val id: Int?,
-                val name: String?,
-                 val latLng: LatLng,
-                 val address: String,
-                 val rating: Double,
+data class Place( val id: Int? = 0,
+                val name: String?= "",
+                 val latLng: LatLng =LatLng(123.002,21.00) ,
+                 val address: String = "",
+                 val rating: Double = 0.0,
                 val line:Line=Line())
 
