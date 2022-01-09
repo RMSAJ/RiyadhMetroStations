@@ -1,27 +1,16 @@
 package com.bootcamp.stations.homeMap.ui
 
-import android.Manifest
-import android.content.Context
-import android.content.pm.PackageManager
-import android.graphics.Color
+
 import android.location.Location
 import android.util.Log
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.content.ContextCompat
-import androidx.fragment.app.FragmentActivity
+
 import androidx.lifecycle.*
 import com.bootcamp.stations.homeMap.dataLayer.data.*
-import com.google.android.gms.maps.GoogleMap
+
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
+
 import com.google.android.gms.maps.model.PolylineOptions
 import com.bootcamp.stations.homeMap.domain.GetMarkersUseCase
-import com.bootcamp.stations.homeMap.util.Constants
-import com.bootcamp.stations.homeMap.util.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION
-import com.bootcamp.stations.homeMap.util.getDeviceLocation
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.common.collect.MapMaker
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
@@ -40,7 +29,7 @@ class MapViewModel(
     private val _locationPermissionGranted = MutableLiveData<Boolean>()
     val locationPermissionGranted: LiveData<Boolean> get() = _locationPermissionGranted
 
-    private val _lastKnownLocation: MutableLiveData<Location?>? = null
+    private val _lastKnownLocation =  MutableLiveData<Location>()
 
     val lastKnownLocation get() = _lastKnownLocation
 
@@ -54,19 +43,9 @@ class MapViewModel(
     }
 
     fun setLastKnownLocation(location: Location?) {
-        _lastKnownLocation?.value = location
+        _lastKnownLocation.value = location!!
     }
 
-    fun getTheDeviceLocation(
-        context: FragmentActivity, googleMap: GoogleMap,
-        fusedLocationProviderClient: FusedLocationProviderClient
-    ) {
-        getDeviceLocation(
-            context, locationPermissionGranted.value!!, googleMap,
-            lastKnownLocation?.value!!, fusedLocationProviderClient
-        )
-
-    }
 
 
     fun addNewPolyline(
@@ -84,8 +63,8 @@ class MapViewModel(
     fun fakemakers() {
 
 
-        var mapitem: MutableMap<LineUiStates, List<MarkerItemUIStatus>> = mutableMapOf()
-        var list = listOf(
+        val mapitem: MutableMap<LineUiStates, List<MarkerItemUIStatus>> = mutableMapOf()
+        val list = listOf(
             MarkerItemUIStatus(latLng = LatLng(24.5504623769522, 46.9874), name = "Zamel"),
             MarkerItemUIStatus(latLng = LatLng(25.5504623769522, 46.9874), name = "Zaeeeeemel"),
             MarkerItemUIStatus(

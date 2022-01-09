@@ -1,23 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
     android:orientation="vertical"
     tools:context=".profile.ProfileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
 
-        android:src="@drawable/ic_profile"
-        app:tint="@color/Green_200" />
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/profileImage"
+        android:layout_width="132dp"
+        android:layout_height="132dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:shapeAppearanceOverlay="@style/Circular"
+        tools:src="@drawable/trainm"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:layout_width="match_parent"
+    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+        android:id="@+id/profileName"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/hello_blank_fragment" />
+        android:text="@string/rakan_aljarallah"
+        android:layout_marginTop="32dp"
+        android:padding="4dp"
+        style="@style/Circular"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center_horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profileImage" />
 
-</LinearLayout>
+
+    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+        android:id="@+id/profileEmail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+     android:text="suioaydhash@ksjdkaj.com"
+        android:layout_marginTop="32dp"
+        style="@style/Circular"
+        android:gravity="center_horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profileName"
+        />
+
+    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+        android:id="@+id/profilephone"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="0545049504"
+        android:layout_marginTop="32dp"
+        android:padding="4dp"
+        style="@style/Circular"
+        android:gravity="center_horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profileEmail"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

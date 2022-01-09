@@ -8,21 +8,14 @@ import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.LatLng
 
 object Constants {
-    fun trainIcon(context: Context): BitmapDescriptor {
-        val trainIcon: BitmapDescriptor by lazy {
-            val color = ContextCompat.getColor(context, R.color.Primary_Green_900)
-            BitmapHelper.vectorToBitmap(context, R.drawable.train, color)
-        }
-        return trainIcon
-    }
 
-    fun personIcon(context: Context): BitmapDescriptor {
-        val personIcon: BitmapDescriptor by lazy {
-            val color = ContextCompat.getColor(context, R.color.Cyan_700)
-            BitmapHelper.vectorToBitmap(context, R.drawable.ic_profile, color)
-        }
-        return personIcon
-    }
+
+
+
+
+
+
+
 }
 
      val TAG = HomeFragment::class.java.simpleName

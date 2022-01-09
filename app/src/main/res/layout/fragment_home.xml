@@ -2,7 +2,6 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
     <data>
 <variable
     name="mapViewModel"
@@ -19,22 +18,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.google.android.material.appbar.AppBarLayout
-                android:id="@+id/appBarLayout"
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/app_bar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="?attr/actionBarSize"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                app:navigationIcon="@drawable/shr_menu"
+                app:title="Map"
+                app:titleTextColor="@color/Green_700" />
 
-                <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/app_bar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    app:navigationIcon="@drawable/shr_menu"
-                    app:title="@string/app_name"
-                    app:titleTextColor="@color/white" />
-            </com.google.android.material.appbar.AppBarLayout>
             <!--    <com.google.android.gms.maps.MapView-->
             <!--        android:id="@+id/myMap"-->
             <!--        android:layout_width="match_parent"-->
@@ -54,7 +49,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+                app:layout_constraintTop_toBottomOf="@id/app_bar"
                 tools:context=".homeMap.HomeFragment" />
 
 
