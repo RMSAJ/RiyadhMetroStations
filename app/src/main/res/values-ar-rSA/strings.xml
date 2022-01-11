@@ -41,4 +41,5 @@
     <string name="dark_theme_description">تفاصيل العتمة</string>
     <string name="light_theme_description">تفاصيل الاضائة</string>
     <string name="system_theme_description">تفاصيل خلفية النظام</string>
+    <string name="Email">The Email is not Valid</string>
 </resources>

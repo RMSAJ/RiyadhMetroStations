@@ -89,7 +89,7 @@ class RegisterFragment : Fragment() {
 
         binding?.btnSingupReg?.alpha = 0.5f
         binding?.btnSingupReg?.isEnabled = true
-        viewModel.checkUserInfoEmpty(username, usernamelay, icon,pass,passlay,rePass,rePasslay)
+//        viewModel.checkUserInfoEmpty(username, usernamelay, icon,pass,passlay,rePass,rePasslay)
 
         if(viewModel.isValidUser.value == true) {
             auth.createUserWithEmailAndPassword(username.text.toString(),pass.text.toString())
@@ -107,28 +107,10 @@ class RegisterFragment : Fragment() {
         }
     }
 
+    private fun showError(message: String) {
 
+    }
 
-//    private fun createAccount(email: String, password: String) {
-////        var auth: FirebaseAuth = Firebase.auth
-//        binding?.btnSingupReg?.isEnabled = false
-//        binding?.btnSingupReg?.alpha = 0.5f
-//        // [START create_user_with_email]
-//        auth.createUserWithEmailAndPassword(email, password)
-//            .addOnCompleteListener() { task ->
-//                if (task.isSuccessful) {
-//                    Toast.makeText(this.context, "Register SuccessFull",Toast.LENGTH_LONG).show()
-//                    val action = RegisterFragmentDirections.actionRegisterFragmentToHomeFragment()
-//                    findNavController().navigate(action)
-//                } else {
-//                    binding?.btnSingupReg?.isEnabled = true
-//                    binding?.btnSingupReg?.alpha = 0.5f
-//                    Toast.makeText(context, task.exception?.message,Toast.LENGTH_SHORT).show()
-//                    // If sign in fails, display a message to the user.
-////                    updateUI(null)
-//                }
-//            }
-//    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
