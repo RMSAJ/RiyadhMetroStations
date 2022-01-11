@@ -25,7 +25,6 @@ class MapViewModel(
     private var _mapUiState = MutableStateFlow(MapUiState())
     val mapUiState = _mapUiState.asStateFlow()
 
-
     private val _locationPermissionGranted = MutableLiveData<Boolean>()
     val locationPermissionGranted: LiveData<Boolean> get() = _locationPermissionGranted
 
@@ -35,8 +34,8 @@ class MapViewModel(
 
     fun isPermitionGranted(locationPermissionGranted: Boolean) {
         _locationPermissionGranted.value = locationPermissionGranted
-
     }
+
 
     init {
         getMarkers()
@@ -45,8 +44,6 @@ class MapViewModel(
     fun setLastKnownLocation(location: Location?) {
         _lastKnownLocation.value = location!!
     }
-
-
 
     fun addNewPolyline(
         listOfPoint: List<LatLng>,
@@ -60,20 +57,20 @@ class MapViewModel(
             .color(color)
     }
 
-    fun fakemakers() {
-
-
-        val mapitem: MutableMap<LineUiStates, List<MarkerItemUIStatus>> = mutableMapOf()
-        val list = listOf(
-            MarkerItemUIStatus(latLng = LatLng(24.5504623769522, 46.9874), name = "Zamel"),
-            MarkerItemUIStatus(latLng = LatLng(25.5504623769522, 46.9874), name = "Zaeeeeemel"),
-            MarkerItemUIStatus(
-                latLng = LatLng(26.5504623769522, 46.9874), name = "Zaerrmel"
-            )
-        )
-        mapitem[LineUiStates("Zamel Line", "#0000ff", 18f)] = list
-        _mapUiState.update { it.copy(marker = mapitem) }
-    }
+//    fun fakemakers() {
+//
+//
+//        val mapitem: MutableMap<LineUiStates, List<MarkerItemUIStatus>> = mutableMapOf()
+//        val list = listOf(
+//            MarkerItemUIStatus(latLng = LatLng(24.5504623769522, 46.9874), name = "Zamel"),
+//            MarkerItemUIStatus(latLng = LatLng(25.5504623769522, 46.9874), name = "Zaeeeeemel"),
+//            MarkerItemUIStatus(
+//                latLng = LatLng(26.5504623769522, 46.9874), name = "Zaerrmel"
+//            )
+//        )
+//        mapitem[LineUiStates("Zamel Line", "#0000ff", 18f)] = list
+//        _mapUiState.update { it.copy(marker = mapitem) }
+//    }
 
     fun getMarkers() {
         viewModelScope.launch {

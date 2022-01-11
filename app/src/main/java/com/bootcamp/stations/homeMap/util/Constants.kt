@@ -1,10 +1,6 @@
 package com.bootcamp.stations.homeMap.util
 
-import android.content.Context
-import androidx.core.content.ContextCompat
-import com.bootcamp.stations.R
-import com.bootcamp.stations.homeMap.HomeFragment
-import com.google.android.gms.maps.model.BitmapDescriptor
+import com.bootcamp.stations.homeMap.ui.HomeFragment
 import com.google.android.gms.maps.model.LatLng
 
 object Constants {

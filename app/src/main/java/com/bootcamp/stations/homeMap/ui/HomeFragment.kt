@@ -1,4 +1,4 @@
-package com.bootcamp.stations.homeMap
+package com.bootcamp.stations.homeMap.ui
 
 import com.bootcamp.stations.homeMap.util.*
 import android.Manifest
@@ -10,7 +10,6 @@ import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import  com.google.android.libraries.places.api.model.Place.Field.*
 import androidx.fragment.app.Fragment
@@ -25,10 +24,6 @@ import androidx.navigation.fragment.findNavController
 import com.bootcamp.stations.BuildConfig
 import com.bootcamp.stations.R
 import com.bootcamp.stations.databinding.FragmentHomeBinding
-import com.bootcamp.stations.homeMap.ui.LineUiStates
-import com.bootcamp.stations.homeMap.ui.MapViewModel
-import com.bootcamp.stations.homeMap.ui.MapViewModelFactory
-import com.bootcamp.stations.homeMap.ui.MarkerItemUIStatus
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -96,7 +91,7 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
         Places.initialize(requireContext(), BuildConfig.MAPS_API_KEY)
         placesClient = Places.createClient(requireContext())
         // Set up the toolbar.
-        (activity as? AppCompatActivity)?.setSupportActionBar(binding?.appBar)
+        (activity as? AppCompatActivity)?.setSupportActionBar(binding?.appBarSetting)
 
         // Construct a FusedLocationProviderClient.
         fusedLocationProviderClient =
@@ -116,9 +111,15 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
         if (item.itemId == R.id.option_get_place) {
             showCurrentPlace()
 //            getDeviceLocation()
-
+        } else if (item.itemId == R.id.settings) {
+            goToSettings()
         }
         return true
+    }
+
+    private fun goToSettings(){
+        val action = HomeFragmentDirections.actionHomeFragmentToSettingsFragment()
+        findNavController().navigate(action)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -159,7 +160,8 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
             locationPermissionGranted = true
         } else {
             ActivityCompat.requestPermissions(this.requireActivity(), arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION)
+                PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION
+            )
         }
     }
 

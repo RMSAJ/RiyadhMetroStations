@@ -1,18 +1,14 @@
 package com.bootcamp.stations.user
 
 import android.graphics.drawable.Drawable
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.fragment.findNavController
 import com.bootcamp.stations.user.domain.AddUserUseCase
 import com.bootcamp.stations.user.model.UserModel
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 
 class UserViewModel(private val addUserUseCase: AddUserUseCase) :ViewModel() {

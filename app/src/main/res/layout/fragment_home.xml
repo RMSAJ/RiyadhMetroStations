@@ -11,7 +11,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".homeMap.HomeFragment">
+        tools:context=".homeMap.ui.HomeFragment">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,7 +20,7 @@
 
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/app_bar"
+                android:id="@+id/app_bar_setting"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -45,12 +45,12 @@
                 android:id="@+id/myMap"
                 android:name="com.google.android.gms.maps.SupportMapFragment"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/app_bar"
-                tools:context=".homeMap.HomeFragment" />
+                app:layout_constraintTop_toBottomOf="@+id/app_bar_setting"
+                tools:context=".homeMap.ui.HomeFragment" />
 
 
             <!--    <TextView-->

@@ -7,7 +7,18 @@
     android:padding="16dp"
     android:orientation="vertical"
     tools:context=".profile.ProfileFragment">
-
+    <ImageButton
+        android:id="@+id/settings"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:clickable="true"
+        android:src="@drawable/ic_baseline_settings_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:backgroundTint="#F4511E"
+        app:tint="@color/white"
+         />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/profileImage"
@@ -15,15 +26,27 @@
         android:layout_height="132dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:shapeAppearanceOverlay="@style/Circular"
-        tools:src="@drawable/trainm"
+        tools:src="@drawable/ic_profile"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/edit_profile"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:background="#FDD835"
+        android:backgroundTint="#43A047"
+        android:src="@drawable/ic_baseline_edit_24"
+        app:layout_constraintEnd_toEndOf="@+id/settings"
+        app:layout_constraintStart_toStartOf="@+id/settings"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/white" />
 
     <com.google.android.material.textfield.MaterialAutoCompleteTextView
         android:id="@+id/profileName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/rakan_aljarallah"
         android:layout_marginTop="32dp"
         android:padding="4dp"
         style="@style/Circular"

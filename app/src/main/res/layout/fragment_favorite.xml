@@ -17,6 +17,18 @@
         android:layout_height="match_parent"
         tools:context=".favorite.FavoriteFragment">
 
+        <ImageButton
+            android:id="@+id/settings"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:clickable="true"
+            android:src="@drawable/ic_baseline_settings_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/purple_700"
+ />
+
         <ImageView
             android:id="@+id/favs"
             app:layout_constraintTop_toTopOf="parent"

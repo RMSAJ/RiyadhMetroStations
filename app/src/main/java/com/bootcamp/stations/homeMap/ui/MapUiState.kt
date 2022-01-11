@@ -1,6 +1,5 @@
 package com.bootcamp.stations.homeMap.ui
 
-import com.bootcamp.stations.homeMap.dataLayer.data.Line
 import com.google.android.gms.maps.model.LatLng
 
 data class MapUiState(val marker:Map<LineUiStates,List<MarkerItemUIStatus>> = mapOf(),)

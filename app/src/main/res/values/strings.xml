@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">RiyadhMetroStations</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -12,6 +11,9 @@
     <string name="login_failed">"Login failed"</string>
     <string name="username">Email</string>
     <string name="password">Password</string>
+    <string name="dark_theme_preference_value">dark_theme</string>
+    <string name="light_theme_preference_value">light_theme</string>
+    <string name="system_theme_preference_value">system_theme</string>
     <string name="register">Register</string>
     <string name="retype_password">reType_password</string>
     <string name="confirm_password">confirm Password</string>
@@ -35,4 +37,8 @@
     <string name="pick_place">Choose a place</string>
     <string name="title_activity_alarm_notification">AlarmNotification</string>
     <string name="rakan_aljarallah">Rakan Aljarallah</string>
+    <string name="theme_preferences_key">theme_prefrecne</string>
+    <string name="dark_theme_description">dark_theme_discription</string>
+    <string name="light_theme_description">light_theme_discription</string>
+    <string name="system_theme_description">system_theme_discription</string>
 </resources>

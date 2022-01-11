@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.bootcamp.stations.R
 import com.bootcamp.stations.databinding.FragmentFavoriteBinding
 import com.bootcamp.stations.databinding.FragmentProfileBinding
@@ -28,7 +29,18 @@ class FavoriteFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentFavoriteBinding.inflate(inflater, container, false)
 //        binding?.lifecycleOwner = this
-        return _binding?.root    }
+        return _binding?.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding?.settings?.setOnClickListener {
+            val action = FavoriteFragmentDirections.actionFavoriteFragmentToSettingsFragment()
+            findNavController().navigate(action)
+        }
+    }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()

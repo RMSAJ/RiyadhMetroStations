@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">مترو الرياض</string>
+    <string name="prompt_email">الايميل</string>
+    <string name="prompt_password">كلمة السر</string>
+    <string name="action_sign_in">سجل دخولك او سجل</string>
+    <string name="action_sign_in_short">تسجيل دخول</string>
+    <string name="welcome">!أهلا</string>
+    <string name="invalid_username">مستخدم غير معرف به</string>
+    <string name="invalid_password">كلمة المرور يجب ان تكون اكبر من 5 حروف</string>
+    <string name="login_failed">التسجيل فشل</string>
+    <string name="username">الايميل</string>
+    <string name="password">كلمة المرور</string>
+    <string name="dark_theme_preference_value">عتمة</string>
+    <string name="light_theme_preference_value">منور</string>
+    <string name="system_theme_preference_value">خلفية النظام</string>
+    <string name="register">تسجيل</string>
+    <string name="retype_password">اعد كتابة المرور</string>
+    <string name="confirm_password">أكد كلمة المرور</string>
+    <string name="login">سجل دخولك</string>
+    <string name="plsEnterPass">رجاء ادخل كلمة المرور</string>
+    <string name="plsEnterUserName">رجاء ادخل اسم المستخدم</string>
+    <string name="plsRePass">رجاء اعد ادخال كلمة المرور</string>
+    <string name="logo">شعار</string>
+    <string name="search_title">عنوان البحث</string>
+    <string name="filter_title">فلتر</string>
+    <string name="product_title">عنوان المنتج</string>
+    <string name="product_description">تفاصيل المنتج</string>
+    <string name="favorites">المفضلة</string>
+    <string name="places">الأماكن</string>
+    <string name="profile">الحساب</string>
+    <string name="favorite">المفضل</string>
+    <string name="title_activity_maps">تفاصيل الموقع</string>
+    <string name="default_info_title">الموقع الافتراضي</string>
+    <string name="default_info_snippet">لم يجد المكان</string>
+    <string name="option_get_place">أوجد المكان</string>
+    <string name="pick_place">اختار مكان</string>
+    <string name="title_activity_alarm_notification">المنبه</string>
+    <string name="rakan_aljarallah">راكان الجارالله</string>
+    <string name="theme_preferences_key">الخلفية المريحة</string>
+    <string name="dark_theme_description">تفاصيل العتمة</string>
+    <string name="light_theme_description">تفاصيل الاضائة</string>
+    <string name="system_theme_description">تفاصيل خلفية النظام</string>
+</resources>
