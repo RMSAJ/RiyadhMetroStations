@@ -1,4 +1,4 @@
-package com.bootcamp.stations.user
+package com.bootcamp.stations.user.model
 
 import android.graphics.drawable.Drawable
 import androidx.lifecycle.LiveData
@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bootcamp.stations.user.domain.AddUserUseCase
-import com.bootcamp.stations.user.model.UserModel
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.launch
@@ -23,7 +22,7 @@ class UserViewModel(private val addUserUseCase: AddUserUseCase) :ViewModel() {
 //    private lateinit var fireBase: Firebase
 
 
-    //region  The Emptiness Validation of the Register
+    //region  The Emptiness com.bootcamp.stations.user.util.Validation of the Register
     fun checkUserInfoEmpty(userEmailInfo: TextInputEditText, userNameLay: TextInputLayout, icon: Drawable,
                            userPassInfo: TextInputEditText, userPassLay: TextInputLayout,
                            userRePassInfo: TextInputEditText, userRePassLay: TextInputLayout) {
@@ -62,7 +61,7 @@ class UserViewModel(private val addUserUseCase: AddUserUseCase) :ViewModel() {
             isValidEmailAndPass(userEmailInfo,userPassInfo,userRePassInfo)
         }
     }
-    //?endregion End the Validation of the Register
+    //?endregion End the com.bootcamp.stations.user.util.Validation of the Register
 
     //region email and pass validation of the Register
     private fun isValidEmailAndPass(userEmail:TextInputEditText, userPassInfo:TextInputEditText,

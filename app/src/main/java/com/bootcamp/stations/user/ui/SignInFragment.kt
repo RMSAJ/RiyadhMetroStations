@@ -1,4 +1,4 @@
-package com.bootcamp.stations.user
+package com.bootcamp.stations.user.ui
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.bootcamp.stations.R
 import com.bootcamp.stations.databinding.FragmentSignInBinding
 import com.bootcamp.stations.user.model.FactoryViewModel
+import com.bootcamp.stations.user.model.UserViewModel
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
@@ -58,12 +59,12 @@ private lateinit var icon: Drawable
          )!!
         icon.setBounds(0, 0, icon.intrinsicWidth, icon.intrinsicHeight)
 
-//        val currentUser = auth.currentUser
-//
-//        if (currentUser != null) {
-//            val action = SignInFragmentDirections.actionSignInFragmentToHomeFragment()
-//            findNavController().navigate(action)
-//        }
+        val currentUser = auth.currentUser
+
+        if (currentUser != null) {
+            val action = SignInFragmentDirections.actionSignInFragmentToHomeFragment(auth.uid!!)
+            findNavController().navigate(action)
+        }
         return binding?.root
         }
 

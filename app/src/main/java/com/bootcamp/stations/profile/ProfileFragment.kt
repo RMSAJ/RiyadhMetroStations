@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
@@ -15,15 +14,11 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.bootcamp.stations.R
 import com.bootcamp.stations.databinding.FragmentProfileBinding
-import com.bootcamp.stations.databinding.FragmentRegisterBinding
 import com.bootcamp.stations.profile.model.ProfileViewModel
 import com.bootcamp.stations.profile.model.ProfileViewModelFactory
-import com.bootcamp.stations.user.UserViewModel
 import com.bumptech.glide.Glide
-import com.google.android.material.imageview.ShapeableImageView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 

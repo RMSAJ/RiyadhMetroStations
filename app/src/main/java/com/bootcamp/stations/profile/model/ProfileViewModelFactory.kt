@@ -2,10 +2,8 @@ package com.bootcamp.stations.profile.model
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.bootcamp.stations.profile.util.ProfileServiceLocator
 import com.bootcamp.stations.profile.util.ProfileServiceLocator.provideGetProfileUseCase
 import com.bootcamp.stations.profile.util.ProfileServiceLocator.provideSetProfileUseCase
-import com.bootcamp.stations.user.UserViewModel
 import java.lang.IllegalArgumentException
 
 class ProfileViewModelFactory: ViewModelProvider.Factory  {

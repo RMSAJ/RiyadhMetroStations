@@ -2,7 +2,6 @@ package com.bootcamp.stations.user.model
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.bootcamp.stations.user.UserViewModel
 import com.bootcamp.stations.user.util.UserServiceLocator
 import java.lang.IllegalArgumentException
 class FactoryViewModel:ViewModelProvider.Factory  {

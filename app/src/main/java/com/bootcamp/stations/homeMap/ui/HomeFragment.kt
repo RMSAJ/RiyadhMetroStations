@@ -365,6 +365,11 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
 //        googleMap.mapType
     }
 
+    private fun navigation(map:GoogleMap){
+        map.uiSettings.isCompassEnabled = false
+        map.uiSettings.isMyLocationButtonEnabled = false
+
+    }
 
     //region  [add markers to map and call in onMapCreated]
     private fun addMarkers(
@@ -372,7 +377,7 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
     googleMap: GoogleMap) {
         listOfMarkers.forEach { place ->
             if (!place.name.isNullOrBlank()) {
-                val marker = googleMap.addMarker(
+                googleMap.addMarker(
                     MarkerOptions()
                         .title(place.name)
                         .position(LatLng(place.latLng.latitude, place.latLng.longitude))

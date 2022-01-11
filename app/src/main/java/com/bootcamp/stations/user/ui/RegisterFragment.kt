@@ -1,4 +1,4 @@
-package com.bootcamp.stations.user
+package com.bootcamp.stations.user.ui
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -14,12 +14,11 @@ import androidx.navigation.fragment.findNavController
 import com.bootcamp.stations.R
 import com.bootcamp.stations.databinding.FragmentRegisterBinding
 import com.bootcamp.stations.user.model.FactoryViewModel
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.bootcamp.stations.user.model.UserViewModel
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class RegisterFragment : Fragment() {
