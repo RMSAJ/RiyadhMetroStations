@@ -53,18 +53,18 @@ private lateinit var icon: Drawable
         usernameLay = binding!!.signInLay
         passwordLay =binding!!.passwordLay
         auth = Firebase.auth
-         icon = AppCompatResources.getDrawable(
-             requireContext(),
-             R.drawable.ic_baseline_error_outline_24
-         )!!
-        icon.setBounds(0, 0, icon.intrinsicWidth, icon.intrinsicHeight)
+//         icon = AppCompatResources.getDrawable(
+//             requireContext(),
+//             R.drawable.ic_baseline_error_outline_24
+//         )!!
+//        icon.setBounds(0, 0, icon.intrinsicWidth, icon.intrinsicHeight)
 
-        val currentUser = auth.currentUser
-
-        if (currentUser != null) {
-            val action = SignInFragmentDirections.actionSignInFragmentToHomeFragment(auth.uid!!)
-            findNavController().navigate(action)
-        }
+//        val currentUser = auth.currentUser
+//
+//        if (currentUser != null) {
+//            val action = SignInFragmentDirections.actionSignInFragmentToHomeFragment(auth.uid!!)
+//            findNavController().navigate(action)
+//        }
         return binding?.root
         }
 
@@ -80,7 +80,7 @@ private lateinit var icon: Drawable
         }
     }
     private fun checkUSerName(){
-        viewModel.checkTheSignIn(username, usernameLay, icon,password,passwordLay)
+//        viewModel.checkTheSignIn(username, usernameLay, icon,password,passwordLay)
 //        viewModel.checkUserRePassEmpty(rePass, rePasslay, icon)
         if(username.text.toString().matches(Regex("[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\\.[a-zA-Z]{2,4}"))){
                     fireBaseSignIn()
