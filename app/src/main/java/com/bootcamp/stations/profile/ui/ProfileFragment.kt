@@ -24,7 +24,6 @@ import kotlinx.coroutines.launch
 
 class ProfileFragment : Fragment() {
 
-
     private val viewModel: ProfileViewModel by activityViewModels {
         ProfileViewModelFactory()
     }
@@ -51,21 +50,22 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        viewModel.getUserInfo()
-        Log.d("TAG", "onViewCreated: ${viewModel.userInfo.value.profileName} ")
+        Log.d("TAG", "onViewCreated: ${viewModel.userInfo.value?.profileName} ")
 
         lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.RESUMED)
-
+//           repeatOnLifecycle(Lifecycle.State.RESUMED)
+            viewLifecycleOwnerLiveData.observe(viewLifecycleOwner,
             {
                 val data = viewModel.userInfo.value
-                binding?.profileName?.setText(data.profileName)
-                binding?.phone?.setText(data.profilePhone)
-                binding?.profileEmail?.setText(data.profileEmail)
-                Glide.with(requireContext()).load(data.profileImage.toUri()).error(R.drawable.ic_profile).into(binding!!.profileImage)
-            }
+                binding?.profileName?.setText(data?.profileName)
+                binding?.phone?.setText(data?.profilePhone)
+                binding?.profileEmail?.setText(data?.profileEmail)
+                Glide.with(requireContext()).load(data?.profileImage?.toUri()).error(R.drawable.ic_profile).into(binding!!.profileImage)
+            })
         }
 
         binding?.apply {
+
             settings.setOnClickListener { val action = ProfileFragmentDirections.actionProfileFragmentToSettingsFragment()
                 findNavController().navigate(action) }
 

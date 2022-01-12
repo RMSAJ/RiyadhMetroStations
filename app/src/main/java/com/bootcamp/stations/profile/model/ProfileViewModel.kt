@@ -51,7 +51,7 @@ init {
 
 
     private val _userInfo = MutableStateFlow(ProfileModel())
-    val userInfo = _userInfo.asStateFlow()
+    val userInfo = _userInfo.asLiveData()
 
 
 //

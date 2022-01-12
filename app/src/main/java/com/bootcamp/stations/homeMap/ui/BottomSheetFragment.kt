@@ -18,6 +18,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 class BottomSheetFragment : BottomSheetDialogFragment() {
 
     private var _binding: FragmentBottomSheetBinding? = null
+
     private val binding get() = _binding
 
     private val navigationArgs: BottomSheetFragmentArgs by navArgs()
@@ -52,28 +53,20 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
         val markerLocation: LatLng =
             LatLng(navigationArgs.lat.toDouble(), navigationArgs.lng.toDouble())
 
-
         binding?.favoriteCard?.setOnClickListener {
            // it.background.current
            // addToFav(markerId,markerTitle,markerLocation)
             // to move item to the list of fav
             binding?.favoriteImage?.setImageResource(R.drawable.ic_favorite)
-
 //           viewModel.newFav(fav_Name,fav_latLng,fav_address)
             Toast.makeText(this.requireContext(), "Station save it ", Toast.LENGTH_SHORT).show()
-
         }
-
         binding?.favoriteImage?.setOnClickListener {
             Log.e("TAG", "favoriteImage: favoriteImage")
             Toast.makeText(this.requireContext(), "favoriteImage ", Toast.LENGTH_SHORT).show()
         }
-
-
     }
-
     private fun addToFav(markerId: String, title: String, location: LatLng) {
 
     }
-
 }

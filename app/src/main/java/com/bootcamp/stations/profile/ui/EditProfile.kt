@@ -71,7 +71,7 @@ class EditProfile: Fragment()  {
         }
     }
 
-    fun setTheData(){
+    private fun setTheData(){
         viewModel.prepareTheData("",
             binding?.profileName?.text.toString(),
             binding?.phone?.text.toString(),
