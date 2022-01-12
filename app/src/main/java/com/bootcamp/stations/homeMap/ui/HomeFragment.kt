@@ -34,6 +34,7 @@ import com.google.android.gms.maps.model.*
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest
 import com.google.android.libraries.places.api.net.PlacesClient
+import kotlinx.android.synthetic.main.item_marker.*
 import kotlinx.coroutines.launch
 
 internal class HomeFragment : Fragment(), OnMapReadyCallback {
@@ -110,7 +111,7 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.option_get_place) {
             showCurrentPlace()
-//            getDeviceLocation()
+            getDeviceLocation()
         } else if (item.itemId == R.id.settings) {
             goToSettings()
         }
@@ -292,11 +293,7 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
         )
 
     }
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-        map = null
-    }
+
     //region [START maps_current_place_open_places_dialog]
     private fun openPlacesDialog() {
         // Ask the user to choose the place where they are now.
@@ -358,7 +355,9 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
         getLocationPermission()
 
         map!!.setOnInfoWindowClickListener {
-            val action = HomeFragmentDirections.actionHomeFragmentToBottomSheetFragment(it.title!!)
+            Log.e(TAG, "onMapReady:id : ${it.id} title : ${it.title} lng : ${it.position.longitude.toString()} ", )
+            val action = HomeFragmentDirections.actionHomeFragmentToBottomSheetFragment(title = it.title!!,id= it.id,
+                lat= it.position.latitude.toString(), lng = it.position.longitude.toString() )
             findNavController().navigate(action)
 
         }
@@ -413,5 +412,11 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
             map.addPolyline(polyLineOption).tag = line.key.name
         }
         //endregion
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+        map = null
     }
 }

@@ -1,4 +1,4 @@
-package com.bootcamp.stations.favorite
+package com.bootcamp.stations.favorite.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

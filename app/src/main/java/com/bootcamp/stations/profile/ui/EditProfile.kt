@@ -1,4 +1,4 @@
-package com.bootcamp.stations.profile
+package com.bootcamp.stations.profile.ui
 
 import android.app.Activity
 import android.content.Intent
@@ -74,7 +74,7 @@ class EditProfile: Fragment()  {
     fun setTheData(){
         viewModel.prepareTheData("",
             binding?.profileName?.text.toString(),
-            binding?.profilephone?.text.toString(),
+            binding?.phone?.text.toString(),
             binding?.profileEmail?.text.toString(),fileImage )
     }
 

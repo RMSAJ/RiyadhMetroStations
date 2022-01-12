@@ -55,7 +55,7 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.bootcamp.stations.profile.ProfileFragment"
+        android:name="com.bootcamp.stations.profile.ui.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" >
         <action
@@ -67,7 +67,7 @@
     </fragment>
     <fragment
         android:id="@+id/favoriteFragment"
-        android:name="com.bootcamp.stations.favorite.FavoriteFragment"
+        android:name="com.bootcamp.stations.favorite.ui.FavoriteFragment"
         android:label="fragment_favorite"
         tools:layout="@layout/fragment_favorite" >
         <action
@@ -83,7 +83,17 @@
             android:id="@+id/action_bottomSheetFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
         <argument
-            android:name="name"
+            android:name="title"
+            app:argType="string"
+            android:defaultValue="station" />
+        <argument
+            android:name="lat"
+            app:argType="string" />
+        <argument
+            android:name="lng"
+            app:argType="string" />
+        <argument
+            android:name="id"
             app:argType="string" />
     </dialog>
     <fragment
@@ -102,7 +112,7 @@
     </fragment>
     <fragment
         android:id="@+id/editProfile"
-        android:name="com.bootcamp.stations.profile.EditProfile"
+        android:name="com.bootcamp.stations.profile.ui.EditProfile"
         android:label="EditProfile" >
         <action
             android:id="@+id/action_editProfile_to_settingsFragment"

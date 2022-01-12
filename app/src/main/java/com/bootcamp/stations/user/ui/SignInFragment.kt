@@ -37,10 +37,7 @@ private lateinit var auth:FirebaseAuth
 private lateinit var icon: Drawable
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -1,4 +1,4 @@
-package com.bootcamp.stations.profile
+package com.bootcamp.stations.profile.ui
 
 import android.os.Bundle
 import android.util.Log
@@ -59,7 +59,7 @@ class ProfileFragment : Fragment() {
             {
                 val data = viewModel.userInfo.value
                 binding?.profileName?.setText(data.profileName)
-                binding?.profilephone?.setText(data.profilePhone)
+                binding?.phone?.setText(data.profilePhone)
                 binding?.profileEmail?.setText(data.profileEmail)
                 Glide.with(requireContext()).load(data.profileImage.toUri()).error(R.drawable.ic_profile).into(binding!!.profileImage)
             }
@@ -69,15 +69,12 @@ class ProfileFragment : Fragment() {
             settings.setOnClickListener { val action = ProfileFragmentDirections.actionProfileFragmentToSettingsFragment()
                 findNavController().navigate(action) }
 
-
             editProfile.setOnClickListener {
                 val action = ProfileFragmentDirections.actionProfileFragmentToEditProfile()
                 findNavController().navigate(action)
             }
         }
-
 //       viewModel.name.observe(viewLifecycleOwner, {binding!!.textView.setText(it) })
-
     }
 
     override fun onDestroyView() {
