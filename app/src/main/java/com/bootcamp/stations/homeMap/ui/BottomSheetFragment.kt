@@ -33,7 +33,7 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        Toast.makeText(requireContext(), "onCreate ", Toast.LENGTH_SHORT).show()
+//        Toast.makeText(requireContext(), "onCreate ", Toast.LENGTH_SHORT).show()
 
     }
 
@@ -43,7 +43,14 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding=FragmentBottomSheetBinding.inflate(layoutInflater, container, false)
+        if (counter.i % 2 == 0) {
+            binding?.favoriteImage?.setImageResource(R.drawable.ic_favorite)
+        }
         return binding?.root
+    }
+    object counter{
+        var i = 0
+        get() = field++
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -57,15 +64,19 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
            // it.background.current
            // addToFav(markerId,markerTitle,markerLocation)
             // to move item to the list of fav
-            binding?.favoriteImage?.setImageResource(R.drawable.ic_favorite)
+            if (counter.i % 2 == 0)  { counter.i
+                binding?.favoriteImage?.setImageResource(R.drawable.ic_favorite)
+                Toast.makeText(this.requireContext(), "added to favorite ", Toast.LENGTH_SHORT).show()} else { counter.i
+                binding?.favoriteImage?.setImageResource(R.drawable.ic_baseline_favorite_border_24)}     }
+
 //           viewModel.newFav(fav_Name,fav_latLng,fav_address)
-            Toast.makeText(this.requireContext(), "Station save it ", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this.requireContext(), "Station save it ", Toast.LENGTH_SHORT).show()
         }
-        binding?.favoriteImage?.setOnClickListener {
-            Log.e("TAG", "favoriteImage: favoriteImage")
-            Toast.makeText(this.requireContext(), "favoriteImage ", Toast.LENGTH_SHORT).show()
-        }
-    }
+//        binding?.favoriteImage?.setOnClickListener {
+//            Log.e("TAG", "favoriteImage: favoriteImage")
+//            Toast.makeText(this.requireContext(), "favoriteImage ", Toast.LENGTH_SHORT).show()
+//        }
+
     private fun addToFav(markerId: String, title: String, location: LatLng) {
 
     }

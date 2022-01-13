@@ -43,4 +43,10 @@
     <string name="system_theme_description">system_theme_discription</string>
     <string name="thememode">themeMode</string>
     <string name="Email">The Email is not Valid</string>
+    <string name="content_description_media">picture</string>
+    <string name="title">Title</string>
+    <string name="secondary_text">secondary</string>
+    <string name="supporting_text">supporting</string>
+    <string name="action_2">Go</string>
+    <string name="action_1">Delete</string>
 </resources>
