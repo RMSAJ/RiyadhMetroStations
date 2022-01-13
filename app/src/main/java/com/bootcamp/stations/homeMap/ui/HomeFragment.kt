@@ -66,7 +66,7 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
     }
     val trainIcon: BitmapDescriptor by lazy {
         val color = ContextCompat.getColor(requireContext(), R.color.Primary_Green_900)
-        BitmapHelper.vectorToBitmap(requireContext(), R.drawable.train, color)
+        BitmapHelper.vectorToBitmap(requireContext(), R.drawable.riyadh_train, color)
     }
 
     private var map: GoogleMap? = null
