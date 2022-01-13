@@ -63,7 +63,7 @@ class ProfileFragment : Fragment() {
                 Glide.with(requireContext()).load(data?.profileImage?.toUri()).error(R.drawable.ic_profile).into(binding!!.profileImage)
             })
         }
-
+//
         binding?.apply {
 
             settings.setOnClickListener { val action = ProfileFragmentDirections.actionProfileFragmentToSettingsFragment()
