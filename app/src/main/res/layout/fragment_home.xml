@@ -26,7 +26,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:navigationIcon="@drawable/shr_menu"
+                app:menu="@menu/toolbar_menu"
                 app:title="Map"
                 app:titleTextColor="@color/Green_700" />
 

@@ -89,7 +89,7 @@ class RegisterFragment : Fragment() {
 
         binding?.btnSingupReg?.alpha = 0.5f
         binding?.btnSingupReg?.isEnabled = true
-//        viewModel.checkUserInfoEmpty(username, usernamelay, icon,pass,passlay,rePass,rePasslay)
+       viewModel.checkUserInfoEmpty(username, usernamelay, icon,pass,passlay,rePass,rePasslay)
 
         if(viewModel.isValidUser.value == true) {
             auth.createUserWithEmailAndPassword(username.text.toString(),pass.text.toString())

@@ -4,7 +4,7 @@ import com.bootcamp.stations.favorite.model.FavoriteModel
 
 data class UserModel(
     var email: String? = "",
-    var favorite: MutableList<FavoriteModel> = mutableListOf()
+    var favorite: List<FavoriteModel> = listOf()
     )
 
 data class GeometryLocation(

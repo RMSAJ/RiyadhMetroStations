@@ -36,6 +36,8 @@ import com.google.android.gms.maps.model.*
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest
 import com.google.android.libraries.places.api.net.PlacesClient
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.item_marker.*
 import kotlinx.coroutines.launch
 
@@ -116,6 +118,11 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
             getDeviceLocation()
         } else if (item.itemId == R.id.settings) {
             goToSettings()
+        }
+        else if (item.itemId == R.id.dropdown_menu){
+              Firebase.auth.signOut()
+            findNavController().navigate(R.id.signInFragment)
+
         }
         return true
     }

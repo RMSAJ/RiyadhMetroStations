@@ -49,4 +49,5 @@
     <string name="supporting_text">supporting</string>
     <string name="action_2">Go</string>
     <string name="action_1">Delete</string>
+    <string name="sign_out">sign out</string>
 </resources>

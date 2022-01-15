@@ -13,5 +13,4 @@ class BottomSheetViewModel(private val addToFavoriteUseCase: AddToFavoriteUseCas
             addToFavoriteUseCase.invoke(markerId,title,location)
         }
     }
-
 }
