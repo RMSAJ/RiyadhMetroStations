@@ -1,7 +1,6 @@
-package com.bootcamp.stations.homeMap.ui
+package com.bootcamp.stations.favorite.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import com.bootcamp.stations.R
 import com.bootcamp.stations.databinding.FragmentBottomSheetBinding
-import com.bootcamp.stations.homeMap.ui.BottomViewModel
+import com.bootcamp.stations.favorite.model.BottomSheetViewModel
+import com.bootcamp.stations.favorite.model.FavoriteViewModelFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -23,7 +23,9 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
 
     private val navigationArgs: BottomSheetFragmentArgs by navArgs()
 
-    private val viewModel: BottomViewModel by activityViewModels()
+    private val viewModel: BottomSheetViewModel by activityViewModels{
+        FavoriteViewModelFactory()
+    }
 
 //    var fav_Name :String? = ""
 //    var fav_latLng: LatLng? = (12.0566,24.565)
@@ -43,31 +45,29 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding=FragmentBottomSheetBinding.inflate(layoutInflater, container, false)
-        if (counter.i % 2 == 0) {
-            binding?.favoriteImage?.setImageResource(R.drawable.ic_favorite)
-        }
+
         return binding?.root
     }
-    object counter{
-        var i = 0
-        get() = field++
-    }
+//    object counter{
+//        var i = 0
+//        get() = field++
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val markerId = navigationArgs.id
-        val markerTitle = navigationArgs
+        val markerTitle = navigationArgs.title
         val markerLocation: LatLng =
             LatLng(navigationArgs.lat.toDouble(), navigationArgs.lng.toDouble())
 
         binding?.favoriteCard?.setOnClickListener {
-           // it.background.current
-           // addToFav(markerId,markerTitle,markerLocation)
+            // it.background.current
+            addToFav(markerId, markerTitle, markerLocation)
             // to move item to the list of fav
-            if (counter.i % 2 == 0)  { counter.i
-                binding?.favoriteImage?.setImageResource(R.drawable.ic_favorite)
-                Toast.makeText(this.requireContext(), "added to favorite ", Toast.LENGTH_SHORT).show()} else { counter.i
-                binding?.favoriteImage?.setImageResource(R.drawable.ic_baseline_favorite_border_24)}     }
+
+            binding?.favoriteImage?.setImageResource(R.drawable.ic_favorite)
+//                Toast.makeText(this.requireContext(), "added to favorite ", Toast.LENGTH_SHORT).show()} else {
+//                binding?.favoriteImage?.setImageResource(R.drawable.ic_baseline_favorite_border_24)}     }
 
 //           viewModel.newFav(fav_Name,fav_latLng,fav_address)
 //            Toast.makeText(this.requireContext(), "Station save it ", Toast.LENGTH_SHORT).show()
@@ -76,8 +76,9 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
 //            Log.e("TAG", "favoriteImage: favoriteImage")
 //            Toast.makeText(this.requireContext(), "favoriteImage ", Toast.LENGTH_SHORT).show()
 //        }
-
+    }
     private fun addToFav(markerId: String, title: String, location: LatLng) {
+        viewModel.addToFavorite(markerId,title,location)
 
     }
 }

@@ -1,4 +1,4 @@
-package com.bootcamp.stations.homeMap.ui
+package com.bootcamp.stations.homeMap.model
 
 
 import android.location.Location
@@ -11,6 +11,9 @@ import com.google.android.gms.maps.model.LatLng
 
 import com.google.android.gms.maps.model.PolylineOptions
 import com.bootcamp.stations.homeMap.domain.GetMarkersUseCase
+import com.bootcamp.stations.homeMap.ui.LineUiStates
+import com.bootcamp.stations.homeMap.ui.MapUiState
+import com.bootcamp.stations.homeMap.ui.MarkerItemUIStatus
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
@@ -72,7 +75,7 @@ class MapViewModel(
 //        _mapUiState.update { it.copy(marker = mapitem) }
 //    }
 
-    fun getMarkers() {
+    private fun getMarkers() {
         viewModelScope.launch {
             Log.e("TAG", "getMarkers ViewModel")
             val placeMarker = getMarkersUseCase.invoke()

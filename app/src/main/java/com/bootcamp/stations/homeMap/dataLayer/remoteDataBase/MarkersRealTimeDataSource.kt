@@ -33,7 +33,7 @@ class MarkersRealTimeDataSource(
 
                 override fun onDataChange(snapshot: DataSnapshot) {
                     Log.e("TAG", snapshot.toString())
-                    var list = snapshot.children.map {
+                    var listofMarkers = snapshot.children.map {
                         val point = it.getValue(PlaceResponse::class.java)!!
                       PlaceResponse(
                             id = point.id,
@@ -44,7 +44,7 @@ class MarkersRealTimeDataSource(
                             line = point.line
                         ).toPlace()
                     }
-                    trySend(list)
+                    trySend(listofMarkers)
 
                 }
 
@@ -53,8 +53,5 @@ class MarkersRealTimeDataSource(
             }
             )
         awaitClose { }
-
-
     }
-
 }

@@ -1,4 +1,4 @@
-package com.bootcamp.stations.homeMap.ui
+package com.bootcamp.stations.homeMap.model
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -10,7 +10,7 @@ class MapViewModelFactory: ViewModelProvider.Factory {
            if (modelClass.isAssignableFrom(MapViewModel::class.java)){
                return MapViewModel(
                    providerGetMarkerUseCase()
-               )as T
+               ) as T
            }
         else {throw IllegalArgumentException("Unkown data source")  }
     }

@@ -7,12 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.bootcamp.stations.R
 import com.bootcamp.stations.databinding.FragmentFavoriteBinding
-import com.bootcamp.stations.databinding.FragmentProfileBinding
-import com.bootcamp.stations.databinding.FragmentRegisterBinding
-import com.bootcamp.stations.homeMap.ui.BottomViewModel
-import com.bootcamp.stations.homeMap.ui.MapViewModel
+import com.bootcamp.stations.favorite.model.FavoriteViewModel
 
 
 class FavoriteFragment : Fragment() {
@@ -20,7 +16,7 @@ class FavoriteFragment : Fragment() {
     private var _binding: FragmentFavoriteBinding? = null
     private val binding get() = _binding
 
-    private val viewModel: BottomViewModel by activityViewModels()
+    private val viewModel: FavoriteViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

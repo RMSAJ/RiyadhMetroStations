@@ -9,7 +9,7 @@
 
         <variable
             name="BottomViewModel"
-            type="com.bootcamp.stations.homeMap.ui.BottomViewModel" />
+            type="com.bootcamp.stations.favorite.model.FavoriteViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,8 +30,6 @@
             app:tint="@color/purple_700"
  />
 
-
-
     <androidx.recyclerview.widget.RecyclerView
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,8 +41,6 @@
         android:layout_height="0dp"
         tools:listitem="@layout/fav_item"
         />
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

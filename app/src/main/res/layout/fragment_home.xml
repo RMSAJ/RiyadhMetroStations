@@ -5,7 +5,7 @@
     <data>
 <variable
     name="mapViewModel"
-    type="com.bootcamp.stations.homeMap.ui.MapViewModel" />
+    type="com.bootcamp.stations.homeMap.model.MapViewModel" />
     </data>
 
     <FrameLayout

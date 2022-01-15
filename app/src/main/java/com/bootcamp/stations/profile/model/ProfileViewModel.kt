@@ -29,6 +29,7 @@ private fun setProfile(profileModel: ProfileModel, uri: Uri?) {
 
     }
 }
+
 init {
     getUserInfo()
 }

@@ -1,8 +1,10 @@
 package com.bootcamp.stations.user.model
 
-data class UserModel(
-    var email: String? = ""
+import com.bootcamp.stations.favorite.model.FavoriteModel
 
+data class UserModel(
+    var email: String? = "",
+    var favorite: MutableList<FavoriteModel> = mutableListOf()
     )
 
 data class GeometryLocation(

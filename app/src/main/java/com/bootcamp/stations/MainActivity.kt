@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
       val bottomNavigationView = findViewById<BottomNavigationView> (R.id.bottom_navigation)
 
         bottomNavigationView.setupWithNavController(navController)
+
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if (destination.id == R.id.registerFragment || destination.id == R.id.signInFragment ) {
                 bottomNavigationView.visibility = View.GONE
@@ -38,7 +39,7 @@ class MainActivity : AppCompatActivity() {
 //               setupActionBarWithNavController(navController)
     }
 
-    private fun ChecwhechFragment(){
+    private fun checwhechFragment(){
 
 
     }

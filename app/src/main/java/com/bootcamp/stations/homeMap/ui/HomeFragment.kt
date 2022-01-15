@@ -24,6 +24,8 @@ import androidx.navigation.fragment.findNavController
 import com.bootcamp.stations.BuildConfig
 import com.bootcamp.stations.R
 import com.bootcamp.stations.databinding.FragmentHomeBinding
+import com.bootcamp.stations.homeMap.model.MapViewModel
+import com.bootcamp.stations.homeMap.model.MapViewModelFactory
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -66,7 +68,7 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
     }
     val trainIcon: BitmapDescriptor by lazy {
         val color = ContextCompat.getColor(requireContext(), R.color.Primary_Green_900)
-        BitmapHelper.vectorToBitmap(requireContext(), R.drawable.riyadh_train, color)
+        BitmapHelper.vectorToBitmap(requireContext(), R.drawable.train_marker, color)
     }
 
     private var map: GoogleMap? = null
@@ -343,6 +345,7 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
                 }
             }
         }
+        navigation(googleMap)
 
         // Turn on the My Location layer and the related control on the map.
         updateLocationUI()
@@ -359,7 +362,6 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
             val action = HomeFragmentDirections.actionHomeFragmentToBottomSheetFragment(title = it.title!!,id= it.id,
                 lat= it.position.latitude.toString(), lng = it.position.longitude.toString() )
             findNavController().navigate(action)
-
         }
 //        googleMap.mapType
     }
