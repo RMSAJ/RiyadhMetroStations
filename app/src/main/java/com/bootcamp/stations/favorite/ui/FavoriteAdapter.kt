@@ -15,8 +15,8 @@ class FavoriteAdapter (): ListAdapter<FavoriteUiState, FavoriteAdapter.ResultsIt
         fun bind(ItemOfFav : FavoriteUiState ) {
             binding.favorItem = ItemOfFav
             binding.title.text = ItemOfFav.title
-            binding.secondary.text = ItemOfFav.description
-            binding.contentDescription.text = ItemOfFav.subTitle
+            binding.secondary.text = ItemOfFav.id
+//            binding.contentDescription.text = ItemOfFav.subTitle
             Glide.with(binding.stationImage).load(ItemOfFav.image).into(binding.stationImage)
             binding.executePendingBindings()
         }

@@ -1,7 +1,10 @@
 package com.bootcamp.stations.profile.model
 
-data class ProfileModel(var profileImage: String = "",
+import com.bootcamp.stations.favorite.model.FavoriteModel
+
+data class ProfileModel(
+                        var profileImage: String = "",
                         val profileName:String ="",
                         val profileEmail: String= "",
-                        val profilePhone: String= ""
+                        val profilePhone: String= "",
 )

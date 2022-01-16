@@ -3,23 +3,37 @@ package com.bootcamp.stations.favorite.model
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.bootcamp.stations.favorite.domain.GetFavoritesUseCase
 import com.bootcamp.stations.favorite.ui.FavoriteUiState
+import com.bootcamp.stations.favorite.util.Constants.IMAGE1
+import com.bootcamp.stations.favorite.util.Constants.IMAGE2
 import com.bootcamp.stations.homeMap.dataLayer.data.Place
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
-class FavoriteViewModel : ViewModel() {
+class FavoriteViewModel(private val getFavoritesUseCase: GetFavoritesUseCase) : ViewModel() {
 
+    init {
+        getFavs()
+    }
+
+    private var _favoriteList: MutableStateFlow<List<FavoriteUiState>> = MutableStateFlow(listOf(FavoriteUiState()))
+    val favoriteList = _favoriteList.asStateFlow()
 
     private val favListItem = mutableListOf<Place>()
 
    private val _favList: MutableLiveData<List<FavoriteUiState?>> = MutableLiveData(listOf(
-       FavoriteUiState("https://firebasestorage.googleapis.com/v0/b/pristine-dahlia-321713.appspot.com/o/images%2Finfo_2.jpg?alt=media&token=52f3736d-a501-4bfd-95a7-20d4f3fff58c","4D1","Tuwaiq Station", "Departure Time : 1:00 PM"),
-       FavoriteUiState("https://firebasestorage.googleapis.com/v0/b/pristine-dahlia-321713.appspot.com/o/images%2Finfo_3.jpg?alt=media&token=656ae9bd-3f2b-4112-a7a7-35673c1e372e","4E1","Norah Station", "Departure Time : 1:00 PM"),
-       FavoriteUiState("https://firebasestorage.googleapis.com/v0/b/pristine-dahlia-321713.appspot.com/o/images%2Finfo_2.jpg?alt=media&token=52f3736d-a501-4bfd-95a7-20d4f3fff58c","4D1","Tuwaiq Station", "Departure Time : 1:00 PM"),
-       FavoriteUiState("https://firebasestorage.googleapis.com/v0/b/pristine-dahlia-321713.appspot.com/o/images%2Finfo_3.jpg?alt=media&token=656ae9bd-3f2b-4112-a7a7-35673c1e372e","4E1","Norah Station", "Departure Time : 1:00 PM"),
-       FavoriteUiState("https://firebasestorage.googleapis.com/v0/b/pristine-dahlia-321713.appspot.com/o/images%2Finfo_2.jpg?alt=media&token=52f3736d-a501-4bfd-95a7-20d4f3fff58c","4D1","Tuwaiq Station", "Departure Time : 1:00 PM"),
-       FavoriteUiState("https://firebasestorage.googleapis.com/v0/b/pristine-dahlia-321713.appspot.com/o/images%2Finfo_3.jpg?alt=media&token=656ae9bd-3f2b-4112-a7a7-35673c1e372e","4E1","Norah Station", "Departure Time : 1:00 PM"),
-       FavoriteUiState("https://firebasestorage.googleapis.com/v0/b/pristine-dahlia-321713.appspot.com/o/images%2Finfo_2.jpg?alt=media&token=52f3736d-a501-4bfd-95a7-20d4f3fff58c","4D1","Tuwaiq Station", "Departure Time : 1:00 PM"),
-       FavoriteUiState("https://firebasestorage.googleapis.com/v0/b/pristine-dahlia-321713.appspot.com/o/images%2Finfo_3.jpg?alt=media&token=656ae9bd-3f2b-4112-a7a7-35673c1e372e","4E1","Norah Station", "Departure Time : 1:00 PM")
+//       FavoriteUiState(IMAGE1,"4D1","Tuwaiq Station", "Departure Time : 1:00 PM"),
+//       FavoriteUiState(IMAGE2,"4E1","Norah Station", "Departure Time : 1:00 PM"),
+//       FavoriteUiState(IMAGE1,"4D1","Tuwaiq Station", "Departure Time : 1:00 PM"),
+//       FavoriteUiState(IMAGE2,"4E1","Norah Station", "Departure Time : 1:00 PM"),
+//       FavoriteUiState(IMAGE1, "4D1","Tuwaiq Station", "Departure Time : 1:00 PM"),
+//       FavoriteUiState(IMAGE2,"4E1","Norah Station", "Departure Time : 1:00 PM"),
+//       FavoriteUiState(IMAGE1,"4D1","Tuwaiq Station", "Departure Time : 1:00 PM"),
+//       FavoriteUiState(IMAGE2,"4E1","Norah Station", "Departure Time : 1:00 PM")
 
    ))
 
@@ -33,6 +47,20 @@ class FavoriteViewModel : ViewModel() {
 
     private fun favAddByItem(item : Place) {
         favListItem.add(item)
+    }
+
+    private fun getFavs() {
+        viewModelScope.launch {
+          val facorites =  getFavoritesUseCase.invoke()
+            facorites.collect{
+                val listOfFavs = mutableListOf<FavoriteUiState>()
+
+                it.forEach { item ->
+                    listOfFavs.add(FavoriteUiState( id = item.id!!, location =  item.location!!, title = item.markerTitle!!  ))
+                }
+                _favoriteList.update { listOfFavs }
+            }
+        }
     }
 
 //    private fun returnItem(

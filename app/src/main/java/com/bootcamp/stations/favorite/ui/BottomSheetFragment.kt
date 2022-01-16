@@ -1,5 +1,6 @@
 package com.bootcamp.stations.favorite.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,8 @@ import com.bootcamp.stations.R
 import com.bootcamp.stations.databinding.FragmentBottomSheetBinding
 import com.bootcamp.stations.favorite.model.BottomSheetViewModel
 import com.bootcamp.stations.favorite.model.FavoriteViewModelFactory
+import com.bootcamp.stations.favorite.util.Constants
+import com.bootcamp.stations.favorite.util.Constants.FAVOURITE
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -22,6 +25,15 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
     private val binding get() = _binding
 
     private val navigationArgs: BottomSheetFragmentArgs by navArgs()
+
+    private val markerId by lazy { navigationArgs.id }
+    private val markerTitle by lazy { navigationArgs.title }
+    private val markerLocation: LatLng by lazy { LatLng(navigationArgs.lat.toDouble(), navigationArgs.lng.toDouble()) }
+
+    private val sharedRef by lazy { context?.getSharedPreferences(Constants.favMarker, Context.MODE_PRIVATE) }
+    private val listOFSets by lazy { mutableListOf<String>() }
+    private val markerFav by lazy { sharedRef?.edit() }
+    private val statMent by lazy { sharedRef!!.getStringSet(FAVOURITE,listOFSets.toMutableSet()) }
 
     private val viewModel: BottomSheetViewModel by activityViewModels{
         FavoriteViewModelFactory()
@@ -35,6 +47,8 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
+
 //        Toast.makeText(requireContext(), "onCreate ", Toast.LENGTH_SHORT).show()
 
     }
@@ -46,6 +60,15 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
         // Inflate the layout for this fragment
         _binding=FragmentBottomSheetBinding.inflate(layoutInflater, container, false)
 
+
+
+        if (statMent!!.contains(markerTitle))  {
+            binding?.favoriteImage?.setImageResource(R.drawable.ic_favorite)
+        } else{
+
+            binding?.favoriteImage?.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+        }
+
         return binding?.root
     }
 //    object counter{
@@ -55,17 +78,26 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val markerId = navigationArgs.id
-        val markerTitle = navigationArgs.title
-        val markerLocation: LatLng =
-            LatLng(navigationArgs.lat.toDouble(), navigationArgs.lng.toDouble())
+
 
         binding?.favoriteCard?.setOnClickListener {
-            // it.background.current
-            addToFav(markerId, markerTitle, markerLocation)
-            // to move item to the list of fav
 
-            binding?.favoriteImage?.setImageResource(R.drawable.ic_favorite)
+            if (statMent!!.contains(markerTitle)) {
+                binding?.favoriteImage?.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+            }
+                else{
+                binding?.favoriteImage?.setImageResource(R.drawable.ic_favorite)
+                markerFav?.apply {
+                    listOFSets.add(markerTitle)
+                    putStringSet(FAVOURITE, listOFSets.toMutableSet())
+                    addToFav(markerId, markerTitle, markerLocation)
+
+                }
+
+            // to move item to the list of fav
+            }
+
+
 //                Toast.makeText(this.requireContext(), "added to favorite ", Toast.LENGTH_SHORT).show()} else {
 //                binding?.favoriteImage?.setImageResource(R.drawable.ic_baseline_favorite_border_24)}     }
 
@@ -80,5 +112,10 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
     private fun addToFav(markerId: String, title: String, location: LatLng) {
         viewModel.addToFavorite(markerId,title,location)
 
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

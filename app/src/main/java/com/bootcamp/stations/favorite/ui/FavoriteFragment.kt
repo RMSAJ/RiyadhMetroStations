@@ -1,14 +1,24 @@
 package com.bootcamp.stations.favorite.ui
 
+import android.content.Context.MODE_PRIVATE
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.bootcamp.stations.databinding.FragmentFavoriteBinding
 import com.bootcamp.stations.favorite.model.FavoriteViewModel
+import com.bootcamp.stations.favorite.model.FavoriteViewModelFactory
+import com.bootcamp.stations.favorite.util.Constants.favMarker
+import com.bootcamp.stations.homeMap.ui.HomeFragment
+import com.google.firebase.database.core.Context
+import kotlinx.coroutines.launch
 
 
 class FavoriteFragment : Fragment() {
@@ -16,10 +26,14 @@ class FavoriteFragment : Fragment() {
     private var _binding: FragmentFavoriteBinding? = null
     private val binding get() = _binding
 
-    private val viewModel: FavoriteViewModel by activityViewModels()
+    private val viewModel: FavoriteViewModel by activityViewModels{
+        FavoriteViewModelFactory()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
 
     }
 
@@ -37,17 +51,31 @@ class FavoriteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+
         binding?.settings?.setOnClickListener {
             val action = FavoriteFragmentDirections.actionFavoriteFragmentToSettingsFragment()
             findNavController().navigate(action)
         }
+
         val adapter = FavoriteAdapter()
         binding?.itemLinner?.adapter = adapter
-        viewModel.fav.observe(viewLifecycleOwner, {
-            it.let {  adapter.submitList(it)
-
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                viewModel.favoriteList.collect {
+                    it.let {
+                        adapter.submitList(it)
+                    }
+                }
             }
-        })
+        }
+
+//        viewModel.fav.observe(viewLifecycleOwner, {
+//            it.let {  adapter.submitList(it)
+//
+//            }
+//        })
 
     }
 

@@ -4,6 +4,7 @@ import com.bootcamp.stations.favorite.datalyer.FavoriteDataSource
 import com.bootcamp.stations.favorite.datalyer.FavoriteRepositry
 import com.bootcamp.stations.favorite.datalyer.UserFavoriteFireDataSource
 import com.bootcamp.stations.favorite.domain.AddToFavoriteUseCase
+import com.bootcamp.stations.favorite.domain.GetFavoritesUseCase
 import com.bootcamp.stations.profile.datalayer.ProfileFireStoreDataSource
 import com.bootcamp.stations.profile.datalayer.ProfileInfoDataSource
 import com.bootcamp.stations.profile.datalayer.ProfileRepositry
@@ -14,6 +15,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 object FavoriteServiceLocator {
 
+
+    //region add to Favorite
     private fun provideUserFavoriteFireStoreSource():
             FavoriteDataSource = UserFavoriteFireDataSource(FirebaseFirestore.getInstance())
 
@@ -25,7 +28,10 @@ object FavoriteServiceLocator {
         AddToFavoriteUseCase(provideFavoriteRepositry())
     //endregion
 
-    //region get user Info
+    //region get favorites Info
+
+    fun provideGetFavorites():GetFavoritesUseCase =
+        GetFavoritesUseCase(provideFavoriteRepositry())
 
 //    fun provideGetProfileUseCase(): GetUserProfileUseCase =
 //        GetUserProfileUseCase(provideProfileRepositry())

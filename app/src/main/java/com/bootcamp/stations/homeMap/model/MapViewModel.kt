@@ -21,8 +21,8 @@ class MapViewModel(
     private val getMarkersUseCase: GetMarkersUseCase
 ) : ViewModel() {
 
-    private val _mapMarkersByLine = mutableMapOf<Line, MutableList<Place>>()
-    val mapMarkersByLine get() = _mapMarkersByLine
+//    private val _mapMarkersByLine = mutableMapOf<Line, MutableList<Place>>()
+//    val mapMarkersByLine get() = _mapMarkersByLine
 
     //    private lateinit var auth: FirebaseAuth
     private var _mapUiState = MutableStateFlow(MapUiState())
@@ -80,7 +80,7 @@ class MapViewModel(
             Log.e("TAG", "getMarkers ViewModel")
             val placeMarker = getMarkersUseCase.invoke()
 
-            placeMarker.collect {
+            placeMarker.collect { it ->
 
 
                 val mapMarkersByLine = mutableMapOf<LineUiStates, MutableList<MarkerItemUIStatus>>()
