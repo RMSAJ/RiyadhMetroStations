@@ -30,10 +30,10 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
     private val markerTitle by lazy { navigationArgs.title }
     private val markerLocation: LatLng by lazy { LatLng(navigationArgs.lat.toDouble(), navigationArgs.lng.toDouble()) }
 
-    private val sharedRef by lazy { context?.getSharedPreferences(Constants.favMarker, Context.MODE_PRIVATE) }
-    private val listOFSets by lazy { mutableListOf<String>() }
-    private val markerFav by lazy { sharedRef?.edit() }
-    private val statMent by lazy { sharedRef!!.getStringSet(FAVOURITE,listOFSets.toMutableSet()) }
+//    private val sharedRef by lazy { context?.getSharedPreferences(Constants.favMarker, Context.MODE_PRIVATE) }
+//    private val listOFSets by lazy { mutableListOf<String>() }
+//    private val markerFav by lazy { sharedRef?.edit() }
+//    private val statMent by lazy { sharedRef!!.getStringSet(FAVOURITE,listOFSets.toMutableSet()) }
 
     private val viewModel: BottomSheetViewModel by activityViewModels{
         FavoriteViewModelFactory()
@@ -62,7 +62,7 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
 
 
 
-        if (statMent!!.contains(markerTitle))  {
+        if (true)  {
             binding?.favoriteImage?.setImageResource(R.drawable.ic_favorite)
         } else{
 
@@ -82,14 +82,12 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
 
         binding?.favoriteCard?.setOnClickListener {
 
-            if (statMent!!.contains(markerTitle)) {
+            if (true) {
                 binding?.favoriteImage?.setImageResource(R.drawable.ic_baseline_favorite_border_24)
             }
                 else{
                 binding?.favoriteImage?.setImageResource(R.drawable.ic_favorite)
-                markerFav?.apply {
-                    listOFSets.add(markerTitle)
-                    putStringSet(FAVOURITE, listOFSets.toMutableSet())
+
                     addToFav(markerId, markerTitle, markerLocation)
 
                 }
@@ -97,18 +95,12 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
             // to move item to the list of fav
             }
 
-
-//                Toast.makeText(this.requireContext(), "added to favorite ", Toast.LENGTH_SHORT).show()} else {
-//                binding?.favoriteImage?.setImageResource(R.drawable.ic_baseline_favorite_border_24)}     }
-
 //           viewModel.newFav(fav_Name,fav_latLng,fav_address)
 //            Toast.makeText(this.requireContext(), "Station save it ", Toast.LENGTH_SHORT).show()
         }
-//        binding?.favoriteImage?.setOnClickListener {
-//            Log.e("TAG", "favoriteImage: favoriteImage")
-//            Toast.makeText(this.requireContext(), "favoriteImage ", Toast.LENGTH_SHORT).show()
+
 //        }
-    }
+
     private fun addToFav(markerId: String, title: String, location: LatLng) {
         viewModel.addToFavorite(markerId,title,location)
 
