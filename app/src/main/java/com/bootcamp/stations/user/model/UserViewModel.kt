@@ -1,20 +1,19 @@
 package com.bootcamp.stations.user.model
 
 import android.graphics.drawable.Drawable
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import com.bootcamp.stations.DataState
 import com.bootcamp.stations.user.domain.AddUserUseCase
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
 class UserViewModel(private val addUserUseCase: AddUserUseCase) :ViewModel() {
 //    private lateinit var auth: FirebaseAuth
 
-    private val _userId = MutableLiveData<String>()
-    val userId:LiveData<String>  = _userId
+    private var _uiStatus = MutableStateFlow(DataState())
+    val uiStatus: LiveData<DataState> = _uiStatus.asLiveData()
     private var _isValidUser =  MutableLiveData<Boolean>()
      var isValidUser =  _isValidUser
 
@@ -148,6 +147,5 @@ class UserViewModel(private val addUserUseCase: AddUserUseCase) :ViewModel() {
 
 
     fun onRegisterSuccess(userId:String){
-        _userId.value = userId
     }
 }

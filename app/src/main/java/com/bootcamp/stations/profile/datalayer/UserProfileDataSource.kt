@@ -2,6 +2,8 @@ package com.bootcamp.stations.profile.datalayer
 
 import android.net.Uri
 import android.util.Log
+import com.bootcamp.stations.Constants.PROFILE
+import com.bootcamp.stations.UserModel
 import com.bootcamp.stations.profile.model.ProfileModel
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -19,34 +21,59 @@ class ProfileFireStoreDataSource(private val fireStoreDB: FirebaseFirestore,
                             private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO ):ProfileInfoDataSource {
 
     val auth = Firebase.auth.currentUser?.email
-    val db = fireStoreDB
-
-    override suspend fun setUserInfo(profileModel: ProfileModel, uri: Uri?) {
+    private val db = fireStoreDB
+    private  var dataMoved: Boolean = false
+    override suspend fun setUserInfo(profileModel: ProfileModel, uri: Uri?):Boolean {
         if (uri ==  null){
         val user = db.collection("User").document("$auth")
-        user.set(profileModel, SetOptions.merge())
+        user.update(mapOf(PROFILE to profileModel))
+            .addOnSuccessListener {
+                dataMoved = true
+            }
+            .addOnFailureListener {
+                dataMoved = false
+            }
+
     }else{
         if (uri.toString().contains("https:")){
             val user = db.collection("User").document("$auth")
-            user.set(profileModel, SetOptions.merge())
+            user.update(mapOf(PROFILE to profileModel))
+                .addOnSuccessListener {
+                    dataMoved = true
+                }
+                .addOnFailureListener {
+                    dataMoved = false
+                }
+
         }else{
             upload(uri).collect{
                 profileModel.profileImage = it.toString()
+
                 val user = db.collection("User").document("$auth")
-                user.set(profileModel, SetOptions.merge())
+                user.update(mapOf(PROFILE to profileModel))
+                    .addOnSuccessListener {
+                        dataMoved = true
+                    }
+                    .addOnFailureListener {
+                        dataMoved = false
+                    }
+
+
             }
+
         }
         }
+        return dataMoved
     }
 
     override suspend fun getUserInfo():Flow<ProfileModel> = callbackFlow {
-       db.collection("User").document("$auth").get().addOnSuccessListener{
-           val userInfo = it.toObject(ProfileModel::class.java)
+       db.collection("User").document("$auth").get().addOnCompleteListener{
+           val userInfo = it.result.toObject(UserModel::class.java)
            if (userInfo != null) {
-                trySend(userInfo)
+               userInfo.profile?.let {  trySend(it) }
                Log.d("TAG", "getUserInfo: success = ${it}")
            }
-           Log.d("TAG", "why null man: ${it.data} ")
+           Log.d("TAG", "why null man: ${it.result} ")
        }.addOnFailureListener {
             Log.d("TAG", "getUserInfo: failure: ${it.message} ")
         }

@@ -11,19 +11,22 @@ import kotlinx.coroutines.withContext
 
 class AddToFavoriteUseCase(private val favoriteRepositry: FavoriteRepositry) {
 
-suspend operator fun invoke(markerId: String, title: String, location: LatLng) = withContext(Dispatchers.IO){
+suspend operator fun invoke(markerId: String, title: String, location: LatLng)
+= withContext(Dispatchers.IO){
 
-    Log.e("TAG", "addFave: to UseCase $title ")
+//    Log.e("TAG", "addFave: to UseCase $title ")
 
         favoriteRepositry.getFavorite().collect {
 
         val favoriteList = it.toMutableList()
-        Log.e("TAG", "addFave: to UseCase newList $favoriteList ")
-        Log.e("TAG", "addFave: to UseCase newListeee $title ")
+//        Log.e("TAG", "addFave: to UseCase newList $favoriteList ")
+//        Log.e("TAG", "addFave: to UseCase newListeee $title ")
 
-        favoriteList.add(FavoriteModel(markerId, mapOf("latitude" to location.latitude,"longitude" to location.longitude ),title))
+        favoriteList.add(FavoriteModel(markerId,
+            mapOf("latitude" to location.latitude,"longitude" to location.longitude ),
+            title))
 
-        Log.e("TAG", "addFave: to UseCase final list to Repositry $favoriteList ")
+//        Log.e("TAG", "addFave: to UseCase final list to Repositry $favoriteList ")
 
         favoriteRepositry.setfavorite(favoriteList)
     }

@@ -1,9 +1,9 @@
 package com.bootcamp.stations.favorite.datalyer
 
 import android.util.Log
+import com.bootcamp.stations.UserModel
 import com.bootcamp.stations.favorite.model.FavoriteModel
-import com.bootcamp.stations.favorite.model.FavoriteRemote
-import com.bootcamp.stations.favorite.util.Constants.FAVOURITE
+import com.bootcamp.stations.Constants.FAVOURITE
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
@@ -38,7 +38,7 @@ class UserFavoriteFireDataSource
                 Log.e("TAG", "Getting favoritewwwws: ${it.result.data} ")
 
 
-                val favorite = it.result.toObject(FavoriteRemote::class.java)
+                val favorite = it.result.toObject(UserModel::class.java)
 
 
             Log.d("TAG", "Getting favoritesiii: ${favorite?.Favorite}")

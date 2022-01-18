@@ -24,7 +24,7 @@
 
     <style name="Widget.Metro.Button" parent="Widget.MaterialComponents.Button">
         <item name="android:textColor">?android:attr/textColorSecondary</item>
-        <item name="backgroundTint">?attr/colorPrimary</item>
+        <item name="backgroundTint">?attr/buttonBarStyle</item>
     </style>
 
     <style name="Widget.Metro.Button.TextButton" parent="Widget.MaterialComponents.Button.TextButton">

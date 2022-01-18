@@ -1,8 +1,10 @@
 package com.bootcamp.stations.user.dataLyer
 
 import com.bootcamp.stations.favorite.model.FavoriteModel
-import com.bootcamp.stations.favorite.util.Constants.EMAIL
-import com.bootcamp.stations.favorite.util.Constants.FAVOURITE
+import com.bootcamp.stations.Constants.EMAIL
+import com.bootcamp.stations.Constants.FAVOURITE
+import com.bootcamp.stations.Constants.PROFILE
+import com.bootcamp.stations.profile.model.ProfileModel
 import com.bootcamp.stations.user.model.UserModel
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.CoroutineDispatcher
@@ -15,8 +17,9 @@ class UserFireDataSource(
     override suspend fun addUSer(userModel: UserModel) {
         fireStoreDB.collection("User")
             .document(userModel.email!!).set(mapOf(
-                    EMAIL to userModel.email,
-                    FAVOURITE to listOf<FavoriteModel>()
+                FAVOURITE to listOf<FavoriteModel>(),
+                    PROFILE to ProfileModel(),
+
             ))
             .addOnCompleteListener {
                 println("success Registration =  $it")

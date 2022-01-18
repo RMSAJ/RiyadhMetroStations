@@ -50,4 +50,6 @@
     <string name="action_2">Go</string>
     <string name="action_1">Delete</string>
     <string name="sign_out">sign out</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
 </resources>
