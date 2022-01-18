@@ -174,13 +174,12 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_singup_reg"
-                style="@style/Widget.Metro.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
                 android:layout_marginEnd="64dp"
                 android:layout_toStartOf="@id/btn_lognin_reg"
-                android:text="@string/register"
-                android:textStyle="bold" />
+                android:text="@string/register" />
 
         </RelativeLayout>
 

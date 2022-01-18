@@ -19,3 +19,7 @@ data class DataState(
     var loadingStatus: LOADING_STATUS = LOADING_STATUS.DONE,
     val userMsg: String = ""
 )
+//data class DataStatesent(
+//    var loadingStatus: LOADING_STATUS = LOADING_STATUS.DONE,
+//    val userMsg: String = ""
+//)

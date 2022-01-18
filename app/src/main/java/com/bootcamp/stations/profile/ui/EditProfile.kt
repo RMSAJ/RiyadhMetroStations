@@ -40,15 +40,12 @@ class EditProfile : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = UserProfileBinding.inflate(inflater, container, false)
-//        binding?.lifecycleOwner = this
+
         return _binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
-        theUiStatus()
 
         binding?.apply {
             settings.setOnClickListener {
@@ -60,16 +57,13 @@ class EditProfile : Fragment() {
             }
             save.setOnClickListener {
                 setTheData()
-
+                theUiStatus()
             }
             cancelButton.setOnClickListener {
                 findNavController().navigate(EditProfileDirections.actionEditProfileToProfileFragment())
             }
         }
-
-
     }
-
 
     private fun openGalleryForImage() {
         val intent = Intent(Intent.ACTION_PICK)
@@ -116,6 +110,7 @@ class EditProfile : Fragment() {
 
     private fun theUiStatus() {
         viewModel.uiStatus.observe(viewLifecycleOwner, { uiState ->
+
             when (uiState.loadingStatus) {
                 LOADING_STATUS.LOADING -> {
                     showLoading()
@@ -130,6 +125,4 @@ class EditProfile : Fragment() {
             }
         })
     }
-
-
 }

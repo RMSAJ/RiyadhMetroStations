@@ -63,8 +63,8 @@ class ProfileFragment : Fragment() {
                         binding?.profileName?.setText(it.profileName)
                         binding?.profilePhone?.setText(it.profilePhone)
                         binding?.profileEmail?.setText(it.profileEmail)
-                        Glide.with(requireContext()).load(it.profileImage.toUri())
-                            .error(R.drawable.ic_profile).into(binding!!.profileImage)
+                        Glide.with(requireContext()).load(it.profileImage.toUri()).placeholder(R.drawable.loading_animation)
+                            .error(R.drawable.ic_baseline_broken_image_24).circleCrop().into(binding!!.profileImage)
                     }
                 }
             }
@@ -73,8 +73,8 @@ class ProfileFragment : Fragment() {
         binding?.apply {
 
             editProfile.setOnClickListener {
-//                val action = ProfileFragmentDirections.actionProfileFragmentToEditProfile()
-                findNavController().navigate(R.id.editProfile)
+               val action = ProfileFragmentDirections.actionProfileFragmentToEditProfile()
+                findNavController().navigate(action)
             }
         }
     }
@@ -84,41 +84,38 @@ class ProfileFragment : Fragment() {
         _binding = null
     }
 
-    private fun theUiStatus() {
-        viewModel.uiStatus.observe(viewLifecycleOwner, { uiState ->
-            when (uiState.loadingStatus) {
-                LOADING_STATUS.LOADING -> {
-                    showLoading()
-                }
-                LOADING_STATUS.ERROR -> {
-                    showError()
-                }
-                LOADING_STATUS.DONE -> {
-                    showContent()
+//    private fun theUiStatus() {
+//        viewModel.uiStatus.observe(viewLifecycleOwner, { uiState ->
+//            when (uiState.loadingStatus) {
+//                LOADING_STATUS.LOADING -> {
+//                    showLoading()
+//                }
+//                LOADING_STATUS.ERROR -> {
+//                    showError()
+//                }
+//                LOADING_STATUS.DONE -> {
+//                    showContent()
+//
+//                }
+//            }
+//        })
+//    }
 
-                }
-            }
-        })
-    }
-
-    private fun showLoading() {
-        binding?.contentScreen?.visibility = View.GONE
-        binding?.loadingScreen?.visibility = View.VISIBLE
-        binding?.errorScreen?.visibility = View.GONE
-    }
-
-    private fun showError() {
-        binding?.contentScreen?.visibility = View.GONE
-        binding?.loadingScreen?.visibility = View.GONE
-        binding?.errorScreen?.visibility = View.VISIBLE
-    }
-
-    private fun showContent() {
-        binding?.contentScreen?.visibility = View.VISIBLE
-        binding?.loadingScreen?.visibility = View.GONE
-        binding?.errorScreen?.visibility = View.GONE
-    }
-
-
-
+//    private fun showLoading() {
+//        binding?.contentScreen?.visibility = View.GONE
+//        binding?.loadingScreen?.visibility = View.VISIBLE
+//        binding?.errorScreen?.visibility = View.GONE
+//    }
+//
+//    private fun showError() {
+//        binding?.contentScreen?.visibility = View.GONE
+//        binding?.loadingScreen?.visibility = View.GONE
+//        binding?.errorScreen?.visibility = View.VISIBLE
+//    }
+//
+//    private fun showContent() {
+//        binding?.contentScreen?.visibility = View.VISIBLE
+//        binding?.loadingScreen?.visibility = View.GONE
+//        binding?.errorScreen?.visibility = View.GONE
+//    }
 }

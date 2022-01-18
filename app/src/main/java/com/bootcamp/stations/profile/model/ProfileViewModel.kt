@@ -11,10 +11,7 @@ import com.bootcamp.stations.LOADING_STATUS.*
 import com.bootcamp.stations.profile.domain.GetUserProfileUseCase
 import com.bootcamp.stations.profile.domain.SetProfileUseCase
 import com.bootcamp.stations.profile.ui.ProfileUiState
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.*
 
 import kotlinx.coroutines.launch
 
@@ -31,8 +28,14 @@ private val getUserProfileUseCase: GetUserProfileUseCase) : ViewModel() {
 
 private fun setProfile(profileModel: ProfileModel, uri: Uri?) {
     viewModelScope.launch {
-        val onSucsses = setProfileUseCase.invoke(profileModel, uri)
-        _uiStatus.update { it.copy(onSucsses.loadingStatus) }
+        _uiStatus.update { it.copy(LOADING) }
+         setProfileUseCase.invoke(profileModel, uri).collect{ result->
+
+
+             _uiStatus.update {
+                 result}
+
+         }
 
 //        when(onSucsses.loadingStatus) {
 //

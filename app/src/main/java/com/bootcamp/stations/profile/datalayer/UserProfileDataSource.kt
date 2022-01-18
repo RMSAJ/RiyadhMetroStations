@@ -26,22 +26,28 @@ class ProfileFireStoreDataSource(private val fireStoreDB: FirebaseFirestore):Pro
     val auth = Firebase.auth.currentUser?.email
     private val db = fireStoreDB
 
-    override suspend fun setUserInfo(profileModel: ProfileModel, uri: Uri?): Flow<DataState> {
+    override suspend fun setUserInfo(profileModel: ProfileModel, uri: Uri?): Flow<DataState> = callbackFlow {
         if (uri ==  null){
         val user = db.collection("User").document("$auth")
-        user.update(mapOf(PROFILE to profileModel))
+            user.set(mapOf(PROFILE to profileModel), SetOptions.merge())
             .addOnCompleteListener {
+                if (it.isSuccessful)
+                trySend(DataState(LOADING_STATUS.DONE))
             }
             .addOnFailureListener {
+                trySend(DataState(LOADING_STATUS.ERROR, "${it.message}"))
             }
 
     }else{
         if (uri.toString().contains("https:")){
             val user = db.collection("User").document("$auth")
-            user.update(mapOf(PROFILE to profileModel))
+            user.set(mapOf(PROFILE to profileModel), SetOptions.merge())
                 .addOnCompleteListener {
+                    if (it.isSuccessful)
+                    trySend(DataState(LOADING_STATUS.DONE))
                 }
                 .addOnFailureListener {
+                    trySend(DataState(LOADING_STATUS.ERROR, "${it.message}"))
                 }
 
         }else{
@@ -49,17 +55,20 @@ class ProfileFireStoreDataSource(private val fireStoreDB: FirebaseFirestore):Pro
                 profileModel.profileImage = it.toString()
 
                 val user = db.collection("User").document("$auth")
-                user.update(mapOf(PROFILE to profileModel))
+                user.set(mapOf(PROFILE to profileModel), SetOptions.merge())
                     .addOnCompleteListener {
+                        if (it.isSuccessful)
+                        trySend(DataState(LOADING_STATUS.DONE))
                     }
                     .addOnFailureListener {
-
+                        trySend(DataState(LOADING_STATUS.ERROR, "${it.message}"))
                     }
 
             }
         }
         }
 
+        awaitClose {  }
     }
 
     override suspend fun getUserInfo():Flow<ProfileModel> = callbackFlow {
