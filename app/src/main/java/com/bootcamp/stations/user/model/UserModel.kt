@@ -1,10 +1,10 @@
 package com.bootcamp.stations.user.model
 
+import com.bootcamp.stations.favorite.model.FavoriteModel
+
 data class UserModel(
-    var email: String?,
-    var name: String? = null,
-    var imageUrl: String? = null,
-    var location: GeometryLocation? = null,
+    var email: String? = "",
+    var favorite: List<FavoriteModel> = listOf()
     )
 
 data class GeometryLocation(

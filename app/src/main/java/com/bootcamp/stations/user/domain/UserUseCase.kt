@@ -12,4 +12,5 @@ class AddUserUseCase(private val userRepositry: UserRepositry,
 
     suspend operator fun invoke(userModel: UserModel) =
         userRepositry.addUser(userModel)
+
 }

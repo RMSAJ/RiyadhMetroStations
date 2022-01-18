@@ -15,11 +15,21 @@ class PlacesReader(private val context: Context) {
         get() = context.resources.openRawResource(R.raw.map_locations) // getting the json file
 
     // read the json file into the map
-    fun read(): List<Place> {
+    fun read(): Map<Line,MutableList<Place>> {
         val itemType = object : TypeToken<List<PlaceResponse>>() {}.type
         val reader = InputStreamReader(inputStream)
-        return gson.fromJson<List<PlaceResponse>>(reader, itemType).map {
+        val listOfAllMarkers= gson.fromJson<List<PlaceResponse>>(reader, itemType).map {
             it.toPlace()
         }
+        val mapMarkersByLine= mutableMapOf<Line,MutableList<Place>>()
+        listOfAllMarkers.forEach {place->
+
+            if(mapMarkersByLine[place.line]==null){
+                mapMarkersByLine[place.line]= mutableListOf()
+            }
+            mapMarkersByLine[place.line]?.add(place)
+        }
+        return mapMarkersByLine
     }
+
 }

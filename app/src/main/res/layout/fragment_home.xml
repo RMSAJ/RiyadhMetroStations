@@ -1,72 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".homeMap.HomeFragment">
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+<variable
+    name="mapViewModel"
+    type="com.bootcamp.stations.homeMap.model.MapViewModel" />
+    </data>
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/app_bar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:navigationIcon="@drawable/shr_menu"
-            app:titleTextColor="@color/white"
-            app:title="@string/app_name" />
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
+        tools:context=".homeMap.ui.HomeFragment">
 
-        <!--    <com.google.android.gms.maps.MapView-->
-        <!--        android:id="@+id/myMap"-->
-        <!--        android:layout_width="match_parent"-->
-        <!--        android:layout_height="match_parent"-->
-        <!--        android:layout_alignParentStart="true"-->
-        <!--        android:layout_marginStart="0dp"-->
-        <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--        app:layout_constraintEnd_toEndOf="parent"-->
-        <!--        app:layout_constraintStart_toStartOf="parent"-->
-        <!--        app:layout_constraintTop_toTopOf="parent" />-->
 
-        <fragment
-            android:id="@+id/myMap"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:context=".homeMap.HomeFragment" />
+            android:layout_height="match_parent">
 
 
-        <!--    <TextView-->
-        <!--        android:id="@+id/desplay"-->
-        <!--        android:layout_width="250dp"-->
-        <!--        android:layout_height="250dp"-->
-        <!--        android:gravity="center"-->
-        <!--        android:textSize="30dp"-->
-        <!--        android:text="@string/hello_blank_fragment"-->
-        <!--        app:layout_constraintBottom_toTopOf="@+id/logOut"-->
-        <!--        app:layout_constraintEnd_toEndOf="parent"-->
-        <!--        app:layout_constraintStart_toStartOf="parent" />-->
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/app_bar_setting"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:menu="@menu/toolbar_menu"
+                app:title="Map"
+                app:titleTextColor="@color/Green_700" />
+
+            <!--    <com.google.android.gms.maps.MapView-->
+            <!--        android:id="@+id/myMap"-->
+            <!--        android:layout_width="match_parent"-->
+            <!--        android:layout_height="match_parent"-->
+            <!--        android:layout_alignParentStart="true"-->
+            <!--        android:layout_marginStart="0dp"-->
+            <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--        app:layout_constraintEnd_toEndOf="parent"-->
+            <!--        app:layout_constraintStart_toStartOf="parent"-->
+            <!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/myMap"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/app_bar_setting"
+                tools:context=".homeMap.ui.HomeFragment" />
 
 
-        <!--    <com.google.android.material.button.MaterialButton-->
-        <!--        android:id="@+id/logOut"-->
-        <!--        android:text="LogOut"-->
-        <!--        android:layout_width="wrap_content"-->
-        <!--        android:layout_height="wrap_content"-->
-        <!--        android:layout_marginBottom="340dp"-->
-        <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--        app:layout_constraintEnd_toEndOf="parent"-->
-        <!--        app:layout_constraintStart_toStartOf="parent" />-->
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="-4dp"
+                android:src="@drawable/vector_1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.494"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:ignore="ContentDescription" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</FrameLayout>
+                <ImageButton
+                android:layout_width="39dp"
+                android:layout_height="37dp"
+                android:layout_marginBottom="14dp"
+                android:clickable="true"
+                android:backgroundTint="@color/white"
+                android:src="@drawable/group_4"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                app:layout_constraintEnd_toEndOf="@+id/imageView"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="@+id/imageView"
+                app:layout_constraintTop_toTopOf="@+id/imageView"
+                app:layout_constraintVertical_bias="0.222"
+                    tools:ignore="ContentDescription" />
+
+            <!--    <TextView-->
+            <!--        android:id="@+id/desplay"-->
+            <!--        android:layout_width="250dp"-->
+            <!--        android:layout_height="250dp"-->
+            <!--        android:gravity="center"-->
+            <!--        android:textSize="30dp"-->
+            <!--        android:text="@string/hello_blank_fragment"-->
+            <!--        app:layout_constraintBottom_toTopOf="@+id/logOut"-->
+            <!--        app:layout_constraintEnd_toEndOf="parent"-->
+            <!--        app:layout_constraintStart_toStartOf="parent" />-->
+
+
+            <!--    <com.google.android.material.button.MaterialButton-->
+            <!--        android:id="@+id/logOut"-->
+            <!--        android:text="LogOut"-->
+            <!--        android:layout_width="wrap_content"-->
+            <!--        android:layout_height="wrap_content"-->
+            <!--        android:layout_marginBottom="340dp"-->
+            <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--        app:layout_constraintEnd_toEndOf="parent"-->
+            <!--        app:layout_constraintStart_toStartOf="parent" />-->
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+</layout>
