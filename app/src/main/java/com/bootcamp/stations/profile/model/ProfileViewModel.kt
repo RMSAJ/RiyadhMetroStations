@@ -7,6 +7,7 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.bootcamp.stations.DataState
 import com.bootcamp.stations.LOADING_STATUS
+import com.bootcamp.stations.LOADING_STATUS.*
 import com.bootcamp.stations.profile.domain.GetUserProfileUseCase
 import com.bootcamp.stations.profile.domain.SetProfileUseCase
 import com.bootcamp.stations.profile.ui.ProfileUiState
@@ -26,25 +27,24 @@ private val getUserProfileUseCase: GetUserProfileUseCase) : ViewModel() {
     private val _userInfo = MutableStateFlow(ProfileModel())
     val userInfo = _userInfo.asStateFlow()
 
-    private val _readyToNavigate = MutableLiveData<Boolean>()
-    val  readyToNavigate = _readyToNavigate
+
 
 private fun setProfile(profileModel: ProfileModel, uri: Uri?) {
     viewModelScope.launch {
-       _uiStatus.value.loadingStatus = LOADING_STATUS.LOADING
-    val isthedataHasBeenSent = setProfileUseCase.invoke(profileModel, uri)
-        if (isthedataHasBeenSent) {
-            _uiStatus.value.loadingStatus = LOADING_STATUS.DONE
-            _readyToNavigate.value = true
-        }
-        else _uiStatus.value.loadingStatus = LOADING_STATUS.ERROR
+        val onSucsses = setProfileUseCase.invoke(profileModel, uri)
+        _uiStatus.update { it.copy(onSucsses.loadingStatus) }
+
+//        when(onSucsses.loadingStatus) {
+//
+//            DONE -> _uiStatus.value.loadingStatus = DONE
+//            ERROR -> _uiStatus.value.loadingStatus = ERROR
+//            LOADING -> _uiStatus.value.loadingStatus = LOADING
+//        }
     }
-}
 
-init {
-    getUserInfo()
-}
 
+
+}
     fun prepareTheData(image:String ,name:String, phone:String, email:String, uri: Uri? ){
 
         val profile = ProfileModel(image, name,email,phone )
@@ -52,7 +52,7 @@ init {
         setProfile(profile,uri)
     }
 
-    private fun getUserInfo(){
+     fun getUserInfo(){
         viewModelScope.launch {
             getUserProfileUseCase.invoke().collect{
                 _userInfo.value = it
@@ -60,8 +60,6 @@ init {
             }
         }
     }
-
-
 
 //
 }

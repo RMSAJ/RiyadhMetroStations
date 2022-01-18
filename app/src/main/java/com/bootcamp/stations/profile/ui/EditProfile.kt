@@ -9,6 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.Lifecycle.State.*
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.bootcamp.stations.LOADING_STATUS
 import com.bootcamp.stations.databinding.UserProfileBinding
@@ -16,6 +20,7 @@ import com.bootcamp.stations.profile.model.ProfileViewModel
 import com.bootcamp.stations.profile.model.ProfileViewModelFactory
 import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class EditProfile : Fragment() {
 
@@ -43,6 +48,7 @@ class EditProfile : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
+        theUiStatus()
 
         binding?.apply {
             settings.setOnClickListener {
@@ -54,13 +60,13 @@ class EditProfile : Fragment() {
             }
             save.setOnClickListener {
                 setTheData()
-                navigation()
-//
+
             }
             cancelButton.setOnClickListener {
                 findNavController().navigate(EditProfileDirections.actionEditProfileToProfileFragment())
             }
         }
+
 
     }
 
@@ -86,6 +92,7 @@ class EditProfile : Fragment() {
             binding?.profilePhone?.text.toString(),
             binding?.profileEmail?.text.toString(), fileImage
         )
+
     }
 
     private fun showLoading() {
@@ -104,9 +111,10 @@ class EditProfile : Fragment() {
         binding?.contentScreen?.visibility = View.VISIBLE
         binding?.loadingScreen?.visibility = View.GONE
         binding?.errorScreen?.visibility = View.GONE
+        findNavController().navigate(EditProfileDirections.actionEditProfileToProfileFragment())
     }
 
-   private fun theUiStatus(){
+    private fun theUiStatus() {
         viewModel.uiStatus.observe(viewLifecycleOwner, { uiState ->
             when (uiState.loadingStatus) {
                 LOADING_STATUS.LOADING -> {
@@ -117,15 +125,11 @@ class EditProfile : Fragment() {
                 }
                 LOADING_STATUS.DONE -> {
                     showContent()
+
                 }
             }
         })
     }
 
-    private fun navigation (){
-      (viewModel.readyToNavigate.observe(viewLifecycleOwner, ){
-          if (it) findNavController().navigate(EditProfileDirections.actionEditProfileToProfileFragment())
-     })
-    }
 
 }

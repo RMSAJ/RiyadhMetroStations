@@ -1,6 +1,7 @@
 package com.bootcamp.stations.profile.domain
 
 import android.net.Uri
+import com.bootcamp.stations.DataState
 import com.bootcamp.stations.profile.datalayer.ProfileRepositry
 import com.bootcamp.stations.profile.model.ProfileModel
 import kotlinx.coroutines.CoroutineDispatcher
@@ -9,8 +10,8 @@ import kotlinx.coroutines.withContext
 
 class SetProfileUseCase(private val profileRepositry: ProfileRepositry) {
 
-    suspend operator fun invoke(profileModel: ProfileModel, uri: Uri?):Boolean {
-        var onSendingData = false
+    suspend operator fun invoke(profileModel: ProfileModel, uri: Uri?): DataState {
+        var onSendingData = DataState()
         withContext(Dispatchers.IO) {
             profileRepositry.getUserInfo().collect {
                 val profile = it
@@ -22,7 +23,7 @@ class SetProfileUseCase(private val profileRepositry: ProfileRepositry) {
                         profileEmail = profileModel.profileEmail
                     )
                 }
-                onSendingData   =    profileRepositry.setUserInfo(profile, uri)
+                onSendingData =     profileRepositry.setUserInfo(profile, uri)
 
             }
 

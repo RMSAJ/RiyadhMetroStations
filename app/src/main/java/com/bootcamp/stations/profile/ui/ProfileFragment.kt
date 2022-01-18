@@ -12,6 +12,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import com.bootcamp.stations.LOADING_STATUS
 import com.bootcamp.stations.R
 import com.bootcamp.stations.databinding.FragmentProfileBinding
 import com.bootcamp.stations.profile.model.ProfileViewModel
@@ -37,6 +38,7 @@ class ProfileFragment : Fragment() {
         Log.e("TAG", "onCreate: ${Firebase.auth.currentUser?.email}", )
     }
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,6 +46,7 @@ class ProfileFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
 //       viewModel.userInfo. (viewLifecycleOwner, {binding!!.textView.setText(it) })
+        viewModel.getUserInfo()
         return _binding?.root
     }
 
@@ -51,7 +54,7 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 //        viewModel.getUserInfo()
         Log.d("TAG", "onViewCreated: ${viewModel.userInfo.value.profileName} ")
-
+//        theUiStatus()
         lifecycleScope.launch {
 //           repeatOnLifecycle(Lifecycle.State.RESUMED)
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
@@ -70,8 +73,8 @@ class ProfileFragment : Fragment() {
         binding?.apply {
 
             editProfile.setOnClickListener {
-                val action = ProfileFragmentDirections.actionProfileFragmentToEditProfile()
-                findNavController().navigate(action)
+//                val action = ProfileFragmentDirections.actionProfileFragmentToEditProfile()
+                findNavController().navigate(R.id.editProfile)
             }
         }
     }
@@ -80,5 +83,42 @@ class ProfileFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    private fun theUiStatus() {
+        viewModel.uiStatus.observe(viewLifecycleOwner, { uiState ->
+            when (uiState.loadingStatus) {
+                LOADING_STATUS.LOADING -> {
+                    showLoading()
+                }
+                LOADING_STATUS.ERROR -> {
+                    showError()
+                }
+                LOADING_STATUS.DONE -> {
+                    showContent()
+
+                }
+            }
+        })
+    }
+
+    private fun showLoading() {
+        binding?.contentScreen?.visibility = View.GONE
+        binding?.loadingScreen?.visibility = View.VISIBLE
+        binding?.errorScreen?.visibility = View.GONE
+    }
+
+    private fun showError() {
+        binding?.contentScreen?.visibility = View.GONE
+        binding?.loadingScreen?.visibility = View.GONE
+        binding?.errorScreen?.visibility = View.VISIBLE
+    }
+
+    private fun showContent() {
+        binding?.contentScreen?.visibility = View.VISIBLE
+        binding?.loadingScreen?.visibility = View.GONE
+        binding?.errorScreen?.visibility = View.GONE
+    }
+
+
 
 }

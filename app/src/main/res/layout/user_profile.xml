@@ -151,13 +151,13 @@ android:layout_height="match_parent">
             app:layout_constraintVertical_bias="1.0" />
 
         <Button
-            style="@style/Widget.MaterialComponents.Button"
             android:id="@+id/save"
-            android:backgroundTint="@color/teal_700"
+            style="@style/Widget.MaterialComponents.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="2dp"
+            android:backgroundTint="@color/teal_700"
             android:text="@string/save" />
 
     </RelativeLayout>
