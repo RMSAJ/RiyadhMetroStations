@@ -3,6 +3,7 @@ package com.bootcamp.stations.favorite.model
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.bootcamp.stations.favorite.util.FavoriteServiceLocator.provideGetFavorites
+import com.bootcamp.stations.favorite.util.FavoriteServiceLocator.provideRemoveFavUseCase
 import com.bootcamp.stations.favorite.util.FavoriteServiceLocator.provideSetFavoriteUseCase
 import com.bootcamp.stations.profile.model.ProfileViewModel
 import com.bootcamp.stations.profile.util.ProfileServiceLocator
@@ -14,7 +15,7 @@ class FavoriteViewModelFactory : ViewModelProvider.Factory  {
             modelClass.isAssignableFrom(BottomSheetViewModel::class.java) -> {
                 @Suppress("UNCHECKED_CAST")
                 return BottomSheetViewModel(
-                    provideSetFavoriteUseCase()
+                    provideSetFavoriteUseCase(), provideGetFavorites(), provideRemoveFavUseCase()
                 ) as T
             }
             modelClass.isAssignableFrom(FavoriteViewModel::class.java) -> {

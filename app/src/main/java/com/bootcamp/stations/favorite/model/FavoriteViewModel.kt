@@ -29,7 +29,7 @@ class FavoriteViewModel(private val getFavoritesUseCase: GetFavoritesUseCase) : 
 //        favListItem.add(item)
 //    }
 
-    private fun getFavs() {
+     fun getFavs() {
         viewModelScope.launch {
           val facorites =  getFavoritesUseCase.invoke()
             facorites.collect{

@@ -12,13 +12,12 @@ import kotlinx.coroutines.withContext
 class AddToFavoriteUseCase(private val favoriteRepositry: FavoriteRepositry) {
 
 suspend operator fun invoke(markerId: String, title: String, location: LatLng)
-= withContext(Dispatchers.IO){
+    = withContext(Dispatchers.IO){
 
 
         favoriteRepositry.getFavorite().collect {
 
         val favoriteList = it.toMutableList()
-
 
         favoriteList.add(FavoriteModel(markerId,
             mapOf("latitude" to location.latitude,"longitude" to location.longitude ),

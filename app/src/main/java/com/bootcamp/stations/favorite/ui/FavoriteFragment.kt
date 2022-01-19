@@ -39,8 +39,6 @@ class FavoriteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
         binding?.settings?.setOnClickListener {
             val action = FavoriteFragmentDirections.actionFavoriteFragmentToSettingsFragment()
             findNavController().navigate(action)
@@ -50,6 +48,8 @@ class FavoriteFragment : Fragment() {
         binding?.itemLinner?.adapter = adapter
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                viewModel.getFavs()
+
                 viewModel.favoriteList.collect {
 
                     it.let {

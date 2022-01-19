@@ -3,10 +3,14 @@ package com.bootcamp.stations.favorite.ui
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
 import com.bootcamp.stations.R
 import com.bootcamp.stations.databinding.FragmentBottomSheetBinding
@@ -14,6 +18,7 @@ import com.bootcamp.stations.favorite.model.BottomSheetViewModel
 import com.bootcamp.stations.favorite.model.FavoriteViewModelFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import kotlinx.coroutines.launch
 
 
 class BottomSheetFragment : BottomSheetDialogFragment() {
@@ -62,26 +67,42 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setTheMarkerDetails(markerTitle)
-        binding?.apply {
-            favoriteCard.setOnClickListener {
-
-                binding?.favoriteImage?.setImageResource(R.drawable.ic_favorite)
-
-                addToFav(markerId, markerTitle, markerLocation)
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.RESUMED){
+                viewModel.getFavList()
             }
-            navigateCard.setOnClickListener {
-                navigateOnSelected(markerLocation)
-            }
-
-
-            // to move item to the list of fav
         }
+        viewModel.favoriteList.observe(viewLifecycleOwner,{ favList ->
+            val x = favList.find { it.title == navigationArgs.title }
+            if (x?.title != null ) {
+                binding?.favoriteImage?.setImageResource(R.drawable.ic_favorite)
+            }else{
+                binding?.favoriteImage?.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+            }
+            binding?.apply {
+                favoriteCard.setOnClickListener {
+                    if (x?.title != null){
+                        binding?.favoriteImage?.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+                       viewModel.removeFav(markerId, markerTitle, markerLocation)
+                    }else {
+                        addToFav(markerId, markerTitle, markerLocation)
+                        binding?.favoriteImage?.setImageResource(R.drawable.ic_favorite)
+
+                    }
+                }
+                navigateCard.setOnClickListener {
+                    navigateOnSelected(markerLocation)
+                }
+
+            }
+        })
+
     }
 
     private fun addToFav(markerId: String, title: String, location: LatLng) {
         viewModel.addToFavorite(markerId,title,location)
 
-    }
+}
 
     fun setTheMarkerDetails(markerTitle: String) {
         binding?.nameText?.text = markerTitle
