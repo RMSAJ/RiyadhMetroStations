@@ -2,7 +2,6 @@ package com.bootcamp.stations.userPrefrence
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
-import com.bootcamp.stations.ThemeProvider
 
 class ThemeApplication : Application() {
     override fun onCreate() {

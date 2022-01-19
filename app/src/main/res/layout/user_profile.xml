@@ -79,7 +79,7 @@ android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="wrap_content"
         android:background="@color/Primary_Green_500"
         android:padding="20dp">
 
@@ -87,53 +87,99 @@ android:layout_height="match_parent">
             android:id="@+id/settings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
             android:src="@drawable/ic_baseline_settings_24" />
 
         <ImageView
             android:id="@+id/profileImage"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/ic_profile"
-            android:layout_centerVertical="true"
-            />
+            style="@style/Circular"
+            android:src="@drawable/ic_profile" />
 
-        <EditText
-            android:id="@+id/profileName"
+<!--        <EditText-->
+<!--            android:id="@+id/profileName"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_centerVertical="true"-->
+<!--            android:layout_marginStart="10dp"-->
+<!--            android:layout_toEndOf="@id/profileImage"-->
+<!--            android:textSize="20sp"-->
+<!--            android:textStyle="bold"-->
+<!--            tools:hint="@string/rakan_aljarallah" />-->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/profileNamecard"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:minWidth="30dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="40dp"
+            style="@style/Base.CardView"
+            android:layout_toEndOf="@id/profileImage"
+            android:backgroundTint="@color/white"
+            android:layout_height="wrap_content">
+
+
+            <EditText
+                android:id="@+id/profileName"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                tools:hint="Rakan Aljarallah" />
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/profileEmailcard"
+            android:layout_width="wrap_content"
+            android:layout_marginEnd="40dp"
+            android:minWidth="30dp"
+            style="@style/Base.CardView"
+            android:layout_marginTop="6dp"
+
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
             android:layout_toEndOf="@id/profileImage"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            tools:hint="@string/rakan_aljarallah" />
+            android:layout_below="@+id/profileNamecard"
+            android:backgroundTint="@color/white"
+            android:layout_height="wrap_content">
 
         <EditText
             android:id="@+id/profileEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="rakna@gmail.com"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="10dp"
-            android:layout_toEndOf="@id/profileImage"
-            android:layout_below="@+id/profileName"
             android:textSize="14sp"
             android:textStyle="bold"
             />
+        </com.google.android.material.card.MaterialCardView>
 
-        <EditText
-            android:id="@+id/profilePhone"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/profilePhonecard"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_marginEnd="40dp"
+            android:minWidth="30dp"
+            style="@style/Base.CardView"
             android:layout_centerVertical="true"
-            android:layout_marginTop="6dp"
             android:layout_marginStart="10dp"
+            android:layout_marginTop="6dp"
             android:includeFontPadding="false"
             android:layout_toEndOf="@id/profileImage"
-            android:layout_below="@id/profileEmail"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            tools:hint="0545595003" />
+            android:layout_below="@id/profileEmailcard"
+            android:backgroundTint="@color/white"
+            android:layout_height="wrap_content">
+
+
+            <EditText
+                android:id="@+id/profilePhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                tools:hint="0545595003" />
+
+        </com.google.android.material.card.MaterialCardView>
+
 
     </RelativeLayout>
 

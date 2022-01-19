@@ -1,9 +1,10 @@
-package com.bootcamp.stations
+package com.bootcamp.stations.userPrefrence
 
 import android.app.UiModeManager
 import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceManager
+import com.bootcamp.stations.R
 import java.security.InvalidParameterException
 
 class ThemeProvider (private val context: Context) {

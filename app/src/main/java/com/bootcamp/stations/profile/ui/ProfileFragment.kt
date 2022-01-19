@@ -45,8 +45,7 @@ class ProfileFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
-//       viewModel.userInfo. (viewLifecycleOwner, {binding!!.textView.setText(it) })
-        viewModel.getUserInfo()
+
         return _binding?.root
     }
 
@@ -84,38 +83,5 @@ class ProfileFragment : Fragment() {
         _binding = null
     }
 
-//    private fun theUiStatus() {
-//        viewModel.uiStatus.observe(viewLifecycleOwner, { uiState ->
-//            when (uiState.loadingStatus) {
-//                LOADING_STATUS.LOADING -> {
-//                    showLoading()
-//                }
-//                LOADING_STATUS.ERROR -> {
-//                    showError()
-//                }
-//                LOADING_STATUS.DONE -> {
-//                    showContent()
-//
-//                }
-//            }
-//        })
-//    }
 
-//    private fun showLoading() {
-//        binding?.contentScreen?.visibility = View.GONE
-//        binding?.loadingScreen?.visibility = View.VISIBLE
-//        binding?.errorScreen?.visibility = View.GONE
-//    }
-//
-//    private fun showError() {
-//        binding?.contentScreen?.visibility = View.GONE
-//        binding?.loadingScreen?.visibility = View.GONE
-//        binding?.errorScreen?.visibility = View.VISIBLE
-//    }
-//
-//    private fun showContent() {
-//        binding?.contentScreen?.visibility = View.VISIBLE
-//        binding?.loadingScreen?.visibility = View.GONE
-//        binding?.errorScreen?.visibility = View.GONE
-//    }
 }

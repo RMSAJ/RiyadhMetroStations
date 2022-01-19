@@ -6,7 +6,6 @@ import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.bootcamp.stations.R
-import com.bootcamp.stations.ThemeProvider
 
 class SettingsFragment : PreferenceFragmentCompat() {
 
