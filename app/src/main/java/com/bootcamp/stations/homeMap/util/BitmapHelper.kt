@@ -32,7 +32,7 @@ object BitmapHelper {
      * Taken from ApiDemos on GitHub: https://github.com/googlemaps/android-samples/blob/master/ApiDemos/kotlin/app/src/main/java/com/example/kotlindemos/MarkerDemoActivity.kt
      */
     fun vectorToBitmap(context: Context, @DrawableRes id: Int, @ColorInt color: Int): BitmapDescriptor {
-        val vectorDrawable = ResourcesCompat.getDrawable(context.resources, id, null)
+        val vectorDrawable = ResourcesCompat.getDrawable(context.resources, id, context.applicationContext.theme)
         if (vectorDrawable == null) {
             Log.e("BitmapHelper", "Resource not found")
             return BitmapDescriptorFactory.defaultMarker()

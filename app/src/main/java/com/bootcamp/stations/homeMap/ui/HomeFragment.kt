@@ -56,10 +56,10 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
     private var locationPermissionGranted = false
     private var lastKnownLocation: Location? = null
 
-    private var likelyPlaceNames: Array<String?> =arrayOfNulls(0)
-    private var likelyPlaceAddresses: Array<String?> =arrayOfNulls(0)
-    private var likelyPlaceAttributions: Array<List<*>?> =arrayOfNulls(0)
-    private var likelyPlaceLatLngs: Array<LatLng?> =arrayOfNulls(0)
+    private var likelyPlaceNames: Array<String?> = arrayOfNulls(0)
+    private var likelyPlaceAddresses: Array<String?> = arrayOfNulls(0)
+    private var likelyPlaceAttributions: Array<List<*>?> = arrayOfNulls(0)
+    private var likelyPlaceLatLngs: Array<LatLng?> = arrayOfNulls(0)
 
     private var _binding: FragmentHomeBinding? = null
 
@@ -74,33 +74,34 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
         BitmapHelper.vectorToBitmap(requireContext(), R.drawable.train_marker, color)
     }
 
-    val trainIcon2: BitmapDescriptor by lazy {
+    val trainIcon6: BitmapDescriptor by lazy {
         val color = ContextCompat.getColor(requireContext(), R.color.purple_200)
         BitmapHelper.vectorToBitmap(requireContext(), R.drawable.train_marker, color)
     }
 
-    val trainIcon3: BitmapDescriptor by lazy {
+    val trainIcon4: BitmapDescriptor by lazy {
         val color = ContextCompat.getColor(requireContext(), R.color.quantum_amber400)
         BitmapHelper.vectorToBitmap(requireContext(), R.drawable.train_marker, color)
     }
 
-    val trainIcon4: BitmapDescriptor by lazy {
+    val trainIcon2: BitmapDescriptor by lazy {
         val color = ContextCompat.getColor(requireContext(), android.R.color.holo_red_dark)
         BitmapHelper.vectorToBitmap(requireContext(), R.drawable.train_marker, color)
     }
 
-    val trainIcon5: BitmapDescriptor by lazy {
+    val trainIcon3: BitmapDescriptor by lazy {
         val color = ContextCompat.getColor(requireContext(), android.R.color.holo_orange_dark)
         BitmapHelper.vectorToBitmap(requireContext(), R.drawable.train_marker, color)
     }
 
-    val trainIcon6: BitmapDescriptor by lazy {
-        val color = ContextCompat.getColor(requireContext(), R.color.Primary_Green_900)
+    val trainIcon5: BitmapDescriptor by lazy {
+        val color = ContextCompat.getColor(requireContext(), R.color.Primary_Green_500)
         BitmapHelper.vectorToBitmap(requireContext(), R.drawable.train_marker, color)
     }
 
     private var map: GoogleMap? = null
     private var cameraPosition: CameraPosition? = null
+
     //endregion
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -144,24 +145,21 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
             getDeviceLocation()
         } else if (item.itemId == R.id.settings) {
             goToSettings()
-        }
-        else if (item.itemId == R.id.dropdown_menu){
-              Firebase.auth.signOut()
+        } else if (item.itemId == R.id.dropdown_menu) {
+            Firebase.auth.signOut()
             findNavController().navigate(R.id.signInFragment)
 
         }
         return true
     }
 
-    private fun goToSettings(){
+    private fun goToSettings() {
         val action = HomeFragmentDirections.actionHomeFragmentToSettingsFragment()
         findNavController().navigate(action)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
 
 
     }
@@ -175,6 +173,7 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
         }
         super.onSaveInstanceState(outState)
     }
+
     //endregion
     //region checks whether the user has granted fine location permission. If not, it requests the permission
     private fun getLocationPermission() {
@@ -183,12 +182,16 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
          * device. The result of the permission request is handled by a callback,
          * onRequestPermissionsResult.
          */
-        if (ContextCompat.checkSelfPermission(this.requireContext().applicationContext,
-                Manifest.permission.ACCESS_FINE_LOCATION)
-            == PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(
+                this.requireContext().applicationContext,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
+            == PackageManager.PERMISSION_GRANTED
+        ) {
             locationPermissionGranted = true
         } else {
-            ActivityCompat.requestPermissions(this.requireActivity(), arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+            ActivityCompat.requestPermissions(
+                this.requireActivity(), arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                 PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION
             )
         }
@@ -226,13 +229,14 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
             } else {
                 map?.isMyLocationEnabled = false
                 map?.uiSettings?.isMyLocationButtonEnabled = false
-                lastKnownLocation =  null
+                lastKnownLocation = null
                 getLocationPermission()
             }
         } catch (e: SecurityException) {
             Log.e("Exception: %s", e.message, e)
         }
     }
+
     private fun getDeviceLocation() {
         try {
             if (locationPermissionGranted) {
@@ -242,16 +246,22 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
                         // Set the map's camera position to the current location of the device.
                         lastKnownLocation = task.result
                         if (lastKnownLocation != null) {
-                            map?.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                                LatLng(lastKnownLocation!!.latitude,
-                                    lastKnownLocation!!.longitude), DEFAULT_ZOOM.toFloat()))
+                            map?.moveCamera(
+                                CameraUpdateFactory.newLatLngZoom(
+                                    LatLng(
+                                        lastKnownLocation!!.latitude,
+                                        lastKnownLocation!!.longitude
+                                    ), DEFAULT_ZOOM.toFloat()
+                                )
+                            )
                         }
                     } else {
                         Log.d(TAG, "Current location is null. Using defaults.")
                         Log.e(TAG, "Exception: %s", task.exception)
                         map?.moveCamera(
                             CameraUpdateFactory
-                                .newLatLngZoom(defaultLocation, DEFAULT_ZOOM.toFloat()))
+                                .newLatLngZoom(defaultLocation, DEFAULT_ZOOM.toFloat())
+                        )
                         map?.uiSettings?.isMyLocationButtonEnabled = false
                     }
                 }
@@ -300,16 +310,16 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
                         }
                     }
                     openPlacesDialog()
-                    } else {
-                        Log.e(TAG, "Exception: %s", task.exception)
-                    }
+                } else {
+                    Log.e(TAG, "Exception: %s", task.exception)
                 }
-            } else {
-                defaultMarkerOfTheUSer()
             }
+        } else {
+            defaultMarkerOfTheUSer()
         }
+    }
 
-    private fun defaultMarkerOfTheUSer( ) {
+    private fun defaultMarkerOfTheUSer() {
         // The user has not granted permission.
         Log.i(TAG, "The user did not grant location permission.")
         map?.addMarker(
@@ -326,7 +336,7 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
     private fun openPlacesDialog() {
         // Ask the user to choose the place where they are now.
         val listener =
-            DialogInterface.OnClickListener{_, which->// The "which" argument contains the position of the selected item.
+            DialogInterface.OnClickListener { _, which ->// The "which" argument contains the position of the selected item.
                 val markerLatLng = likelyPlaceLatLngs[which]
                 var markerSnippet = likelyPlaceAddresses[which]
                 if (likelyPlaceAttributions[which] != null) {
@@ -367,7 +377,7 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 viewModel.mapUiState.collect {
-                    addPolyLine(googleMap,it.marker)
+                    addPolyLine(googleMap, it.marker)
                     Log.d(TAG, "onMapReady: ${it.marker}")
                 }
             }
@@ -382,9 +392,14 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
 
         MarkerInfoWindowAdapter(this.requireContext())
         map!!.setOnMarkerClickListener {
-            Log.e(TAG, "onMapReady:id : ${it.id} title : ${it.title} lng : ${it.position.longitude.toString()} ", )
-            val action = HomeFragmentDirections.actionHomeFragmentToBottomSheetFragment(title = it.title!!,id= it.id,
-                lat= it.position.latitude.toString(), lng = it.position.longitude.toString() )
+            Log.e(
+                TAG,
+                "onMapReady:id : ${it.id} title : ${it.title} lng : ${it.position.longitude.toString()} ",
+            )
+            val action = HomeFragmentDirections.actionHomeFragmentToBottomSheetFragment(
+                title = it.title!!, id = it.id,
+                lat = it.position.latitude.toString(), lng = it.position.longitude.toString()
+            )
             findNavController().navigate(action)
             true
         }
@@ -392,31 +407,109 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
         getLocationPermission()
 
         map!!.setOnInfoWindowClickListener {
-            Log.e(TAG, "onMapReady:id : ${it.id} title : ${it.title} lng : ${it.position.longitude.toString()} ", )
-            val action = HomeFragmentDirections.actionHomeFragmentToBottomSheetFragment(title = it.title!!,id= it.id,
-                lat= it.position.latitude.toString(), lng = it.position.longitude.toString() )
+            Log.e(
+                TAG,
+                "onMapReady:id : ${it.id} title : ${it.title} lng : ${it.position.longitude.toString()} ",
+            )
+            val action = HomeFragmentDirections.actionHomeFragmentToBottomSheetFragment(
+                title = it.title!!, id = it.id,
+                lat = it.position.latitude.toString(), lng = it.position.longitude.toString()
+            )
             findNavController().navigate(action)
         }
 //        googleMap.mapType
     }
-    private fun navigation(map:GoogleMap){
+
+    private fun navigation(map: GoogleMap) {
         map.uiSettings.isCompassEnabled = false
         map.uiSettings.isMyLocationButtonEnabled = false
     }
 
     //region  [add markers to map and call in onMapCreated]
     private fun addMarkers(
-        listOfMarkers: List<MarkerItemUIStatus>,
-    googleMap: GoogleMap) {
-        listOfMarkers.forEach { place ->
-            if (!place.name.isNullOrBlank()) {
-                googleMap.addMarker(
-                    MarkerOptions()
-                        .title(place.name)
-                        .position(LatLng(place.latLng.latitude, place.latLng.longitude))
-                        .icon(trainIcon)
-                )
+        listOfMarkers: Map<LineUiStates, List<MarkerItemUIStatus>>,
+        googleMap: GoogleMap
+    ) {
+        listOfMarkers.entries.forEach { entry ->
+
+            when (entry.key.name) {
+                "Line 1" -> entry.value.forEach { place ->
+                    if (!place.name.isNullOrBlank()) {
+                        googleMap.addMarker(
+                            MarkerOptions()
+                                .title(place.name)
+                                .position(LatLng(place.latLng.latitude, place.latLng.longitude))
+                                .icon(trainIcon1)
+                        )
+                    }
+                }
+                "Line 2"
+                -> entry.value.forEach { place ->
+                    if (!place.name.isNullOrBlank()) {
+                        googleMap.addMarker(
+                            MarkerOptions()
+                                .title(place.name)
+                                .position(LatLng(place.latLng.latitude, place.latLng.longitude))
+                                .icon(trainIcon2)
+                        )
+                    }
+                }
+
+                    "Line 3"
+                -> entry.value.forEach { place ->
+                        if (!place.name.isNullOrBlank()) {
+                            googleMap.addMarker(
+                                MarkerOptions()
+                                    .title(place.name)
+                                    .position(LatLng(place.latLng.latitude, place.latLng.longitude))
+                                    .icon(trainIcon3)
+                            )
+                        }
+                    }
+                    "Line 4"
+                ->  entry.value.forEach { place ->
+                        if (!place.name.isNullOrBlank()) {
+                            googleMap.addMarker(
+                                MarkerOptions()
+                                    .title(place.name)
+                                    .position(LatLng(place.latLng.latitude, place.latLng.longitude))
+                                    .icon(trainIcon4)
+                            )
+                        }
+                    }
+                    "Line 5"
+                ->      entry.value.forEach { place ->
+                        if (!place.name.isNullOrBlank()) {
+                            googleMap.addMarker(
+                                MarkerOptions()
+                                    .title(place.name)
+                                    .position(LatLng(place.latLng.latitude, place.latLng.longitude))
+                                    .icon(trainIcon5)
+                            )
+                        }
+                    }
+                    "Line 6"
+                ->  entry.value.forEach { place ->
+                        if (!place.name.isNullOrBlank()) {
+                            googleMap.addMarker(
+                                MarkerOptions()
+                                    .title(place.name)
+                                    .position(LatLng(place.latLng.latitude, place.latLng.longitude))
+                                    .icon(trainIcon6)
+                            )
+                        }
+                    }
+
             }
+
+//            if (!place.name.isNullOrBlank()) {
+//                googleMap.addMarker(
+//                    MarkerOptions()
+//                        .title(place.name)
+//                        .position(LatLng(place.latLng.latitude, place.latLng.longitude))
+//                        .icon(trainIcon)
+//                )
+//            }
         }
     }
 
@@ -435,11 +528,12 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
         private const val M_MAX_ENTRIES = 5
     }
 
-    private fun addPolyLine(map: GoogleMap,
-        places: Map<LineUiStates, List<MarkerItemUIStatus>>) {
-
+    private fun addPolyLine(
+        map: GoogleMap,
+        places: Map<LineUiStates, List<MarkerItemUIStatus>>
+    ) {
+        addMarkers(places, map)
         for (line in places) {
-            addMarkers(line.value, map)
             val polyLineOption = viewModel.addNewPolyline(line.value.map {
                 LatLng(it.latLng.latitude, it.latLng.longitude)
             }, line.key.width, Color.parseColor(line.key.color))
