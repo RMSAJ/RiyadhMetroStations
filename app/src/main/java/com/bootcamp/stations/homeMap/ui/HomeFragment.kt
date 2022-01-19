@@ -68,7 +68,33 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
     private val viewModel: MapViewModel by activityViewModels {
         MapViewModelFactory()
     }
-    val trainIcon: BitmapDescriptor by lazy {
+
+    val trainIcon1: BitmapDescriptor by lazy {
+        val color = ContextCompat.getColor(requireContext(), R.color.teal_200)
+        BitmapHelper.vectorToBitmap(requireContext(), R.drawable.train_marker, color)
+    }
+
+    val trainIcon2: BitmapDescriptor by lazy {
+        val color = ContextCompat.getColor(requireContext(), R.color.purple_200)
+        BitmapHelper.vectorToBitmap(requireContext(), R.drawable.train_marker, color)
+    }
+
+    val trainIcon3: BitmapDescriptor by lazy {
+        val color = ContextCompat.getColor(requireContext(), R.color.quantum_amber400)
+        BitmapHelper.vectorToBitmap(requireContext(), R.drawable.train_marker, color)
+    }
+
+    val trainIcon4: BitmapDescriptor by lazy {
+        val color = ContextCompat.getColor(requireContext(), android.R.color.holo_red_dark)
+        BitmapHelper.vectorToBitmap(requireContext(), R.drawable.train_marker, color)
+    }
+
+    val trainIcon5: BitmapDescriptor by lazy {
+        val color = ContextCompat.getColor(requireContext(), android.R.color.holo_orange_dark)
+        BitmapHelper.vectorToBitmap(requireContext(), R.drawable.train_marker, color)
+    }
+
+    val trainIcon6: BitmapDescriptor by lazy {
         val color = ContextCompat.getColor(requireContext(), R.color.Primary_Green_900)
         BitmapHelper.vectorToBitmap(requireContext(), R.drawable.train_marker, color)
     }
@@ -135,15 +161,8 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        lifecycleScope.launch {
-//            repeatOnLifecycle(Lifecycle.State.RESUMED) {
-//                viewModel.mapUiState.collect {
-//                    addPolyLine(it.marker)
-//                    Log.d(TAG, "onMapReady: ${it.marker}")
-//                }
-//            }
-//        }
-        getLocationPermission()
+
+
 
     }
 //endregion
@@ -344,6 +363,7 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap) {
         this.map = googleMap
+//        getLocationPermission()
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 viewModel.mapUiState.collect {
@@ -361,6 +381,13 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
         getDeviceLocation()
 
         MarkerInfoWindowAdapter(this.requireContext())
+        map!!.setOnMarkerClickListener {
+            Log.e(TAG, "onMapReady:id : ${it.id} title : ${it.title} lng : ${it.position.longitude.toString()} ", )
+            val action = HomeFragmentDirections.actionHomeFragmentToBottomSheetFragment(title = it.title!!,id= it.id,
+                lat= it.position.latitude.toString(), lng = it.position.longitude.toString() )
+            findNavController().navigate(action)
+            true
+        }
 
         getLocationPermission()
 
@@ -372,11 +399,9 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
         }
 //        googleMap.mapType
     }
-
     private fun navigation(map:GoogleMap){
         map.uiSettings.isCompassEnabled = false
         map.uiSettings.isMyLocationButtonEnabled = false
-
     }
 
     //region  [add markers to map and call in onMapCreated]

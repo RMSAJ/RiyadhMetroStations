@@ -109,7 +109,7 @@ android:layout_height="match_parent">
 <!--            tools:hint="@string/rakan_aljarallah" />-->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/profileNamecard"
-            android:layout_width="wrap_content"
+            android:layout_width="192dp"
             android:minWidth="30dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="40dp"
@@ -122,16 +122,16 @@ android:layout_height="match_parent">
             <EditText
                 android:id="@+id/profileName"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-                tools:hint="Rakan Aljarallah" />
+                android:textSize="14dp"
+                android:hint="Rakan Aljarallah" />
         </com.google.android.material.card.MaterialCardView>
 
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/profileEmailcard"
-            android:layout_width="wrap_content"
+            android:layout_width="192dp"
             android:layout_marginEnd="40dp"
             android:minWidth="30dp"
             style="@style/Base.CardView"
@@ -144,19 +144,18 @@ android:layout_height="match_parent">
             android:backgroundTint="@color/white"
             android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/profileEmail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="rakna@gmail.com"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            />
+            <EditText
+                android:id="@+id/profileEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="rakna@gmail.com"
+                android:textSize="14sp"
+                android:textStyle="bold" />
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/profilePhonecard"
-            android:layout_width="wrap_content"
+            android:layout_width="192dp"
             android:layout_marginEnd="40dp"
             android:minWidth="30dp"
             style="@style/Base.CardView"
@@ -172,11 +171,11 @@ android:layout_height="match_parent">
 
             <EditText
                 android:id="@+id/profilePhone"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                tools:hint="0545595003" />
+                android:hint="0545595003" />
 
         </com.google.android.material.card.MaterialCardView>
 
