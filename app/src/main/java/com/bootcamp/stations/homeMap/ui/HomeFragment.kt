@@ -439,7 +439,7 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
                             MarkerOptions()
                                 .title(place.name)
                                 .position(LatLng(place.latLng.latitude, place.latLng.longitude))
-                                .icon(trainIcon1)
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
                         )
                     }
                 }

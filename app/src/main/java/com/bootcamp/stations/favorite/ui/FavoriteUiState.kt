@@ -7,5 +7,3 @@ data class FavoriteUiState(val image:String = "https://firebasestorage.googleapi
                            val location: Map<String,Double>?= null ,
                            val title: String=""
 )
-
-data class IsFavoriteUiState(val isfavorite: Boolean = false)

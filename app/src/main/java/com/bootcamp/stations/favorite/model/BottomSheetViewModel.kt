@@ -7,9 +7,10 @@ import androidx.lifecycle.viewModelScope
 import com.bootcamp.stations.DataState
 import com.bootcamp.stations.favorite.domain.AddToFavoriteUseCase
 import com.bootcamp.stations.favorite.domain.GetFavoritesUseCase
-import com.bootcamp.stations.favorite.ui.IsFavoriteUiState
+import com.bootcamp.stations.favorite.ui.FavoriteUiState
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class BottomSheetViewModel(private val addToFavoriteUseCase: AddToFavoriteUseCase) :ViewModel() {
@@ -17,21 +18,43 @@ class BottomSheetViewModel(private val addToFavoriteUseCase: AddToFavoriteUseCas
     private var _uiStatus = MutableStateFlow(DataState())
     val uiStatus: LiveData<DataState> = _uiStatus.asLiveData()
 
-    private var _favoriteUiState = MutableStateFlow(IsFavoriteUiState())
-    val favoriteUiState = _favoriteUiState
 
 
+    private var _favoriteList = MutableStateFlow(mutableListOf<FavoriteUiState>())
+    val favoriteList = _favoriteList.asStateFlow()
 
     fun addToFavorite(markerId: String, title: String, location: LatLng){
         viewModelScope.launch {
             addToFavoriteUseCase.invoke(markerId,title,location)
         }
     }
-//    fun isFavorite(){
+//    private fun getFavList() {
+//
 //        viewModelScope.launch {
-//            isFavorite.invoke()
+//
+//            val facorites =  getFavoritesUseCase.invoke()
+//
+//            facorites.collect{
+//
+//                val listFavs = mutableListOf<FavoriteUiState>()
+//
+//                it.forEach {
+//                    val uiState =
+//                        FavoriteUiState(id = it.id!!, location = it.location, title = it.markerTitle!!)
+//                    listFavs.add(uiState)
+//
+//            }
+//            _favoriteList.value = listFavs
 //        }
 //
+//        }
+//
+//    }
+
+
+
+//    init {
+//        getFavList()
 //    }
 
 
