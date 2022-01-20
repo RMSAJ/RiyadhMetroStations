@@ -37,12 +37,7 @@ private fun setProfile(profileModel: ProfileModel, uri: Uri?) {
 
          }
 
-//        when(onSucsses.loadingStatus) {
-//
-//            DONE -> _uiStatus.value.loadingStatus = DONE
-//            ERROR -> _uiStatus.value.loadingStatus = ERROR
-//            LOADING -> _uiStatus.value.loadingStatus = LOADING
-//        }
+
     }
 
 
@@ -59,7 +54,6 @@ private fun setProfile(profileModel: ProfileModel, uri: Uri?) {
         viewModelScope.launch {
             getUserProfileUseCase.invoke().collect{
                 _userInfo.value = it
-                Log.d("TAG", "kkkkkkkkkkkk: ${_userInfo.value} ")
             }
         }
     }

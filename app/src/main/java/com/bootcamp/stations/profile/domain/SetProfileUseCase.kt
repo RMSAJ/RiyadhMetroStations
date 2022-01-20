@@ -13,11 +13,6 @@ class SetProfileUseCase(private val profileRepositry: ProfileRepositry) {
     suspend operator fun invoke(profileModel: ProfileModel, uri: Uri?) =
  profileRepositry.setUserInfo(profileModel, uri)
 
-
-//            profileRepositry.setUserInfo(profileModel, uri)
-
-
-
 }
 
 

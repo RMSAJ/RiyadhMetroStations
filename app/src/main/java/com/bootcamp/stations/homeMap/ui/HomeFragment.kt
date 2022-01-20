@@ -16,12 +16,13 @@ import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.os.BuildCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import com.bootcamp.stations.BuildConfig
+import com.bootcamp.stations.BuildConfig.MAPS_API_KEY
 import com.bootcamp.stations.R
 import com.bootcamp.stations.databinding.FragmentHomeBinding
 import com.bootcamp.stations.homeMap.model.MapViewModel
@@ -44,7 +45,7 @@ import kotlinx.coroutines.launch
 internal class HomeFragment : Fragment(), OnMapReadyCallback {
     //n variabls
     //entry point to the Places API.
-    private lateinit var placesClient: PlacesClient
+//    private lateinit var placesClient: PlacesClient
 
     //entry point to the Fused Location Provider.
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
@@ -90,8 +91,8 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
         // Inflate the layout for this fragment
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        Places.initialize(requireContext(), BuildConfig.MAPS_API_KEY)
-        placesClient = Places.createClient(requireContext())
+//        Places.initialize(requireContext(), BuildCompat.MAPS_API_KEY)
+//        placesClient = Places.createClient(requireContext())
         // Set up the toolbar.
         (activity as? AppCompatActivity)?.setSupportActionBar(binding?.appBarSetting)
 
@@ -254,37 +255,8 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
             val request = FindCurrentPlaceRequest.newInstance(placeFields)
             // Get the likely places - that is, the businesses and other points of interest that
             // are the best match for the device's current location.
-            val placeResult = placesClient.findCurrentPlace(request)
-            placeResult.addOnCompleteListener { task ->
-                if (task.isSuccessful && task.result != null) {
-                    val likelyPlaces = task.result
-                    map!!.isMyLocationEnabled = true
-                    val count =
-                        if (likelyPlaces != null && likelyPlaces.placeLikelihoods.size < M_MAX_ENTRIES) {
-                            likelyPlaces.placeLikelihoods.size
-                        } else {
-                            M_MAX_ENTRIES
-                        }
-                    var i = 0
-                    likelyPlaceNames = arrayOfNulls(count)
-                    likelyPlaceAddresses = arrayOfNulls(count)
-                    likelyPlaceAttributions = arrayOfNulls<List<*>?>(count)
-                    likelyPlaceLatLngs = arrayOfNulls(count)
-                    for (placeLikelihood in likelyPlaces.placeLikelihoods ?: emptyList()) {
-                        likelyPlaceNames[i] = placeLikelihood.place.name
-                        likelyPlaceAddresses[i] = placeLikelihood.place.address
-                        likelyPlaceAttributions[i] = placeLikelihood.place.attributions
-                        likelyPlaceLatLngs[i] = placeLikelihood.place.latLng
-                        i++
-                        if (i > count - 1) {
-                            break
-                        }
-                    }
-                    openPlacesDialog()
-                } else {
-                    Log.e(TAG, "Exception: %s", task.exception)
-                }
-            }
+//            val placeResult = placesClient.findCurrentPlace(request)
+//
         } else {
             defaultMarkerOfTheUSer()
         }

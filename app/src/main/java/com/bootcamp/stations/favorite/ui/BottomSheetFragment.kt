@@ -59,10 +59,6 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
 
         return binding?.root
     }
-//    object counter{
-//        var i = 0
-//        get() = field++
-//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

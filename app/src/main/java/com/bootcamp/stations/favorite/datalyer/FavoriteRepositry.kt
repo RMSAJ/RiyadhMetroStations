@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.Flow
 class FavoriteRepositry (private val favoriteDataSource: FavoriteDataSource) {
 
     suspend fun setfavorite(listofFavoriteModel: List<FavoriteModel>) {
-        Log.e("TAG", "addFave: to dataSource $listofFavoriteModel ")
+
         favoriteDataSource.addFave(listofFavoriteModel)
 
     }

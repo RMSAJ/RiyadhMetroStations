@@ -35,7 +35,7 @@ class ProfileFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        Log.e("TAG", "onCreate: ${Firebase.auth.currentUser?.email}", )
+
     }
 
 
@@ -51,9 +51,12 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        viewModel.getUserInfo()
-        Log.d("TAG", "onViewCreated: ${viewModel.userInfo.value.profileName} ")
-//        theUiStatus()
+        lifecycleScope.launch {
+        repeatOnLifecycle(Lifecycle.State.RESUMED){
+            viewModel.getUserInfo()
+        }
+      }
+
         lifecycleScope.launch {
 //           repeatOnLifecycle(Lifecycle.State.RESUMED)
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
@@ -63,7 +66,8 @@ class ProfileFragment : Fragment() {
                         binding?.profilePhone?.setText(it.profilePhone)
                         binding?.profileEmail?.setText(it.profileEmail)
                         Glide.with(requireContext()).load(it.profileImage.toUri()).placeholder(R.drawable.loading_animation)
-                            .error(R.drawable.ic_baseline_broken_image_24).circleCrop().into(binding!!.profileImage)
+                            .error(R.drawable.ic_baseline_broken_image_24)
+                           .circleCrop().into(binding!!.profileImage)
                     }
                 }
             }
