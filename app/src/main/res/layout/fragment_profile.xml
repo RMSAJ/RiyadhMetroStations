@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:tool="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <!-- region                     Error View Screen                -->
+    <LinearLayout
+        android:id="@+id/error_Screen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/loteError"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:lottie_rawRes="@raw/error"
+                app:lottie_loop="true"
+                app:lottie_autoPlay="true"
+                app:lottie_repeatMode="restart"
+                android:layout_marginVertical="@dimen/places_autocomplete_powered_by_google_height"
+                />
+
+            <TextView
+                android:id="@+id/error_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/rakan_aljarallah"
+                android:layout_gravity="bottom"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="100dp"
+                android:layout_below="@+id/loteError"
+                />
+        </RelativeLayout>
+    </LinearLayout>
+    <!-- endregion -->
+
+    <!-- region                     Loading View Screen                -->
+
+    <LinearLayout
+        android:id="@+id/loading_Screen"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:lottie_rawRes="@raw/trainanimation"
+            app:lottie_loop="true"
+            app:lottie_autoPlay="true"
+            app:lottie_repeatMode="restart"
+            android:layout_gravity="center"
+            />
+
+
+    </LinearLayout>
+    <!-- endregion -->
+
+
+    <ScrollView
+        android:id="@+id/contentScreen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:background="@color/Primary_Green_500"
+                android:padding="20dp">
+
+                <ImageView
+                    android:id="@+id/profileImage"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/ic_profile"
+                    android:layout_centerVertical="true"
+                    />
+
+                <TextView
+                    android:id="@+id/profileName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/profileImage"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    tools:hint="@string/rakan_aljarallah" />
+
+                <TextView
+                    android:id="@+id/profileEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="rakna@gmail.com"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@id/profileImage"
+                    android:layout_below="@+id/profileName"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    />
+
+                <TextView
+                    android:id="@+id/profilePhone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginStart="10dp"
+                    android:includeFontPadding="false"
+                    android:layout_toEndOf="@id/profileImage"
+                    android:layout_below="@id/profileEmail"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    tools:hint="0545595003" />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/editProfile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="320dp"
+                    android:src="@drawable/ic_baseline_edit_24" />
+
+
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
