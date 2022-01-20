@@ -69,36 +69,6 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
         MapViewModelFactory()
     }
 
-    val trainIcon1: BitmapDescriptor by lazy {
-        val color = ContextCompat.getColor(requireContext(), R.color.teal_200)
-        BitmapHelper.vectorToBitmap(requireContext(), R.drawable.train_marker, color)
-    }
-
-    val trainIcon6: BitmapDescriptor by lazy {
-        val color = ContextCompat.getColor(requireContext(), R.color.purple_200)
-        BitmapHelper.vectorToBitmap(requireContext(), R.drawable.train_marker, color)
-    }
-
-    val trainIcon4: BitmapDescriptor by lazy {
-        val color = ContextCompat.getColor(requireContext(), R.color.quantum_amber400)
-        BitmapHelper.vectorToBitmap(requireContext(), R.drawable.train_marker, color)
-    }
-
-    val trainIcon2: BitmapDescriptor by lazy {
-        val color = ContextCompat.getColor(requireContext(), android.R.color.holo_red_dark)
-        BitmapHelper.vectorToBitmap(requireContext(), R.drawable.train_marker, color)
-    }
-
-    val trainIcon3: BitmapDescriptor by lazy {
-        val color = ContextCompat.getColor(requireContext(), android.R.color.holo_orange_dark)
-        BitmapHelper.vectorToBitmap(requireContext(), R.drawable.train_marker, color)
-    }
-
-    val trainIcon5: BitmapDescriptor by lazy {
-        val color = ContextCompat.getColor(requireContext(), R.color.Primary_Green_500)
-        BitmapHelper.vectorToBitmap(requireContext(), R.drawable.train_marker, color)
-    }
-
     private var map: GoogleMap? = null
     private var cameraPosition: CameraPosition? = null
 
@@ -325,7 +295,7 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
         map?.addMarker(
             MarkerOptions()
                 .title((R.string.default_info_title.toString()))
-                .icon(personIcon)
+                .icon(BitmapDescriptorFactory.defaultMarker())
                 .position(defaultLocation)
                 .snippet((R.string.default_info_snippet.toString()))
         )
@@ -390,12 +360,8 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
         // Get the current location of the device and set the position of the map.
         getDeviceLocation()
 
-        MarkerInfoWindowAdapter(this.requireContext())
         map!!.setOnMarkerClickListener {
-            Log.e(
-                TAG,
-                "onMapReady:id : ${it.id} title : ${it.title} lng : ${it.position.longitude.toString()} ",
-            )
+
             val action = HomeFragmentDirections.actionHomeFragmentToBottomSheetFragment(
                 title = it.title!!, id = it.id,
                 lat = it.position.latitude.toString(), lng = it.position.longitude.toString()
@@ -406,17 +372,6 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
 
         getLocationPermission()
 
-        map!!.setOnInfoWindowClickListener {
-            Log.e(
-                TAG,
-                "onMapReady:id : ${it.id} title : ${it.title} lng : ${it.position.longitude.toString()} ",
-            )
-            val action = HomeFragmentDirections.actionHomeFragmentToBottomSheetFragment(
-                title = it.title!!, id = it.id,
-                lat = it.position.latitude.toString(), lng = it.position.longitude.toString()
-            )
-            findNavController().navigate(action)
-        }
 //        googleMap.mapType
     }
 
@@ -450,7 +405,7 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
                             MarkerOptions()
                                 .title(place.name)
                                 .position(LatLng(place.latLng.latitude, place.latLng.longitude))
-                                .icon(trainIcon2)
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
                         )
                     }
                 }
@@ -462,7 +417,7 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
                                 MarkerOptions()
                                     .title(place.name)
                                     .position(LatLng(place.latLng.latitude, place.latLng.longitude))
-                                    .icon(trainIcon3)
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
                             )
                         }
                     }
@@ -473,7 +428,7 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
                                 MarkerOptions()
                                     .title(place.name)
                                     .position(LatLng(place.latLng.latitude, place.latLng.longitude))
-                                    .icon(trainIcon4)
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW))
                             )
                         }
                     }
@@ -484,7 +439,7 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
                                 MarkerOptions()
                                     .title(place.name)
                                     .position(LatLng(place.latLng.latitude, place.latLng.longitude))
-                                    .icon(trainIcon5)
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
                             )
                         }
                     }
@@ -495,21 +450,13 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
                                 MarkerOptions()
                                     .title(place.name)
                                     .position(LatLng(place.latLng.latitude, place.latLng.longitude))
-                                    .icon(trainIcon6)
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET))
                             )
                         }
                     }
 
             }
 
-//            if (!place.name.isNullOrBlank()) {
-//                googleMap.addMarker(
-//                    MarkerOptions()
-//                        .title(place.name)
-//                        .position(LatLng(place.latLng.latitude, place.latLng.longitude))
-//                        .icon(trainIcon)
-//                )
-//            }
         }
     }
 

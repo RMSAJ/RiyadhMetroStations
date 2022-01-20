@@ -59,10 +59,8 @@ class BottomSheetViewModel(
                         )
                     listFavs.add(uiState)
                 }
-
                 _favoriteList.value = listFavs
-                Log.d("TAG", "getFavList: ${listFavs} ")
-                Log.d("TAG", "getFavListkkkk:${_favoriteList.value} ")
+
             }
         }
     }
