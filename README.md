@@ -1,8 +1,11 @@
 # Drby
 ## Table of Contents
-* [Introduction](#Introduction)
-* [Screenshots](#screenshots)
-* [Resources](#Resources)
+* [Introduction](#introduction)
+* [Map_features](#map_features)
+* [User_favorite_prefrences](#user_favorite_prefrences)
+* [Notifications_and_settings_prefrence](#notifications_and_settings_prefrence)
+* [Sign_in_and_Registration](#sign_in_and_registration)
+* [Resources](#resources)
 * [Contact](#contact)
 ## Introduction
 Drby is an application that aims to solve the transportation dificulties especialy in my HomeCity Riyadh:
@@ -11,7 +14,7 @@ Drby is an application that aims to solve the transportation dificulties especia
 - CRUD operation so the user can have his own favorite stations and personal profile details.
 this app uses MVVM Architectur and UDF to move the data from the Data Layer to the Domain Layer ends with the UI Layer.
 
-## Map features
+## Map_features
 <img src="https://github.com/RMSAJ/RiyadhMetroStations/blob/develop/images/theMap-1.png" width="300" height="600" />
 <img src="https://github.com/RMSAJ/RiyadhMetroStations/blob/develop/images/-location-log.png" width="300" height="600" />
 
@@ -21,7 +24,7 @@ Android Google map SDK is used in this project and impolemented the following fe
   3-  dialog estimator of the user location
  
 
-## User Favorite prefrences
+## User_Favorite_prefrences
 <img src="https://github.com/RMSAJ/RiyadhMetroStations/blob/develop/images/01.png" width="300" height="600" />
 <img src="https://github.com/RMSAJ/RiyadhMetroStations/blob/develop/images/add-marker-to-favorite.png" width="300" height="600" />
 
@@ -29,14 +32,14 @@ The user is able to CRUD his favorites station locations and sort them as list i
 
 
 
-## Notifications and settings prefrence
+## Notifications_and_settings_prefrence
 <img src="https://github.com/RMSAJ/RiyadhMetroStations/blob/develop/images/notification.png" width="300" height="600" />
 <img src="https://github.com/RMSAJ/RiyadhMetroStations/blob/develop/images/prefrences.png" width="300" height="600" />
 
 The user recives schedualed notifications and he is ables to chose his prefered them (light/dark theme mode)
 
 
-## Sign in and Registration 
+## Sign_in_and_Registration 
 <img src="https://github.com/RMSAJ/RiyadhMetroStations/blob/develop/images/register.png" width="300" height="600" />
 <img src="https://github.com/RMSAJ/RiyadhMetroStations/blob/develop/images/signIn.png" width="300" height="600" />
 
@@ -44,7 +47,7 @@ the app uses FireBase Authentication to store each user prefered options
 
 
 
-## Recources
+## Resources
 
 https://developer.android.com/
 
