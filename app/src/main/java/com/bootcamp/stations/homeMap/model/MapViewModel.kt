@@ -14,6 +14,7 @@ import com.bootcamp.stations.homeMap.domain.GetMarkersUseCase
 import com.bootcamp.stations.homeMap.ui.LineUiStates
 import com.bootcamp.stations.homeMap.ui.MapUiState
 import com.bootcamp.stations.homeMap.ui.MarkerItemUIStatus
+import com.google.android.gms.maps.model.RoundCap
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
@@ -58,22 +59,10 @@ class MapViewModel(
             .addAll(listOfPoint)
             .width(width)
             .color(color)
+//            .jointType(RoundCap().describeContents())
     }
 
-//    fun fakemakers() {
-//
-//
-//        val mapitem: MutableMap<LineUiStates, List<MarkerItemUIStatus>> = mutableMapOf()
-//        val list = listOf(
-//            MarkerItemUIStatus(latLng = LatLng(24.5504623769522, 46.9874), name = "Zamel"),
-//            MarkerItemUIStatus(latLng = LatLng(25.5504623769522, 46.9874), name = "Zaeeeeemel"),
-//            MarkerItemUIStatus(
-//                latLng = LatLng(26.5504623769522, 46.9874), name = "Zaerrmel"
-//            )
-//        )
-//        mapitem[LineUiStates("Zamel Line", "#0000ff", 18f)] = list
-//        _mapUiState.update { it.copy(marker = mapitem) }
-//    }
+
 
     private fun getMarkers() {
         viewModelScope.launch {

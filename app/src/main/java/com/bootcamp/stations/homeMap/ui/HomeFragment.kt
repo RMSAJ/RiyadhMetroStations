@@ -181,6 +181,7 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
                     grantResults[0] == PackageManager.PERMISSION_GRANTED
                 ) {
                     locationPermissionGranted = true
+                    getDeviceLocation()
                 }
             }
         }
@@ -348,12 +349,15 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 viewModel.mapUiState.collect {
                     addPolyLine(googleMap, it.marker)
-                    Log.d(TAG, "onMapReady: ${it.marker}")
                 }
             }
         }
         navigation(googleMap)
 
+        binding?.navigationButton?.setOnClickListener {
+            if (locationPermissionGranted)
+            navigateOnClick(googleMap)
+        }
         // Turn on the My Location layer and the related control on the map.
         updateLocationUI()
 
@@ -487,6 +491,20 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
             map.addPolyline(polyLineOption).tag = line.key.name
         }
         //endregion
+    }
+
+    private fun navigateOnClick(map: GoogleMap){
+        val polyline =
+        map.addPolyline(PolylineOptions()
+            .add(LatLng(
+                lastKnownLocation!!.latitude,
+                lastKnownLocation!!.longitude
+            ), LatLng(24.858863, 46.705011)
+
+            ).color(-0x7e387c))
+        polyline.startCap = RoundCap()
+        polyline.endCap = RoundCap()
+
     }
 
     override fun onDestroyView() {
