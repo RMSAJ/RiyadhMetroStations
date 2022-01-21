@@ -125,9 +125,17 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.12.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
 
-    //
-    implementation("androidx.datastore:datastore-preferences:1.0.0")
+    // Image Cropper Library
+    api 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
 
+    // Shape library to draw curves
+    implementation 'com.github.florent37:shapeofview:1.4.7'
+
+    // Circular Indicator library
+    implementation 'com.victor:lib:1.0.4'
+
+    // Circular ImageView library
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 
 }
 

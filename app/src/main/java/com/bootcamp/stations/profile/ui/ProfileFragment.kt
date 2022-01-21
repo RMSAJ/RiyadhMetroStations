@@ -36,6 +36,8 @@ class ProfileFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
 
+
+
         showProfile()
 
         return _binding?.root
@@ -44,7 +46,11 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.RESUMED){
+                viewModel.getUserInfo()
+            }
+        }
         binding?.apply {
 
             editProfile.setOnClickListener {
@@ -62,7 +68,6 @@ class ProfileFragment : Fragment() {
     private fun showProfile() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED){
-                viewModel.getUserInfo()
                 viewModel.userInfo.collect {
                     it.let {
                         binding?.profileName?.text = it.profileName
