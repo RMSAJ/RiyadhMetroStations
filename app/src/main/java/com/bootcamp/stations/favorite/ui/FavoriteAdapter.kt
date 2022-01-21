@@ -12,6 +12,8 @@ import com.bumptech.glide.Glide
 class FavoriteAdapter (): ListAdapter<FavoriteUiState, FavoriteAdapter.ResultsItemViewHolder>(DiffCallback) {
 
     class ResultsItemViewHolder(var binding: FavItemBinding) : RecyclerView.ViewHolder(binding.root) {
+
+        //region bind the items with the viewHolder
         fun bind(ItemOfFav : FavoriteUiState ) {
             binding.favorItem = ItemOfFav
             binding.title.text = ItemOfFav.title
@@ -20,8 +22,10 @@ class FavoriteAdapter (): ListAdapter<FavoriteUiState, FavoriteAdapter.ResultsIt
             Glide.with(binding.stationImage).load(ItemOfFav.image).into(binding.stationImage)
             binding.executePendingBindings()
         }
-
+//endregion
     }
+
+    //region check the old items with the new ones
     companion object DiffCallback : DiffUtil.ItemCallback<FavoriteUiState>() {
         override fun areItemsTheSame(oldItem: FavoriteUiState, newItem: FavoriteUiState): Boolean {
             return oldItem.title == newItem.title
@@ -29,7 +33,8 @@ class FavoriteAdapter (): ListAdapter<FavoriteUiState, FavoriteAdapter.ResultsIt
         override fun areContentsTheSame(oldItem: FavoriteUiState, newItem: FavoriteUiState): Boolean {
             return oldItem.title == newItem.title
         }
-    } // end DiffCallback Object
+    }
+    // endregion DiffCallback Object
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ResultsItemViewHolder {
         return ResultsItemViewHolder(FavItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)

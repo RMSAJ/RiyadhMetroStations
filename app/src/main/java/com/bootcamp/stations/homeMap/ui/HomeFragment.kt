@@ -1,6 +1,5 @@
 package com.bootcamp.stations.homeMap.ui
 
-import com.bootcamp.stations.homeMap.util.*
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.DialogInterface
@@ -11,22 +10,21 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AlertDialog
-import  com.google.android.libraries.places.api.model.Place.Field.*
-import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.os.BuildCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import com.bootcamp.stations.BuildConfig.MAPS_API_KEY
+import com.bootcamp.stations.BuildConfig
 import com.bootcamp.stations.R
 import com.bootcamp.stations.databinding.FragmentHomeBinding
 import com.bootcamp.stations.homeMap.model.MapViewModel
 import com.bootcamp.stations.homeMap.model.MapViewModelFactory
+import com.bootcamp.stations.homeMap.util.*
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -35,6 +33,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.model.Place.Field.*
 import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest
 import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.firebase.auth.ktx.auth
@@ -45,7 +44,7 @@ import kotlinx.coroutines.launch
 internal class HomeFragment : Fragment(), OnMapReadyCallback {
     //n variabls
     //entry point to the Places API.
-//    private lateinit var placesClient: PlacesClient
+    private lateinit var placesClient: PlacesClient
 
     //entry point to the Fused Location Provider.
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
@@ -76,6 +75,11 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
     //endregion
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        Places.initialize(requireContext(), BuildConfig.GOOGLE_MAPS_API_KEY)
+
+        placesClient = Places.createClient(requireContext())
+
         if (savedInstanceState != null) {
             lastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION)
             cameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION)
@@ -91,38 +95,49 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
         // Inflate the layout for this fragment
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-//        Places.initialize(requireContext(), BuildCompat.MAPS_API_KEY)
-//        placesClient = Places.createClient(requireContext())
         // Set up the toolbar.
         (activity as? AppCompatActivity)?.setSupportActionBar(binding?.appBarSetting)
 
         // Construct a FusedLocationProviderClient.
         fusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(this.requireContext())
+
+        //region the map fragment that shows the map
         val mapFragment = childFragmentManager
             .findFragmentById(R.id.myMap) as SupportMapFragment
         mapFragment.getMapAsync(this)
+        //endregion
+
         return binding?.root
     }
 
+
+//region inflate the menu with the tool bar
     override fun onCreateOptionsMenu(menu: Menu, menuInflater: MenuInflater) {
         menuInflater.inflate(R.menu.toolbar_menu, menu)
         super.onCreateOptionsMenu(menu, menuInflater)
     }
+    //endregion
 
+//region when clicking on the menu items
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.option_get_place) {
-            showCurrentPlace()
-            getDeviceLocation()
-        } else if (item.itemId == R.id.settings) {
-            goToSettings()
-        } else if (item.itemId == R.id.dropdown_menu) {
-            Firebase.auth.signOut()
-            findNavController().navigate(R.id.signInFragment)
+        when (item.itemId) {
+            R.id.option_get_place -> {
+                showCurrentPlace()
+                getDeviceLocation()
+            }
+            R.id.settings -> {
+                goToSettings()
+            }
+            R.id.dropdown_menu -> {
+                Firebase.auth.signOut()
+                findNavController().navigate(R.id.signInFragment)
 
+            }
         }
         return true
     }
+    //endregion
 
     private fun goToSettings() {
         val action = HomeFragmentDirections.actionHomeFragmentToSettingsFragment()
@@ -132,9 +147,7 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
     }
-//endregion
 
     //region save the map instance location
     override fun onSaveInstanceState(outState: Bundle) {
@@ -144,8 +157,8 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
         }
         super.onSaveInstanceState(outState)
     }
-
     //endregion
+
     //region checks whether the user has granted fine location permission. If not, it requests the permission
     private fun getLocationPermission() {
         /*
@@ -160,6 +173,8 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
             == PackageManager.PERMISSION_GRANTED
         ) {
             locationPermissionGranted = true
+//            updateLocationUI()
+//            getDeviceLocation()
         } else {
             ActivityCompat.requestPermissions(
                 this.requireActivity(), arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
@@ -182,14 +197,16 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
                     grantResults[0] == PackageManager.PERMISSION_GRANTED
                 ) {
                     locationPermissionGranted = true
-                    getDeviceLocation()
+                    updateLocationUI()
                 }
             }
         }
-        updateLocationUI()
     }
 
     //endregion
+
+    //region update location based on the permission
+    @SuppressLint("MissingPermission")
     private fun updateLocationUI() {
         if (map == null) {
             return
@@ -197,7 +214,7 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
         try {
             if (locationPermissionGranted) {
                 map!!.isMyLocationEnabled = true
-                map?.uiSettings?.isMyLocationButtonEnabled = true
+                getDeviceLocation()
             } else {
                 map?.isMyLocationEnabled = false
                 map?.uiSettings?.isMyLocationButtonEnabled = false
@@ -208,7 +225,10 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
             Log.e("Exception: %s", e.message, e)
         }
     }
+//endregion
 
+    //region get the current devise location
+    @SuppressLint("MissingPermission")
     private fun getDeviceLocation() {
         try {
             if (locationPermissionGranted) {
@@ -242,7 +262,9 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
             Log.e("Exception: %s", e.message, e)
         }
     }
+//endregion
 
+    //region show the current place of the user
     @SuppressLint("MissingPermission")
     fun showCurrentPlace() {
         if (map == null) {
@@ -261,7 +283,9 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
             defaultMarkerOfTheUSer()
         }
     }
+    //endregion
 
+    //region default user location
     private fun defaultMarkerOfTheUSer() {
         // The user has not granted permission.
         Log.i(TAG, "The user did not grant location permission.")
@@ -272,8 +296,8 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
                 .position(defaultLocation)
                 .snippet((R.string.default_info_snippet.toString()))
         )
-
     }
+    //endregion
 
     //region [START maps_current_place_open_places_dialog]
     private fun openPlacesDialog() {
@@ -313,7 +337,10 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
             .setItems(likelyPlaceNames, listener)
             .show()
     }
+    //endregion
 
+
+    //region on map ready operations
     override fun onMapReady(googleMap: GoogleMap) {
         this.map = googleMap
 //        getLocationPermission()
@@ -345,16 +372,19 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
             findNavController().navigate(action)
             true
         }
-
         getLocationPermission()
 
 //        googleMap.mapType
     }
+    //endregion
 
+    //region remove the compass and the location button
     private fun navigation(map: GoogleMap) {
         map.uiSettings.isCompassEnabled = false
         map.uiSettings.isMyLocationButtonEnabled = false
     }
+    //endregion
+
 
     //region  [add markers to map and call in onMapCreated]
     private fun addMarkers(
@@ -430,12 +460,12 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
                             )
                         }
                     }
-
             }
-
         }
     }
+    //endregion
 
+    //region constants
     companion object {
         private val TAG = HomeFragment::class.java.simpleName
         private const val DEFAULT_ZOOM = 15
@@ -450,7 +480,9 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
         // Used for selecting the current place.
         private const val M_MAX_ENTRIES = 5
     }
+//endregion
 
+    //region add the polyline
     private fun addPolyLine(
         map: GoogleMap,
         places: Map<LineUiStates, List<MarkerItemUIStatus>>
@@ -462,9 +494,10 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
             }, line.key.width, Color.parseColor(line.key.color))
             map.addPolyline(polyLineOption).tag = line.key.name
         }
-        //endregion
     }
+    //endregion
 
+    //region navigate to the nearest station (Alpha)
     private fun navigateOnClick(map: GoogleMap){
         val polyline =
         map.addPolyline(PolylineOptions()
@@ -478,6 +511,7 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
         polyline.endCap = RoundCap()
 
     }
+//endregion
 
     override fun onDestroyView() {
         super.onDestroyView()
