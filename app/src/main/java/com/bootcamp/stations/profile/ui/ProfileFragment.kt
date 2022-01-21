@@ -53,7 +53,7 @@ class ProfileFragment : Fragment() {
         }
         binding?.apply {
 
-            editProfile.setOnClickListener {
+            profileName.setOnClickListener {
                val action = ProfileFragmentDirections.actionProfileFragmentToEditProfile()
                 findNavController().navigate(action)
             }
