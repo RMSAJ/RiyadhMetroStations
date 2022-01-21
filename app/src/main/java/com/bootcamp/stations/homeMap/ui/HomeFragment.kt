@@ -197,7 +197,7 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
                     grantResults[0] == PackageManager.PERMISSION_GRANTED
                 ) {
                     locationPermissionGranted = true
-                    updateLocationUI()
+//                    updateLocationUI()
                 }
             }
         }
@@ -357,6 +357,8 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
             if (locationPermissionGranted)
             navigateOnClick(googleMap)
         }
+        getLocationPermission()
+
         // Turn on the My Location layer and the related control on the map.
         updateLocationUI()
 
@@ -372,7 +374,7 @@ internal class HomeFragment : Fragment(), OnMapReadyCallback {
             findNavController().navigate(action)
             true
         }
-        getLocationPermission()
+
 
 //        googleMap.mapType
     }
