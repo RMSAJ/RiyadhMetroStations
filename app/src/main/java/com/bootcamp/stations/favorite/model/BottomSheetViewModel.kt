@@ -1,18 +1,15 @@
 package com.bootcamp.stations.favorite.model
 
-import android.util.Log
-import androidx.lifecycle.LiveData
+
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.bootcamp.stations.DataState
 import com.bootcamp.stations.favorite.domain.AddToFavoriteUseCase
 import com.bootcamp.stations.favorite.domain.GetFavoritesUseCase
 import com.bootcamp.stations.favorite.domain.RemoveFavUseCase
 import com.bootcamp.stations.favorite.ui.FavoriteUiState
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class BottomSheetViewModel(

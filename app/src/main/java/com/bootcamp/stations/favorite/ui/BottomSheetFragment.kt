@@ -3,7 +3,6 @@ package com.bootcamp.stations.favorite.ui
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -69,21 +68,23 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
             }
         }
         viewModel.favoriteList.observe(viewLifecycleOwner,{ favList ->
-            val x = favList.find { it.title == navigationArgs.title }
-            if (x?.title != null ) {
+
+            val findIsFavorite = favList.find { it.title == navigationArgs.title }
+
+            if (findIsFavorite?.title != null ) {
+
                 binding?.favoriteImage?.setImageResource(R.drawable.ic_favorite)
             }else{
                 binding?.favoriteImage?.setImageResource(R.drawable.ic_baseline_favorite_border_24)
             }
             binding?.apply {
                 favoriteCard.setOnClickListener {
-                    if (x?.title != null){
+                    if (findIsFavorite?.title != null){
                         binding?.favoriteImage?.setImageResource(R.drawable.ic_baseline_favorite_border_24)
                        viewModel.removeFav(markerId, markerTitle, markerLocation)
                     }else {
                         addToFav(markerId, markerTitle, markerLocation)
                         binding?.favoriteImage?.setImageResource(R.drawable.ic_favorite)
-
                     }
                 }
                 navigateCard.setOnClickListener {
