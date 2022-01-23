@@ -9,18 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.Lifecycle.State.*
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.bootcamp.stations.LOADING_STATUS
 import com.bootcamp.stations.databinding.UserProfileBinding
 import com.bootcamp.stations.profile.model.ProfileViewModel
 import com.bootcamp.stations.profile.model.ProfileViewModelFactory
-import kotlinx.android.synthetic.main.fragment_profile.*
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 class EditProfile : Fragment() {
 
@@ -48,20 +41,20 @@ class EditProfile : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding?.apply {
-            settings.setOnClickListener {
-                val action = EditProfileDirections.actionEditProfileToSettingsFragment()
-                findNavController().navigate(action)
-            }
+//            settings.setOnClickListener {
+//                val action = EditProfileDirections.actionEditProfileToSettingsFragment()
+//                findNavController().navigate(action)
+//            }
             profileImage.setOnClickListener {
                 openGalleryForImage()
             }
-            save.setOnClickListener {
+            emailArrow.setOnClickListener {
                 setTheData()
                 theUiStatus()
             }
-            cancelButton.setOnClickListener {
-                findNavController().navigate(EditProfileDirections.actionEditProfileToProfileFragment())
-            }
+//            cancelButton.setOnClickListener {
+//                findNavController().navigate(EditProfileDirections.actionEditProfileToProfileFragment())
+//            }
         }
     }
 
@@ -82,7 +75,7 @@ class EditProfile : Fragment() {
     private fun setTheData() {
         viewModel.prepareTheData(
             "",
-            binding?.profileName?.text.toString(),
+            binding?.editProfile?.text.toString(),
             binding?.profilePhone?.text.toString(),
             binding?.profileEmail?.text.toString(), fileImage
         )

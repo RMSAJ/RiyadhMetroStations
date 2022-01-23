@@ -78,9 +78,6 @@ class RegisterFragment : Fragment() {
             checkUserIsValidToRegister()
 //            testTest()
         }
-
-
-//        binding?.regUsername?.setOnTextChanged { text, start, before, count ->  }
     }
 
 
@@ -102,8 +99,6 @@ class RegisterFragment : Fragment() {
                         Toast.makeText(this.requireContext(),"passwords don't match or wrong email pattern", Toast.LENGTH_SHORT).show()
                     }
                 }
-
-
         }
     }
 

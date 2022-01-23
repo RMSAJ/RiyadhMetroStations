@@ -10,4 +10,14 @@
         app:title="Theme"
         />
 
+    <ListPreference
+        android:title="Language"
+        android:key="language"
+        app:useSimpleSummaryProvider="true"
+        android:defaultValue="2"
+        android:entries="@array/language"
+        android:entryValues="@array/language_values"
+        android:icon="@drawable/ic_baseline_language_24"
+        />
+
 </PreferenceScreen>

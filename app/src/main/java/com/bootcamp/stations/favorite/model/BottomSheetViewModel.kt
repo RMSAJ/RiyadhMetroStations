@@ -1,38 +1,64 @@
 package com.bootcamp.stations.favorite.model
 
-import androidx.lifecycle.LiveData
+
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.bootcamp.stations.DataState
 import com.bootcamp.stations.favorite.domain.AddToFavoriteUseCase
 import com.bootcamp.stations.favorite.domain.GetFavoritesUseCase
-import com.bootcamp.stations.favorite.ui.IsFavoriteUiState
+import com.bootcamp.stations.favorite.domain.RemoveFavUseCase
+import com.bootcamp.stations.favorite.ui.FavoriteUiState
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
-class BottomSheetViewModel(private val addToFavoriteUseCase: AddToFavoriteUseCase) :ViewModel() {
+class BottomSheetViewModel(
+    private val addToFavoriteUseCase: AddToFavoriteUseCase,
+    private val getFavoritesUseCase: GetFavoritesUseCase,
+    private val removeFavUseCase: RemoveFavUseCase
+) : ViewModel() {
 
-    private var _uiStatus = MutableStateFlow(DataState())
-    val uiStatus: LiveData<DataState> = _uiStatus.asLiveData()
+    private var _favoriteList = MutableStateFlow(mutableListOf<FavoriteUiState>())
+    val favoriteList = _favoriteList.asLiveData()
 
-    private var _favoriteUiState = MutableStateFlow(IsFavoriteUiState())
-    val favoriteUiState = _favoriteUiState
+    init {
+        getFavList()
+    }
 
-
-
-    fun addToFavorite(markerId: String, title: String, location: LatLng){
+    fun addToFavorite(markerId: String, title: String, location: LatLng) {
         viewModelScope.launch {
-            addToFavoriteUseCase.invoke(markerId,title,location)
+            addToFavoriteUseCase.invoke(markerId, title, location)
         }
     }
-//    fun isFavorite(){
-//        viewModelScope.launch {
-//            isFavorite.invoke()
-//        }
-//
-//    }
 
+    fun removeFav(markerId: String, title: String, location: LatLng) {
+        viewModelScope.launch {
+            removeFavUseCase.invoke(markerId, title, location)
+        }
+    }
 
+    fun getFavList() {
+
+        viewModelScope.launch {
+
+            val facorites = getFavoritesUseCase.invoke()
+
+            facorites.collect {
+
+                val listFavs = mutableListOf<FavoriteUiState>()
+
+                it.forEach {
+                    val uiState =
+                        FavoriteUiState(
+                            id = it.id!!,
+                            location = it.location,
+                            title = it.markerTitle!!
+                        )
+                    listFavs.add(uiState)
+                }
+                _favoriteList.value = listFavs
+
+            }
+        }
+    }
 }

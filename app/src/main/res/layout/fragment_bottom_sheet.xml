@@ -1,12 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     tools:context=".favorite.ui.BottomSheetFragment">
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/nameCard"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:clickable="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        
 
+        <TextView
+            android:id="@+id/name_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="marker Title"
+            android:textSize="16sp"
+            android:layout_gravity="center"
+         />
+    </com.google.android.material.card.MaterialCardView>
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/favoriteCard"
         android:layout_width="match_parent"
@@ -41,16 +59,16 @@
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/secondCard"
-        android:layout_width="0dp"
-        android:layout_height="100dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:clickable="true"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/favoriteCard">
+      android:id="@+id/navigateCard"
+      android:layout_width="match_parent"
+      android:layout_height="100dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      android:clickable="true"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/favoriteCard">
 
-    <!-- Bottom sheet contents. -->
+     <!-- Bottom sheet contents. -->
 <ImageView
     android:id="@+id/navigate_image"
     android:layout_width="32dp"
@@ -62,19 +80,19 @@
     app:layout_constraintTop_toBottomOf="@id/favorite_text"
     app:tint="#786E6E"/>
  <TextView
-        android:id="@+id/navigate_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:text="Navigate"
-        android:layout_marginEnd="80dp"
-        android:layout_marginTop="42dp"
-        android:textSize="16sp"
-        android:layout_gravity="center_horizontal"
-        app:layout_constraintBottom_toBottomOf="@id/navigate_image"
-        app:layout_constraintStart_toEndOf="@id/navigate_image"
-        app:layout_constraintTop_toTopOf="@id/navigate_image"/>
-    </com.google.android.material.card.MaterialCardView>
+     android:id="@+id/navigate_text"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_marginStart="24dp"
+     android:text="Navigate"
+     android:layout_marginEnd="80dp"
+     android:layout_marginTop="42dp"
+     android:textSize="16sp"
+     android:layout_gravity="center_horizontal"
+     app:layout_constraintBottom_toBottomOf="@id/navigate_image"
+     app:layout_constraintStart_toEndOf="@id/navigate_image"
+     app:layout_constraintTop_toTopOf="@id/navigate_image"/>
+ </com.google.android.material.card.MaterialCardView>
 
     <!-- Bottom sheet contents. -->
 <!--<ImageView-->
@@ -101,4 +119,4 @@
     <!-- Bottom sheet contents. -->
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

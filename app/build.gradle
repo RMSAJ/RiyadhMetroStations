@@ -25,7 +25,7 @@ android {
         applicationId "com.bootcamp.stations"
         minSdk 27
         targetSdk 31
-        versionCode 1
+        versionCode 2
         versionName "2.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -125,16 +125,22 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.12.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
 
-    //
-    implementation("androidx.datastore:datastore-preferences:1.0.0")
+    // Image Cropper Library
+    api 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
 
+    // Shape library to draw curves
+    implementation 'com.github.florent37:shapeofview:1.4.7'
+
+    // Circular Indicator library
+    implementation 'com.victor:lib:1.0.4'
+
+    // Circular ImageView library
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 
 }
 
 secrets {
-    defaultPropertiesFileName 'local.defaults.properties'
-    // To add your Maps API key to this project:
-    // 1. Open the root project's local.properties file
-    // 2. Add this line, where YOUR_API_KEY is your API key:
-//            MAPS_API_KEY=YOUR_API_KEY
+    defaultPropertiesFileName 'local.properties'
+
+    GOOGLE_MAPS_API_KEY = GOOGLE_MAPS_API_KEY
 }

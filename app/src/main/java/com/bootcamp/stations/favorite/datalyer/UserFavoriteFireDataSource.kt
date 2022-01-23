@@ -22,26 +22,19 @@ class UserFavoriteFireDataSource
 
     override suspend fun addFave(listofFavoriteModel: List<FavoriteModel>) {
      val fav =   db.collection("User").document("${auth?.email}")
+
         fav.set( mapOf(FAVOURITE to listofFavoriteModel.toMutableList().toMutableSet().toList()))
-//        fav.update( FAVOURITE, listofFavoriteModel)
-        Log.e("TAG", "addFave: to FireStore $listofFavoriteModel ")
     }
 
     override suspend fun getFav(): Flow<List<FavoriteModel>> = callbackFlow {
 
         auth.apply {
-//            val favortieList = mutableListOf<MutableList<FavoriteModel>>()
-
             val getFav = db.collection("User").document("${auth?.email}")
 
             getFav.get().addOnCompleteListener {
-                Log.e("TAG", "Getting favoritewwwws: ${it.result.data} ")
-
 
                 val favorite = it.result.toObject(UserModel::class.java)
 
-
-            Log.d("TAG", "Getting favoritesiii: ${favorite?.Favorite}")
             trySend(favorite?.Favorite ?: emptyList())
          }
 

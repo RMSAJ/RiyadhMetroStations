@@ -76,11 +76,10 @@ class ProfileFireStoreDataSource(private val fireStoreDB: FirebaseFirestore):Pro
            val userInfo = it.result.toObject(UserModel::class.java)
            if (userInfo != null) {
                userInfo.profile?.let {  trySend(it) }
-               Log.d("TAG", "getUserInfo: success = ${it}")
+
            }
-           Log.d("TAG", "why null man: ${it.result} ")
        }.addOnFailureListener {
-            Log.d("TAG", "getUserInfo: failure: ${it.message} ")
+
         }
         awaitClose{}
     }
@@ -92,7 +91,6 @@ class ProfileFireStoreDataSource(private val fireStoreDB: FirebaseFirestore):Pro
 
         storageRef.putFile(file).addOnSuccessListener {
             storageRef.downloadUrl.addOnSuccessListener { imageUri ->
-                Log.e("TAG", "imageUrl:${imageUri}")
                 trySend(imageUri)
 
             }

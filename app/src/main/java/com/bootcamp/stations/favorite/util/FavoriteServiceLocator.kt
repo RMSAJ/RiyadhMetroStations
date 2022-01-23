@@ -5,6 +5,7 @@ import com.bootcamp.stations.favorite.datalyer.FavoriteRepositry
 import com.bootcamp.stations.favorite.datalyer.UserFavoriteFireDataSource
 import com.bootcamp.stations.favorite.domain.AddToFavoriteUseCase
 import com.bootcamp.stations.favorite.domain.GetFavoritesUseCase
+import com.bootcamp.stations.favorite.domain.RemoveFavUseCase
 import com.bootcamp.stations.profile.datalayer.ProfileFireStoreDataSource
 import com.bootcamp.stations.profile.datalayer.ProfileInfoDataSource
 import com.bootcamp.stations.profile.datalayer.ProfileRepositry
@@ -26,6 +27,9 @@ object FavoriteServiceLocator {
 
     fun provideSetFavoriteUseCase(): AddToFavoriteUseCase =
         AddToFavoriteUseCase(provideFavoriteRepositry())
+
+    fun provideRemoveFavUseCase():RemoveFavUseCase =
+        RemoveFavUseCase(provideFavoriteRepositry())
     //endregion
 
     //region get favorites Info
