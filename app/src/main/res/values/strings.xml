@@ -52,4 +52,5 @@
     <string name="sign_out">sign out</string>
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
+    <string name="content_description_end_icon">edit user profile</string>
 </resources>

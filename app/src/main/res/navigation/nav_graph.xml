@@ -64,6 +64,12 @@
         <action
             android:id="@+id/action_profileFragment_to_editProfile"
             app:destination="@id/editProfile" />
+        <action
+            android:id="@+id/action_profileFragment_to_editSheetFragment"
+            app:destination="@id/editSheetFragment" />
+        <argument
+            android:name="name"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/favoriteFragment"
@@ -121,4 +127,15 @@
             android:id="@+id/action_editProfile_to_profileFragment"
             app:destination="@id/profileFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/editSheetFragment"
+        android:name="com.bootcamp.stations.profile.ui.EditSheetFragment"
+        android:label="EditSheetFragment" >
+        <action
+            android:id="@+id/action_editSheetFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <argument
+            android:name="name"
+            app:argType="string" />
+    </dialog>
 </navigation>

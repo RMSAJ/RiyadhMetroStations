@@ -1,5 +1,8 @@
 package com.bootcamp.stations.profile.ui
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +23,9 @@ import kotlinx.coroutines.launch
 
 
 class ProfileFragment : Fragment() {
+
+    private val REQUEST_CODE = 200
+    private var fileImage: Uri? = null
 
     private val viewModel: ProfileViewModel by activityViewModels {
         ProfileViewModelFactory()
@@ -53,16 +59,53 @@ class ProfileFragment : Fragment() {
         }
         binding?.apply {
 
+            imgProfile.setOnClickListener {
+                openGalleryForImage()
+            }
+
             profileName.setOnClickListener {
-               val action = ProfileFragmentDirections.actionProfileFragmentToEditProfile()
+                val name = binding?.profileName?.text.toString()
+               val action = ProfileFragmentDirections.actionProfileFragmentToEditSheetFragment(name)
                 findNavController().navigate(action)
             }
+
+            emailArrow.setOnClickListener {
+                val email = binding?.profileEmail?.text.toString()
+                val action = ProfileFragmentDirections.actionProfileFragmentToEditSheetFragment(email)
+                findNavController().navigate(action)
+            }
+
+            phoneArrow.setOnClickListener {
+                val phone = binding?.profilePhone?.text.toString()
+                val action = ProfileFragmentDirections.actionProfileFragmentToEditSheetFragment(phone)
+                findNavController().navigate(action)
+            }
+
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun openGalleryForImage() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent, REQUEST_CODE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE) {
+            binding?.profileImage?.setImageURI(data?.data) // handle chosen image
+            fileImage = data?.data!!
+        }
+    }
+
+    private fun editClickedInfo(name:String) {
+        val action = ProfileFragmentDirections.actionProfileFragmentToEditSheetFragment(name)
+        findNavController().navigate(action)
     }
 
     private fun showProfile() {

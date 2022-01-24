@@ -32,8 +32,12 @@
     </style>
 
     <style name="ModalBottomSheet" parent="Widget.Metro.Button">
-
-        <!-- Apply attributes here -->
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSize">4dp</item>
+        <item name="fontFamily">@font/aladin</item>
+        <item name="theme">@style/Theme.App</item>
+        <item name="android:clickable">true</item>
+        <item name="backgroundTint">@color/Primary_Green_900</item>
     </style>
 
     <style name="ModalBottomSheetDialog" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
@@ -42,6 +46,32 @@
 
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.Dialog">
         <item name="bottomSheetDialogTheme">@style/ModalBottomSheetDialog</item>
+    </style>
+
+    <style name="Theme.App" parent="Theme.MaterialComponents">
+        ...
+        <item name="colorPrimary">@color/Green_200</item>
+        <item name="colorOnSurface">@color/Primary_Green_900</item>
+        <item name="colorError">#E81616</item>
+        <item name="textAppearanceSubtitle1">@style/TextAppearance.App.Subtitle1</item>
+        <item name="textAppearanceCaption">@style/TextAppearance.App.Caption</item>
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>
+
+    </style>
+
+    <style name="TextAppearance.App.Subtitle1" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="fontFamily">@font/medium</item>
+        <item name="android:fontFamily">@font/bold</item>
+    </style>
+
+    <style name="TextAppearance.App.Caption" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="fontFamily">@font/medium</item>
+        <item name="android:fontFamily">@font/medium</item>
+    </style>
+
+    <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSize">4dp</item>
     </style>
 
 </resources>
